@@ -1,23 +1,22 @@
-# Booster Project II
+# Marketplace
 
-A card collection and booster pack opening service.
+A template build of a ecommerce online marketplace.
 
-## Implemented Features
+## Main Features
 
-- Creating and logging into your personal account that will store your card and booster pack collection
-- Collecting cards in your account's Inventory section
-- Experience opening digital booster packs with a chance of getting rare cards
-- Catching up with the latest project news in the News/Home section
+- Authentication (login, register, also with Google and possibly other social media accounts)
+- In-App balance
+- Listing available products on the application (stored information about the products in database)
+- Creating a cart of items with custom quantity
+- Creating an order of the selected cart
+- Sending emails about application news and customer orders
 
 ## WIP Features
 
-- In-app currency that user can refill by selling their cards or by using in-app purchases
-- 1 free daily pack to open for anyone!
-- Customizing you account
-- Linking up with friends (add friend)
-- Seeing other user card collections
-- Trading/Selling cards and packs (maybe)
-- and more ...
+- Listing available products on the application (stored information about the products in database), possibly using a custom dev script
+- Creating a cart of items with custom quantity
+- Creating an order of the selected cart
+- Sending emails about application news and customer orders
 
 ## Getting Started
 
@@ -25,9 +24,6 @@ Change .env to your environment variables (.env located in the server folder):
 
 #MongoDB URI (with your collection login)  
 MONGODB_URI = ""
-
-#poke API, not needed anymore  
-POKE_API_KEY = ""
 
 #server side port (only port)  
 PORT = ""
@@ -48,4 +44,4 @@ To install & run project:
 1. Clone the project to your local machine
 2. Run npm install in root folder, client folder and server folder
 3. Run both scripts "fe" and "be" from root folder
-4. Go to localhost:3002/
+4. Go to localhost:3003/

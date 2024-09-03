@@ -8,9 +8,9 @@ export default defineConfig({
   //   sourcemap: "inline", // Ensure this is set to true or 'inline'
   // },
   server: {
-    port: 3002,
+    port: 3003,
     // proxy: {
-    //   '/home': 'http://localhost:4002', // Adjust the route as needed
+    //   '/home': 'http://localhost:4003', // Adjust the route as needed
     // },
   },
 });
