@@ -20,7 +20,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 // Database Connection
 const mongoDB = process.env.MONGODB_URI;
 mongoose.connect(mongoDB, {
-  dbName: "mindscatter",
+  dbName: "marketplace",
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -58,7 +58,7 @@ app.use(
 const sessionStore = new MongoDBStore({
   uri: process.env.MONGODB_URI,
   collection: "user-sessions",
-  databaseName: "mindscatter",
+  databaseName: "marketplace",
 });
 sessionStore.on(
   "error",
