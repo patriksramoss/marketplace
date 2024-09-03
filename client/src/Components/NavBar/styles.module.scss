@@ -1,0 +1,257 @@
+/* #################### # NEW NAV MENU BAR FOR DESKTOP SCREENS ################ */
+@import "../../Styles/variables";
+
+.navWrapper {
+  padding: 0px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  width: auto;
+}
+
+@media only screen and (max-width: 670px) {
+  .navContainer {
+    display: none;
+  }
+}
+
+.navContainer {
+  top: 20px;
+  position: fixed;
+  z-index: 2;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.nav {
+  padding: 0px;
+  transition: 0.5s;
+  height: 30px;
+  border-radius: 10px;
+  overflow: hidden;
+  width: auto;
+  background: $primary-color;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+    rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+}
+.navMenu {
+  overflow: hidden;
+  transition: 0.5s;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0px 30px 0px;
+}
+.navMenuLink {
+  width: 10rem;
+}
+.navMenuLink a {
+  position: relative;
+  height: 30px;
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: auto;
+  transition-duration: 0.2s;
+  pointer-events: all;
+}
+.navMenuLink:hover {
+  transition-duration: 0.2s;
+  background: $selected-color;
+}
+
+.navMenu .selected:hover {
+  background: $selected-color-hover;
+}
+
+.navMenu .selected {
+  transition-duration: 0.2s;
+  background: $selected-color;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
+.navMenu .navMenuLink a {
+  text-decoration: none;
+  color: #354138;
+  font-weight: 700;
+  font-size: 0.6rem;
+  transition: 0.2s;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  transition-duration: 0.5s;
+  text-shadow: 2px 1px 5px rgba(235, 247, 244, 0.945);
+  height: 30px;
+  padding: 0px 20px 0px 20px;
+}
+.navMenu .navMenuLink a:hover {
+  color: rgb(6, 12, 2);
+  transition-duration: 0.2s;
+}
+
+/* #################### # NAV - RIGHT PANEL ################ */
+
+.navRightContainer {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  width: 60px;
+  height: 60px;
+  z-index: 10;
+}
+
+.navLeftContainer {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  position: fixed;
+  left: 20px;
+  top: 20px;
+  width: 60px;
+  height: 60px;
+  z-index: 11;
+}
+
+.logoIcon {
+  height: 30px;
+  width: 30px;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+
+.logoIcon:hover {
+  transition: all 0.1s ease-in-out;
+  transform: scale(1.1);
+  // -webkit-filter: drop-shadow(0px 0px 0.5px rgba(10, 30, 70, 1));
+  // filter: drop-shadow(0px 0px 0.5px rgba(10, 30, 70, 1));
+}
+
+/* #################### # NAV RIGHT MENU ################ */
+
+.navMenuContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+}
+
+.navMenuContainer ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.points {
+  margin: 0px 20px 0px 20px;
+  width: auto;
+}
+
+.pointsNumber {
+  display: flex;
+  align-items: center;
+  width: auto;
+  white-space: nowrap;
+  outline: 0 !important;
+  border: none !important;
+}
+
+.pointsNumber p {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 10px;
+  border-radius: 10px;
+  background: $primary-color;
+  height: 30px;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+    rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+}
+
+.pointsNumber .icon {
+  width: 70px;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 10px 20px 10px 10px;
+  transition: 0.1s ease-in-out;
+}
+
+.pointsNumber .icon:hover {
+  transition: 0.1s ease-in-out;
+  transform: scale(1.1);
+}
+
+.navRightContainer ul li {
+  width: 46px;
+  height: 46px;
+  padding-inline: 0px;
+  display: flex;
+}
+
+.navRightContainer ul {
+  background: $primary-color;
+  border-radius: 10px;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+    rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+}
+
+.navRightContainer .ant-menu-submenu-title {
+  position: absolute;
+  width: 46px;
+}
+
+.navRightContainer li div span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.navRightContainer li > .navRightContainer ul {
+  background: $primary-color;
+  border-radius: 10px;
+}
+
+//MOBILE
+
+@media screen and (max-width: 40rem) {
+  .navMenu,
+  .navContainer {
+    display: none;
+  }
+  .points {
+    display: none;
+  }
+
+  .navMenuContainerAuth {
+    position: inherit;
+    width: 100%;
+    left: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+  }
+}

@@ -1,0 +1,21 @@
+$primary-color: linear-gradient(
+  45deg,
+  rgba(228, 245, 254, 0.2) 0%,
+  rgba(239, 249, 252, 0.2) 100%
+);
+$secondary-color: linear-gradient(
+  45deg,
+  rgba(84, 201, 252, 0.683) 0%,
+  rgba(138, 206, 243, 0.756) 100%
+);
+
+$selected-color: rgba(135, 208, 247, 0.3);
+$selected-color-hover: rgba(135, 208, 247, 0.7);
+
+$text-1: rgba(35, 258, 27, 1);
+$text-shadow-1: rgba(65, 128, 47, 1);
+
+$white-background: rgba(255, 253, 251, 1);
+
+$font-stack: "Helvetica, Arial, sans-serif";
+$border-radius: 4px;

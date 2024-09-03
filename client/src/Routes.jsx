@@ -1,0 +1,127 @@
+import React, { useEffect, useState, Suspense } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Home from "./Pages/Home/Home";
+import Login from "./Pages/Authentication/Login";
+import Register from "./Pages/Authentication/Register";
+import Table from "./Pages/Table/Table";
+import Loader from "./Components/Loader/Loader";
+import Settings from "./Pages/Settings/Settings";
+import Profile from "./Pages/Profile/Profile";
+import Plants from "./Pages/Plants/Plants";
+import Market from "./Pages/Market/Market";
+import { observer } from "mobx-react-lite";
+
+// STORES
+import userStore from "./Stores/User";
+
+// Lazy loading for Points sandbox
+const PointsSandbox = React.lazy(() => import("./Pages/Points/PointsSandbox"));
+
+const ProtectedRoute = ({ element, authenticated }) =>
+  authenticated ? element : <Navigate to="/login" replace />;
+
+const AppRoutes = observer(({ authenticated }) => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (authenticated !== null) {
+      setTimeout(() => setLoading(false), 100);
+    }
+  }, [authenticated]);
+
+  useEffect(() => {}, [userStore.data]);
+
+  if (loading) return <Loader contained={false} />;
+
+  return (
+    <Routes>
+      {authenticated ? (
+        <>
+          {/* Redirect logic */}
+          <Route path="/login" element={<Navigate to="/" replace />} />
+          <Route path="/register" element={<Navigate to="/" replace />} />
+
+          {/* Main Routes for authenticated user */}
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/table/*"
+            element={
+              <ProtectedRoute
+                authenticated={authenticated}
+                element={<Table />}
+              />
+            }
+          />
+          <Route
+            path="/plants/*"
+            element={
+              <ProtectedRoute
+                authenticated={authenticated}
+                element={<Plants />}
+              />
+            }
+          />
+          <Route
+            path="/market/*"
+            element={
+              <ProtectedRoute
+                authenticated={authenticated}
+                element={<Market />}
+              />
+            }
+          />
+          <Route
+            path="/points"
+            element={
+              <ProtectedRoute
+                authenticated={authenticated}
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <PointsSandbox />
+                  </Suspense>
+                }
+              />
+            }
+          />
+          <Route
+            path="/account"
+            element={<Navigate to="/settings#account" replace />}
+          />
+          <Route
+            path="/settings"
+            element={
+              <ProtectedRoute
+                authenticated={authenticated}
+                element={<Settings />}
+              />
+            }
+          />
+          <Route
+            path="/friends"
+            element={<Navigate to="/settings#friends" replace />}
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute
+                authenticated={authenticated}
+                element={<Profile />}
+              />
+            }
+          />
+        </>
+      ) : (
+        <>
+          {/* Routes for non-authenticated user */}
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          {/* Redirect any other paths to login */}
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        </>
+      )}
+    </Routes>
+  );
+});
+
+export default AppRoutes;

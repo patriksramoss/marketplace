@@ -1,0 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import "../Styles/variables";
+
+/* ###################### FORMATTING ################## */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Montserrat, sans-serif;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  background: $white-background;
+  font-family: Montserrat, sans-serif;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+}
+
+/* ###################### ELEMENTS ################## */
+li {
+  list-style: none;
+}
+
+a {
+  color: rgb(39, 38, 38);
+  text-decoration: none;
+  transition: text-decoration-color 0.3s, color 0.3s;
+  text-underline-offset: 0.3rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+p {
+  font-weight: 500;
+}
+
+/* ###################### SCROLLBAR ################## */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(9, 30, 66, 0.08);
+}
+
+::-webkit-scrollbar-thumb {
+  background: $secondary-color;
+  border-radius: 20px;
+  cursor: pointer;
+  background-color: transparent;
+
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: all 0.3s;
+}
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(84, 221, 132, 0.683) rgba(9, 30, 66, 0.08);
+}
+
+/* For Edge and IE (not supported but to avoid issues) */
+body {
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+/* Optional: For non-supportive browsers, fallback to default scrollbars */
+body.fallback-scrollbars {
+  overflow-y: scroll;
+}

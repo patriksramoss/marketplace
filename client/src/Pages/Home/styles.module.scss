@@ -1,0 +1,58 @@
+@import "../../Styles/variables";
+
+.flair {
+  cursor: pointer;
+  width: 70px;
+  height: 70px;
+  max-height: 15vh;
+  max-width: 15vh;
+  background: red;
+}
+
+.canvasWrapper {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 6rem;
+  font-weight: 900;
+  color: $text-1;
+  height: 50vh;
+  width: 50vw;
+  pointer-events: none;
+  z-index: 10;
+
+  text-shadow: 1px 1px 7px $text-shadow-1;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  // box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  // background: rgba(240, 240, 240, 0.5);
+  // backdrop-filter: blur(10px);
+}
+
+//GLOBAL
+:global {
+  .sprite {
+    cursor: grab;
+  }
+
+  .sprite:active {
+    cursor: grabbing;
+  }
+}
+
+//MOBILE
+
+@media screen and (max-width: 40rem) {
+  .canvasWrapper {
+    height: 20vh;
+    width: 100vw;
+    z-index: 10;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

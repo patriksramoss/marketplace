@@ -1,0 +1,87 @@
+/* ###################### FORM STYLING ################## */
+@import "../variables";
+
+.formWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+  margin: 5px auto 0px auto;
+  padding: 40px 40px 40px;
+  background: $primary-color;
+  border: 0 none;
+  border-radius: 10px;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+    rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+  box-sizing: border-box;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  font-family: montserrat;
+}
+
+.formControl {
+  display: flex;
+  flex-direction: column;
+  row-gap: 7px;
+  font-family: montserrat;
+}
+
+.formControl > input,
+.formControl select,
+.formControl textarea {
+  padding: 15px;
+  /* border: 1px solid #474646; */
+  border: none;
+  margin: 0px 10px 10px 10px;
+  height: 20px;
+  box-sizing: border-box;
+  font-family: montserrat;
+  color: #1f2328;
+  font-size: 0.6rem;
+  background: rgba(0, 0, 0, 0);
+
+  border-radius: 0px;
+  border-bottom: 1px solid black;
+  transition-duration: 0.2s;
+}
+
+.formControl > input:focus {
+  outline: none;
+  transition-duration: 0.2s;
+}
+
+.formControlBtns {
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  width: 100%;
+
+  column-gap: 10px;
+  padding-top: 10px;
+}
+
+.formControlBtns .btn {
+  border-radius: 5px;
+  margin-right: 0px;
+  transition-duration: 0.2s;
+}
+.formControlBtns .btn:hover {
+  box-shadow: none;
+  transition-duration: 0.2s;
+}
+
+.formControl label {
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: #161919;
+}
+
+.formControl > input:-webkit-autofill {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+.inputValidationError {
+  color: red;
+  font-size: 0.6rem;
+}

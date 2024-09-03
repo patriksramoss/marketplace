@@ -1,0 +1,188 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import "../../../Styles/variables";
+
+.formPage {
+  display: flex;
+  min-width: 55vw;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  top: 60px;
+
+  ul {
+    display: block;
+    flex-direction: unset;
+  }
+  nav {
+    position: sticky;
+  }
+
+  .displayNone {
+    display: none;
+  }
+
+  .navigationWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 94vh; /* Full height to make the sticky effect more pronounced */
+    flex: 1; /* Allow it to fill available space */
+  }
+
+  .formPageNavigationTop {
+    padding: 2em 1em 2em 0;
+    flex-shrink: 0;
+    position: sticky;
+    top: 60px;
+  }
+
+  .formPageNavigationBottom {
+    padding: 2em 1em 0 0;
+    flex-shrink: 0;
+    position: sticky;
+    bottom: 20px; /* Initial distance from the bottom */
+    transition: bottom 0s ease; /* Smooth transition for bottom position change */
+  }
+
+  .topNav,
+  .bottomNav {
+    z-index: 1;
+    padding: 0.5em;
+    background: $primary-color;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2509803922);
+    border-radius: 10px;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+      rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+  }
+
+  .navButton {
+    display: flex;
+    padding: 0.25em 1em 0.25em 0.25em;
+    text-decoration: none;
+    border: none;
+    background: none;
+    border-radius: 0.25em;
+    color: #374151;
+    align-items: center;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+
+    &:hover {
+      background: $selected-color;
+      transition: all 0.3s;
+    }
+
+    &.active {
+      background: $selected-color;
+      outline: 1px solid $selected-color-hover;
+      transition: all 0.1s;
+      &:hover {
+        background: $selected-color-hover;
+      }
+    }
+
+    svg {
+      width: 1.25em;
+      height: 1.25em;
+      margin-right: 1em;
+      color: #1f2937;
+    }
+  }
+
+  .formPageContent {
+    padding: 2em 0;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .formPageContent section {
+    backdrop-filter: blur(20px);
+  }
+
+  section {
+    background: $primary-color;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2509803922);
+    border-radius: 10px;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+      rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+    padding: 2em;
+    margin-bottom: 2rem;
+  }
+
+  .table section {
+    background: transparent;
+    box-shadow: none;
+  }
+
+  section h1 {
+    font-weight: 500;
+    font-size: 1.25rem;
+    color: #000;
+    margin-bottom: 0.75rem;
+  }
+
+  //MOBILE
+
+  @media only screen and (max-width: 750px) {
+    .formPageNavigation {
+      display: none;
+    }
+    .formPageNavigation {
+      display: block !important;
+    }
+    form {
+      padding: 0 !important;
+      padding-right: 1rem !important;
+      overflow: hidden;
+    }
+  }
+  @media only screen and (max-width: 40rem) {
+    .navigationWrapper {
+      position: fixed;
+      z-index: 1;
+      min-height: unset;
+      width: 80vw;
+      height: 80vh;
+    }
+    .formPageNavigationTop,
+    .formPageNavigationBottom {
+      display: flex !important;
+      position: absolute;
+      padding: 0px;
+      width: 100%;
+      justify-content: center;
+
+      ul {
+        display: flex;
+        flex-direction: row;
+      }
+      nav {
+        position: fixed;
+      }
+    }
+    .formPageNavigationTop {
+      top: 20px;
+    }
+    .formPageNavigationBottom {
+      bottom: 20px;
+    }
+
+    .formPageContent {
+      margin-top: 4rem;
+    }
+  }
+}
+
+@media screen and (max-width: 40rem) {
+  .formPage {
+    width: 80vw;
+    min-width: unset;
+  }
+  .formPageContent section {
+    width: auto !important;
+  }
+}

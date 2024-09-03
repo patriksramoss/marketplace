@@ -1,0 +1,14 @@
+@import "../../Styles/variables";
+
+.canvasContainer {
+  height: 83vh;
+  width: 100%;
+}
+
+//MOBILE
+
+@media screen and (max-width: 40rem) {
+  .canvasContainer {
+    height: 75vh;
+  }
+}

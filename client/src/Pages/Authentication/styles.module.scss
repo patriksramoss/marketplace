@@ -1,0 +1,32 @@
+.appContainerAuth {
+  height: 100%;
+  margin-top: 100px;
+  padding-bottom: 30px;
+  padding: 0 30% 50px 30%;
+}
+
+.formWrapper {
+  padding: 5px 5px 5px 0px;
+  border-radius: 20px 20px 0px 0px;
+  backdrop-filter: blur(10px);
+}
+
+.title {
+  margin: 0px 40px 0px 40px;
+  font-size: 1rem;
+}
+
+.googleLoginWrapper {
+  padding: 30px 20px 30px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+//MOBILE
+
+@media screen and (max-width: 40rem) {
+  .appContainerAuth {
+    padding: 0 2rem 50px 2rem;
+  }
+}
