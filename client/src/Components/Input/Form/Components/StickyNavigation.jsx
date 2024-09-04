@@ -48,18 +48,38 @@ const StickyNavigation = ({
         <nav className={styles.topNav}>
           <ul>
             {categories.map((category) => (
-              <li key={category.id}>
+              <li key={category.id} className={styles.categoryItem}>
                 <button
                   onClick={() => handleCategoryClick(category)}
                   className={`${styles.navButton} ${
                     selectedCategory.id === category.id ? styles.active : ""
                   }`}
                 >
-                  <div width="24" height="24">
-                    {category.icon}
-                  </div>
                   {category.title}
                 </button>
+                {/* Render subcategories if they exist */}
+                {category.subcategories &&
+                  category.subcategories.length > 0 && (
+                    <ul className={styles.subcategoryList}>
+                      {category.subcategories.map((subcategory) => (
+                        <li
+                          key={subcategory.id}
+                          className={styles.subcategoryItem}
+                        >
+                          <button
+                            onClick={() => handleCategoryClick(subcategory)}
+                            className={`${styles.navButton} ${
+                              selectedCategory.id === subcategory.id
+                                ? styles.active
+                                : ""
+                            }`}
+                          >
+                            {subcategory.name}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
               </li>
             ))}
           </ul>
@@ -76,7 +96,7 @@ const StickyNavigation = ({
           <nav className={styles.bottomNav}>
             <ul>
               {bottomCategories.map((category) => (
-                <li key={category.id}>
+                <li key={category.id} className={styles.categoryItem}>
                   <button
                     onClick={() => handleCategoryClick(category)}
                     className={`${styles.navButton} ${
@@ -88,6 +108,29 @@ const StickyNavigation = ({
                     </div>
                     {category.title}
                   </button>
+                  {/* Render subcategories if they exist */}
+                  {category.subcategories &&
+                    category.subcategories.length > 0 && (
+                      <ul className={styles.subcategoryList}>
+                        {category.subcategories.map((subcategory) => (
+                          <li
+                            key={subcategory.id}
+                            className={styles.subcategoryItem}
+                          >
+                            <button
+                              onClick={() => handleCategoryClick(subcategory)}
+                              className={`${styles.navButton} ${
+                                selectedCategory.id === subcategory.id
+                                  ? styles.active
+                                  : ""
+                              }`}
+                            >
+                              {subcategory.name}
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                 </li>
               ))}
             </ul>

@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const News = require("../models/news");
 const mongoose = require("mongoose");
+const Category = require("../models/category");
 
 // Home --------------------
 
@@ -71,4 +72,19 @@ exports.add_points_post = (req, res, next) => {
       });
     });
   });
+};
+
+// Marketplace --------------------
+
+exports.get_item_categories = async (req, res) => {
+  try {
+    const categories = await Category.find().populate("subcategories").exec();
+    console.log("categories", categories);
+    res.json(categories);
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while fetching categories." });
+  }
 };

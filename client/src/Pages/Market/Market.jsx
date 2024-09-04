@@ -1,38 +1,44 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { observer } from "mobx-react-lite";
+import { toJS } from "mobx";
+import store from "./store"; // Update path as needed
 
-//Components
+// Components
 import Container from "../../Components/Container/Container";
 import ReusableForm from "../../Components/Input/Form/Form";
-import Inventory from "./Categories/Inventory";
 
-//STYLES
+// STYLES
 import styles from "./styles.module.scss";
 
-// ICONS
-import { IoSettingsOutline } from "react-icons/io5";
-
-const categories = [
-  {
-    id: "inventory",
-    title: "Inventory",
-    icon: <IoSettingsOutline />,
-    description: "Manage your plants.",
-    content: <Inventory />,
-  },
-];
-
-const Market = () => {
+const Market = observer(() => {
   const navigate = useNavigate();
   const location = useLocation();
-  const initialCategory = location.hash
-    ? location.hash.substring(1)
-    : categories[0].id;
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  useEffect(() => {
+    store.fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    if (store.getCategories().length > 0) {
+      const initialCategory = location.hash
+        ? location.hash.substring(1)
+        : store.getCategories()[0]?.id;
+      const category = store
+        .getCategories()
+        .find((cat) => cat.id === initialCategory);
+      setSelectedCategory(category || store.getCategories()[0]);
+    }
+  }, [location.hash, store.getCategories()]);
 
   const handleCategoryChange = (categoryId) => {
+    const category = store.getCategories().find((cat) => cat.id === categoryId);
+    setSelectedCategory(category);
     navigate(`#${categoryId}`);
   };
+
   return (
     <>
       <Helmet>
@@ -40,14 +46,13 @@ const Market = () => {
       </Helmet>
       <Container className={styles.appContainerSettings}>
         <ReusableForm
-          categories={categories}
-          initialCategory={initialCategory}
-          styleWrapper={{ maxWidth: "100%" }}
+          categories={store.getCategories()}
+          initialCategory={selectedCategory?.id}
           onCategoryChange={handleCategoryChange}
         />
       </Container>
     </>
   );
-};
+});
 
 export default Market;

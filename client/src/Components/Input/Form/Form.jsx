@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import StickyNavigation from "./Components/StickyNavigation";
 import styles from "./styles.module.scss";
+import { toJS } from "mobx";
 
 const ReusableForm = ({
   categories,
@@ -11,27 +12,18 @@ const ReusableForm = ({
   bottomCategories,
 }) => {
   const [selectedCategory, setSelectedCategory] = useState(() => {
-    const hash = window.location.hash.substring(1);
     return (
-      categories.find((category) => category.id === hash) ||
       categories.find((category) => category.id === initialCategory) ||
       categories[0]
     );
   });
 
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.substring(1);
-      const newCategory = categories.find((category) => category.id === hash);
-      if (newCategory) {
-        setSelectedCategory(newCategory);
-      }
-    };
-
-    window.addEventListener("hashchange", handleHashChange);
-    return () => {
-      window.removeEventListener("hashchange", handleHashChange);
-    };
+    const hash = window.location.hash.substring(1);
+    const category = categories.find((category) => category.id === hash);
+    if (category) {
+      setSelectedCategory(category);
+    }
   }, [categories]);
 
   const handleCategoryClick = (category) => {
@@ -54,6 +46,8 @@ const ReusableForm = ({
       ? true
       : false;
 
+  console.log("22222222222", toJS(selectedCategory));
+
   return (
     <div className={styles.formPage} style={styleWrapper}>
       <StickyNavigation
@@ -68,9 +62,9 @@ const ReusableForm = ({
           {showTitle && (
             <>
               <h1>
-                <div width="24" height="24">
+                {/* <div width="24" height="24">
                   {selectedCategory.icon}
-                </div>
+                </div> */}
                 {selectedCategory.title}
               </h1>
               <p>{selectedCategory.description}</p>
