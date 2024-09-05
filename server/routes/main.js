@@ -9,5 +9,7 @@ router.post("/points/add", main_controller.add_points_post);
 //MARKETPLACE
 // Fetch all categories with subcategories
 router.get("/categories", main_controller.get_item_categories);
+// Fetch content for a category
+router.get("/contentByCategory", main_controller.get_items_by_category);
 
 module.exports = router;

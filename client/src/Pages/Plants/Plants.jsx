@@ -31,7 +31,6 @@ const categories = [
     icon: <LiaUserFriendsSolid />,
     description: "Grow your plants!",
     content: <Field />,
-    enableTitle: false,
   },
 ];
 

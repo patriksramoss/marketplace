@@ -11,7 +11,10 @@ const Home = () => {
       <Helmet>
         <title>Home</title>
       </Helmet>
-      <Container className={styles.appContainerSettings}></Container>
+      <Container
+        className={styles.appContainerSettings}
+        fullHeight={true}
+      ></Container>
     </>
   );
 };

@@ -71,7 +71,7 @@ const Table = () => {
       <Helmet>
         <title>Table</title>
       </Helmet>
-      <Container className={styles.appContainerSettings}>
+      <Container className={styles.appContainerSettings} fullHeight={true}>
         <ReusableForm
           categories={categories}
           bottomCategories={bottomCategories}

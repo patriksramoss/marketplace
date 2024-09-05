@@ -14,6 +14,10 @@ class AppStore {
     makeAutoObservable(this);
   }
 
+  // componentDidUpdate(prevProps, prevState) {
+  //   console.log("LOADING ROOT STORE", this.loading);
+  // }
+
   async fetchHome() {
     try {
       const response = await axios.get(`${API_BASE_URL}/api/landing`, {

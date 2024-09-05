@@ -3,6 +3,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
+
+//store
 import store from "./store"; // Update path as needed
 
 // Components
@@ -33,10 +35,44 @@ const Market = observer(() => {
     }
   }, [location.hash, store.getCategories()]);
 
-  const handleCategoryChange = (categoryId) => {
-    const category = store.getCategories().find((cat) => cat.id === categoryId);
-    setSelectedCategory(category);
-    navigate(`#${categoryId}`);
+  const handleCategoryChange = (categoryId, subcategoryId) => {
+    if (subcategoryId) {
+      // If a subcategory ID is provided
+      const parentCategory = store
+        .getCategories()
+        .find((cat) =>
+          cat.subcategories.some((sub) => sub.id === subcategoryId)
+        );
+
+      if (parentCategory) {
+        const subcategory = parentCategory.subcategories.find(
+          (sub) => sub.id === subcategoryId
+        );
+
+        setSelectedCategory(subcategory); // Set selected subcategory
+        navigate(`#${subcategoryId}`);
+
+        const cachedContent = store.getContent(null, subcategoryId);
+        if (!cachedContent) {
+          store.fetchContent(null, subcategoryId); // Only fetch if not cached
+        }
+      }
+    } else if (!subcategoryId && categoryId) {
+      // If a category ID is provided
+      const category = store
+        .getCategories()
+        .find((cat) => cat.id === categoryId);
+
+      if (category) {
+        setSelectedCategory(category); // Set selected category
+        navigate(`#${categoryId}`);
+
+        const cachedContent = store.getContent(categoryId, null);
+        if (!cachedContent) {
+          store.fetchContent(categoryId, null); // Only fetch if not cached
+        }
+      }
+    }
   };
 
   return (
@@ -44,8 +80,9 @@ const Market = observer(() => {
       <Helmet>
         <title>Market</title>
       </Helmet>
-      <Container className={styles.appContainerSettings}>
+      <Container className={styles.appContainerSettings} fullHeight={true}>
         <ReusableForm
+          store={store}
           categories={store.getCategories()}
           initialCategory={selectedCategory?.id}
           onCategoryChange={handleCategoryChange}

@@ -17,13 +17,9 @@ const StickyNavigation = ({
       const scrollTop = window.scrollY;
 
       const distanceFromBottom = documentHeight - viewportHeight - scrollTop;
-
-      // Check if the screen width is less than 40em (approx 640px)
-      const isMobile = window.innerWidth <= 640; // 40em in pixels is approximately 640px
-
-      // Set different offsets based on whether the user is on a mobile device
-      const mobileOffset = 0; // Smaller offset for mobile
-      const desktopOffset = 20; // Standard offset for desktop
+      const isMobile = window.innerWidth <= 640;
+      const mobileOffset = 0;
+      const desktopOffset = 20;
 
       if (viewportHeight < 1000) {
         setBottomOffset(isMobile ? mobileOffset : desktopOffset);
@@ -35,10 +31,7 @@ const StickyNavigation = ({
     };
 
     window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -50,14 +43,13 @@ const StickyNavigation = ({
             {categories.map((category) => (
               <li key={category.id} className={styles.categoryItem}>
                 <button
-                  onClick={() => handleCategoryClick(category)}
+                  onClick={() => handleCategoryClick(category.id, null)}
                   className={`${styles.navButton} ${
                     selectedCategory.id === category.id ? styles.active : ""
                   }`}
                 >
                   {category.title}
                 </button>
-                {/* Render subcategories if they exist */}
                 {category.subcategories &&
                   category.subcategories.length > 0 && (
                     <ul className={styles.subcategoryList}>
@@ -67,7 +59,9 @@ const StickyNavigation = ({
                           className={styles.subcategoryItem}
                         >
                           <button
-                            onClick={() => handleCategoryClick(subcategory)}
+                            onClick={() =>
+                              handleCategoryClick(category.id, subcategory.id)
+                            }
                             className={`${styles.navButton} ${
                               selectedCategory.id === subcategory.id
                                 ? styles.active
@@ -98,7 +92,7 @@ const StickyNavigation = ({
               {bottomCategories.map((category) => (
                 <li key={category.id} className={styles.categoryItem}>
                   <button
-                    onClick={() => handleCategoryClick(category)}
+                    onClick={() => handleCategoryClick(category.id, null)}
                     className={`${styles.navButton} ${
                       selectedCategory.id === category.id ? styles.active : ""
                     }`}
@@ -108,7 +102,6 @@ const StickyNavigation = ({
                     </div>
                     {category.title}
                   </button>
-                  {/* Render subcategories if they exist */}
                   {category.subcategories &&
                     category.subcategories.length > 0 && (
                       <ul className={styles.subcategoryList}>

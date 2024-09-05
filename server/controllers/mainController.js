@@ -1,7 +1,10 @@
+const mongoose = require("mongoose");
+
+//MODELS
 const User = require("../models/user");
 const News = require("../models/news");
-const mongoose = require("mongoose");
 const Category = require("../models/category");
+const Item = require("../models/item");
 
 // Home --------------------
 
@@ -79,12 +82,36 @@ exports.add_points_post = (req, res, next) => {
 exports.get_item_categories = async (req, res) => {
   try {
     const categories = await Category.find().populate("subcategories").exec();
-    console.log("categories", categories);
     res.json(categories);
   } catch (error) {
     console.error("Error fetching categories:", error);
     res
       .status(500)
       .json({ error: "An error occurred while fetching categories." });
+  }
+};
+
+exports.get_items_by_category = async (req, res) => {
+  try {
+    const { categoryId, subcategoryId } = req.query; // Get categoryId and subcategoryId from query parameters
+
+    let query = {};
+    if (subcategoryId) {
+      query.subcategory = subcategoryId; // Filter by subcategory ID if present
+    } else if (!subcategoryId && categoryId) {
+      query.category = categoryId; // Filter by category ID if present
+    } else {
+      return res
+        .status(400)
+        .json({ error: "No categoryId or subcategoryId provided." });
+    }
+
+    const content = await Item.find(query).exec(); // Execute the query to find items
+    res.json(content); // Respond with fetched content
+  } catch (error) {
+    console.error("Error fetching content:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while fetching content." });
   }
 };
