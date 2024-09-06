@@ -1,8 +1,8 @@
 // InventoryStore.js
 import { makeAutoObservable, runInAction, toJS } from "mobx";
-import { fetchCategories } from "./utils/fetchCategories";
-import { fetchContent } from "./utils/fetchContent";
-import { fetchRecommended } from "./utils/fetchRecommended";
+import { fetchCategories } from "./Utils/fetchCategories";
+import { fetchContent } from "./Utils/fetchContent";
+import { fetchRecommended } from "./Utils/fetchRecommended";
 import CategoryContent from "./Components/CategoryContent";
 import Container from "../../Components/Container/Container";
 
