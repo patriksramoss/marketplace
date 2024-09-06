@@ -31,6 +31,7 @@ const Market = observer(() => {
     }
   }, [location.hash, store.getCategories()]);
 
+  //hahahaha
   const handleCategoryChange = (categoryId, subcategoryId) => {
     if (subcategoryId) {
       // If a subcategory ID is provided
