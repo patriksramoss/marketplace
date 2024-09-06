@@ -61,7 +61,7 @@ const Register = () => {
       <Helmet>
         <title>Register</title>
       </Helmet>
-      <Container className={styles.appContainerAuth}>
+      <Container className={styles.appContainerAuth} fullHeight={true}>
         <div className={`${formStyles.formWrapper} ${styles.formWrapper}`}>
           <h2 className={styles.title}>Register</h2>
         </div>

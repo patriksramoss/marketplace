@@ -64,7 +64,7 @@ const Login = () => {
       <Helmet>
         <title>Login</title>
       </Helmet>
-      <Container className={styles.appContainerAuth}>
+      <Container className={styles.appContainerAuth} fullHeight={true}>
         <div className={`${formStyles.formWrapper} ${styles.formWrapper}`}>
           <h2 className={styles.title}>Login</h2>
         </div>

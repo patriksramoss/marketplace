@@ -20,10 +20,6 @@ const Market = observer(() => {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   useEffect(() => {
-    store.fetchCategories();
-  }, []);
-
-  useEffect(() => {
     if (store.getCategories().length > 0) {
       const initialCategory = location.hash
         ? location.hash.substring(1)
@@ -54,7 +50,7 @@ const Market = observer(() => {
 
         const cachedContent = store.getContent(null, subcategoryId);
         if (!cachedContent) {
-          store.fetchContent(null, subcategoryId); // Only fetch if not cached
+          store.loadContent(null, subcategoryId); // Only fetch if not cached
         }
       }
     } else if (!subcategoryId && categoryId) {
@@ -69,7 +65,7 @@ const Market = observer(() => {
 
         const cachedContent = store.getContent(categoryId, null);
         if (!cachedContent) {
-          store.fetchContent(categoryId, null); // Only fetch if not cached
+          store.loadContent(categoryId, null); // Only fetch if not cached
         }
       }
     }
@@ -83,7 +79,8 @@ const Market = observer(() => {
       <Container className={styles.appContainerSettings} fullHeight={true}>
         <ReusableForm
           store={store}
-          categories={store.getCategories()}
+          categories={store.getRecommended()}
+          categoriesSecondary={store.getCategories()}
           initialCategory={selectedCategory?.id}
           onCategoryChange={handleCategoryChange}
         />

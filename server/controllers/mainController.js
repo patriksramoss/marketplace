@@ -5,6 +5,10 @@ const User = require("../models/user");
 const News = require("../models/news");
 const Category = require("../models/category");
 const Item = require("../models/item");
+const Discount = require("../models/discount");
+
+//Helpers
+const redisClient = require("../helpers/redisClient"); // Import your Redis client
 
 // Home --------------------
 
@@ -82,7 +86,8 @@ exports.add_points_post = (req, res, next) => {
 exports.get_item_categories = async (req, res) => {
   try {
     const categories = await Category.find().populate("subcategories").exec();
-    res.json(categories);
+    res.locals.data = categories; // Set the data to res.locals
+    res.json(categories); // Respond with fetched content
   } catch (error) {
     console.error("Error fetching categories:", error);
     res
@@ -106,12 +111,110 @@ exports.get_items_by_category = async (req, res) => {
         .json({ error: "No categoryId or subcategoryId provided." });
     }
 
-    const content = await Item.find(query).exec(); // Execute the query to find items
-    res.json(content); // Respond with fetched content
+    const items = await Item.find(query).lean().exec(); // Execute the query to find items
+
+    // Get current date
+    const now = new Date();
+
+    // Fetch active discounts
+    const discounts = await Discount.find({
+      startDate: { $lte: now },
+      endDate: { $gte: now },
+    }).exec();
+
+    // Map discounts by item ID
+    const discountMap = new Map();
+    discounts.forEach((d) => discountMap.set(d.item.toString(), d));
+
+    // Adjust item prices and add discount indication
+    const itemsWithDiscounts = items.map((item) => {
+      const discount = discountMap.get(item._id.toString());
+      if (discount) {
+        // Calculate discounted price
+        if (discount.discountType === "percentage") {
+          item.discountedPrice =
+            item.price - item.price * (discount.value / 100);
+        } else if (discount.discountType === "fixed") {
+          item.discountedPrice = item.price - discount.value;
+        }
+
+        // Indicate that the item is discounted
+        item.isDiscounted = true;
+      } else {
+        // No discount applied
+        item.discountedPrice = item.price;
+        item.isDiscounted = false;
+      }
+      return item;
+    });
+
+    res.locals.data = itemsWithDiscounts; // Set the adjusted data to res.locals
+    res.json(itemsWithDiscounts); // Respond with adjusted content
   } catch (error) {
     console.error("Error fetching content:", error);
     res
       .status(500)
       .json({ error: "An error occurred while fetching content." });
+  }
+};
+
+// Fetch recommended items with discounts
+exports.get_recommended_items = async (req, res) => {
+  try {
+    const currentDate = new Date();
+
+    // Fetch active discounts
+    const discounts = await Discount.find({
+      startDate: { $lte: currentDate },
+      endDate: { $gte: currentDate },
+    }).populate("item");
+
+    // Extract item IDs from discounts
+    const itemIds = discounts.map((discount) => discount.item._id);
+
+    // Fetch items with the applicable discount
+    const items = await Item.find({ _id: { $in: itemIds } })
+      .lean()
+      .exec();
+
+    // Apply discounts to items
+    const discountedItems = items.map((item) => {
+      const discount = discounts.find((d) => d.item._id.equals(item._id));
+      if (discount) {
+        // Calculate discounted price
+        let discountedPrice;
+        if (discount.discountType === "percentage") {
+          discountedPrice = item.price - (item.price * discount.value) / 100;
+        } else if (discount.discountType === "fixed") {
+          discountedPrice = item.price - discount.value;
+        }
+
+        // Ensure the discounted price does not go below zero
+        discountedPrice = Math.max(discountedPrice, 0);
+
+        // Add discount details to the item
+        item.isDiscounted = true;
+        item.discountedPrice = discountedPrice;
+      } else {
+        // No discount applied
+        item.isDiscounted = false;
+        item.discountedPrice = item.price;
+      }
+
+      return item;
+    });
+
+    res.locals.data = discountedItems;
+    res.json(discountedItems);
+
+    // Optionally cache the result
+    const cacheKey = "recommended_items";
+    const ttl = 3600; // Cache for 1 hour
+    await redisClient.setEx(cacheKey, ttl, JSON.stringify(discountedItems));
+  } catch (error) {
+    console.error("Error fetching recommended items:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while fetching recommended items." });
   }
 };

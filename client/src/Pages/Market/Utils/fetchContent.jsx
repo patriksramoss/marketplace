@@ -1,0 +1,20 @@
+// utils/fetchContent.js
+import axios from "axios";
+import { API_BASE_URL } from "../../../config";
+import { toJS } from "mobx";
+
+export async function fetchContent(categoryId = null, subcategoryId = null) {
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}/api/main/contentByCategory`,
+      {
+        params: { categoryId, subcategoryId },
+        withCredentials: true,
+      }
+    );
+    return response.data; // Return fetched content
+  } catch (error) {
+    console.error("Error fetching content:", error);
+    throw error; // Re-throw the error to be handled in the store
+  }
+}

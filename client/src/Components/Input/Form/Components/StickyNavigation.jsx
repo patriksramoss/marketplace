@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import styles from "../styles.module.scss";
+import { toJS } from "mobx";
 
 const StickyNavigation = ({
   categories,
+  categoriesSecondary,
   bottomCategories,
   handleCategoryClick,
   selectedCategory,
@@ -36,48 +38,112 @@ const StickyNavigation = ({
 
   return (
     <div className={styles.navigationWrapper}>
-      {/* Top Navigation */}
-      <div className={styles.formPageNavigationTop}>
-        <nav className={styles.topNav}>
-          <ul>
-            {categories.map((category) => (
-              <li key={category.id} className={styles.categoryItem}>
-                <button
-                  onClick={() => handleCategoryClick(category.id, null)}
-                  className={`${styles.navButton} ${
-                    selectedCategory.id === category.id ? styles.active : ""
-                  }`}
-                >
-                  {category.title}
-                </button>
-                {category.subcategories &&
-                  category.subcategories.length > 0 && (
-                    <ul className={styles.subcategoryList}>
-                      {category.subcategories.map((subcategory) => (
-                        <li
-                          key={subcategory.id}
-                          className={styles.subcategoryItem}
-                        >
-                          <button
-                            onClick={() =>
-                              handleCategoryClick(category.id, subcategory.id)
-                            }
-                            className={`${styles.navButton} ${
-                              selectedCategory.id === subcategory.id
-                                ? styles.active
-                                : ""
-                            }`}
-                          >
-                            {subcategory.name}
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-              </li>
-            ))}
-          </ul>
-        </nav>
+      <div className={styles.topNavigationWrapper}>
+        {/* Top Navigation */}
+        {categories && (
+          <div className={`${styles.formPageNavigationTop} ${styles.topFirst}`}>
+            <nav className={styles.topNav}>
+              <ul key="top-nav">
+                {categories.map((category) => (
+                  <li key={category.id} className={styles.categoryItem}>
+                    <button
+                      onClick={() =>
+                        handleCategoryClick(category.id, null, category)
+                      }
+                      className={`${styles.navButton} ${
+                        selectedCategory.id === category.id ? styles.active : ""
+                      }`}
+                    >
+                      {category.title}
+                    </button>
+                    {category.subcategories &&
+                      category.subcategories.length > 0 && (
+                        <ul className={styles.subcategoryList}>
+                          {category.subcategories.map((subcategory) => (
+                            <li
+                              key={subcategory.id}
+                              className={styles.subcategoryItem}
+                            >
+                              <button
+                                onClick={() =>
+                                  handleCategoryClick(
+                                    category.id,
+                                    subcategory.id,
+                                    subcategory
+                                  )
+                                }
+                                className={`${styles.navButtonSub} ${
+                                  selectedCategory.id === subcategory.id
+                                    ? styles.active
+                                    : ""
+                                }`}
+                              >
+                                {subcategory.name}
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        )}
+
+        {/* Top Secondary Navigation */}
+        {categoriesSecondary && (
+          <div
+            className={`${styles.formPageNavigationTop} ${styles.topSecond}`}
+          >
+            <nav className={styles.topNav}>
+              <ul key="top-secondary-nav">
+                {categoriesSecondary.map((category) => (
+                  <li key={category.id} className={styles.categoryItem}>
+                    <button
+                      onClick={() =>
+                        handleCategoryClick(category.id, null, category)
+                      }
+                      className={`${styles.navButton} ${
+                        selectedCategory.id === category.id ? styles.active : ""
+                      }`}
+                    >
+                      {category.title}
+                    </button>
+                    {category.subcategories &&
+                      category.subcategories.length > 0 && (
+                        <ul className={styles.subcategoryList}>
+                          {category.subcategories.map((subcategory) => (
+                            <li
+                              key={subcategory.id}
+                              className={styles.subcategoryItem}
+                            >
+                              <button
+                                onClick={() =>
+                                  handleCategoryClick(
+                                    category.id,
+                                    subcategory.id,
+                                    subcategory
+                                  )
+                                }
+                                className={`${styles.navButtonSub} ${
+                                  selectedCategory.id === subcategory.id
+                                    ? styles.active
+                                    : ""
+                                }`}
+                              >
+                                {subcategory.name}
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        )}
       </div>
 
       {/* Bottom Navigation */}
@@ -92,7 +158,9 @@ const StickyNavigation = ({
               {bottomCategories.map((category) => (
                 <li key={category.id} className={styles.categoryItem}>
                   <button
-                    onClick={() => handleCategoryClick(category.id, null)}
+                    onClick={() =>
+                      handleCategoryClick(category.id, null, category)
+                    }
                     className={`${styles.navButton} ${
                       selectedCategory.id === category.id ? styles.active : ""
                     }`}

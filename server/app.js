@@ -4,6 +4,8 @@ const createError = require("http-errors");
 const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
+const RedisStore = require("connect-redis").default; // Use `.default` to get the function
+const redisClient = require("./helpers/redisClient"); // Import your Redis client
 const MongoDBStore = require("connect-mongodb-session")(session);
 const flash = require("connect-flash");
 const passport = require("passport");
@@ -55,16 +57,6 @@ app.use(
   })
 );
 
-const sessionStore = new MongoDBStore({
-  uri: process.env.MONGODB_URI,
-  collection: "user-sessions",
-  databaseName: "marketplace",
-});
-sessionStore.on(
-  "error",
-  console.error.bind(console, "MongoDB Session Storage connection error")
-);
-
 app.locals.moment = moment;
 
 passport.use(
@@ -108,9 +100,21 @@ passport.deserializeUser((id, done) => {
   });
 });
 
+// const sessionStore = new MongoDBStore({
+//   uri: process.env.MONGODB_URI,
+//   collection: "user-sessions",
+//   databaseName: "marketplace",
+// });
+// sessionStore.on(
+//   "error",
+//   console.error.bind(console, "MongoDB Session Storage connection error")
+// );
+
 app.use(
   session({
     name: "session-id",
+    // store: sessionStore,
+    store: new RedisStore({ client: redisClient }), // Use RedisStore
     cookie: {
       maxAge: 24 * 60 * 60 * 1000,
       //WORKING PROD AND DEV !!!
@@ -118,7 +122,6 @@ app.use(
       // secure: process.env.NODE_ENV.trim() === "production" ? true : false,
       domain: process.env.API_BASE,
     },
-    store: sessionStore,
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,

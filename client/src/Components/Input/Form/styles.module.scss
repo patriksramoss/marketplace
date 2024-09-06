@@ -29,11 +29,23 @@
     flex: 1; /* Allow it to fill available space */
   }
 
-  .formPageNavigationTop {
-    padding: 2em 1em 2em 0;
-    flex-shrink: 0;
+  .topNavigationWrapper {
     position: sticky;
     top: 60px;
+  }
+
+  .formPageNavigationTop {
+    flex-shrink: 0;
+  }
+
+  .topFirst {
+    padding: 2em 1em 0.5em 0;
+    flex-shrink: 0;
+  }
+
+  .topSecond {
+    padding: 0.5em 1em 2em 0;
+    flex-shrink: 0;
   }
 
   .formPageNavigationBottom {
@@ -57,7 +69,8 @@
       rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
   }
 
-  .navButton {
+  .navButton,
+  .navButtonSub {
     display: flex;
     padding: 0.25em 1em 0.25em 0.25em;
     text-decoration: none;
@@ -70,6 +83,7 @@
     cursor: pointer;
     width: 100%;
     text-align: left;
+    white-space: nowrap;
 
     &:hover {
       background: $selected-color;
@@ -91,6 +105,10 @@
       margin-right: 1em;
       color: #1f2937;
     }
+  }
+
+  .navButtonSub {
+    font-weight: 500;
   }
 
   .formPageContent {
@@ -151,26 +169,31 @@
   }
   @media only screen and (max-width: 40rem) {
     .navigationWrapper {
-      position: fixed;
+      position: relative;
       z-index: 1;
       min-height: unset;
       width: 80vw;
-      height: 80vh;
+      height: auto;
+    }
+    .active {
+      width: 95%;
     }
     .formPageNavigationTop,
     .formPageNavigationBottom {
       display: flex !important;
-      position: absolute;
-      padding: 0px;
+      position: relative;
+      padding: 0 0 0.5rem 0;
       width: 100%;
       justify-content: center;
 
       ul {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        width: 80vw;
       }
       nav {
-        position: fixed;
+        position: relative;
+        max-width: 80vw;
       }
     }
     .formPageNavigationTop {
@@ -181,7 +204,7 @@
     }
 
     .formPageContent {
-      margin-top: 4rem;
+      // margin-top: 4rem;
     }
   }
 }
@@ -190,6 +213,8 @@
   .formPage {
     width: 80vw;
     min-width: unset;
+    display: flex;
+    flex-direction: column;
   }
   .formPageContent section {
     width: auto !important;
