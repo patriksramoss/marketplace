@@ -85,6 +85,11 @@ const getMenuItems = (authenticated) => {
             ]
           : [
               {
+                label: "Points",
+                key: "/points",
+                icon: <DollarOutlined />,
+              },
+              {
                 label: "Settings",
                 key: "/settings",
                 icon: <SettingOutlined />,

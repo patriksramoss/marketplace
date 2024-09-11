@@ -13,7 +13,7 @@ import { GOOGLE_CLIENT_ID } from "./config.js";
 //STORES
 import user from "../src/Stores/User";
 import packs from "../src/Stores/Packs";
-import rootStore from "../src/Store";
+import root from "../src/Store";
 
 //SCRIPTS
 // import BackgroundAnimation from "./assets/javascripts/backgroundScript.js";
@@ -36,20 +36,19 @@ function App() {
         const result = await isAuthenticated();
         setAuthenticated(result);
         setIsLoaded(true);
+
+        user.fetchUser();
+        packs.fetchPOTD();
+        root.fetchHome();
+        user.fetchPoints();
       } catch (error) {
         console.error("Error checking authentication:", error);
         setIsLoaded(true);
       }
     }
     checkAuthentication();
+    //On page reload / init
   }, []);
-
-  if (authenticated) {
-    user.fetchUser();
-  }
-
-  packs.fetchPOTD();
-  rootStore.fetchHome();
 
   //SMOOTH SCROLL JAUNAIS
 
@@ -83,14 +82,13 @@ function App() {
       {/* <div className="flex-center">
         <canvas id="gradient-canvas"> </canvas>
       </div> */}
-
-      {/* {rootStore.loading && <Loader />} */}
+      {/* {root.loading && <Loader />} */}
       <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
         <NavBar authenticated={authenticated} />
       </GoogleOAuthProvider>
       {/* <CornerBox /> */}
       <AppRoutes authenticated={authenticated} />
-      {isLoaded && rootStore.showFooter && <Footer />}
+      {isLoaded && root.showFooter && <Footer />}
     </div>
   );
 }

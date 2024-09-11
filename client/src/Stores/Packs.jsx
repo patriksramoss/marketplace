@@ -10,7 +10,7 @@ class packStore {
   }
 
   async fetchPOTD() {
-    const response = await axios.get(`${API_BASE_URL}/api/POTD`, {
+    const response = await axios.get(`${API_BASE_URL}/main/POTD`, {
       withCredentials: true,
     });
     this.setPOTD(response.data);

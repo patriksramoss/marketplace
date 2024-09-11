@@ -1,4 +1,3 @@
-// utils/fetchCategories.js
 import axios from "axios";
 import { API_BASE_URL } from "../../../config";
 import { IoSettingsOutline } from "react-icons/io5";
@@ -6,7 +5,7 @@ import Container from "../../../Components/Container/Container";
 
 export async function fetchCategories() {
   try {
-    const response = await axios.get(`${API_BASE_URL}/api/main/categories`, {
+    const response = await axios.get(`${API_BASE_URL}/main/categories`, {
       withCredentials: true,
     });
 

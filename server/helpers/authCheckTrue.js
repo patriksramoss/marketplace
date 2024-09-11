@@ -1,8 +1,11 @@
 const authCheckTrue = (req, res, next) => {
   if (req.user) {
-    res.redirect("/main/home");
-  } else {
     next();
+  } else {
+    res
+      .status(401)
+      .json({ message: "Unauthorized access. Please log in." })
+      .redirect("/login");
   }
 };
 

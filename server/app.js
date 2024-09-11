@@ -151,8 +151,7 @@ app.use(function (req, res, next) {
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api", indexRouter);
-app.use("/api/main", authCheckFalse, mainRouter);
-app.use("/is-auth", indexRouter);
+app.use("/main", authCheckFalse, mainRouter);
 app.use("/payment", paymentRouter);
 
 app.get("*", (req, res) => {

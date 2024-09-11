@@ -5,13 +5,10 @@ import { toJS } from "mobx";
 
 export async function fetchContent(categoryId = null, subcategoryId = null) {
   try {
-    const response = await axios.get(
-      `${API_BASE_URL}/api/main/contentByCategory`,
-      {
-        params: { categoryId, subcategoryId },
-        withCredentials: true,
-      }
-    );
+    const response = await axios.get(`${API_BASE_URL}/main/contentByCategory`, {
+      params: { categoryId, subcategoryId },
+      withCredentials: true,
+    });
     return response.data; // Return fetched content
   } catch (error) {
     console.error("Error fetching content:", error);

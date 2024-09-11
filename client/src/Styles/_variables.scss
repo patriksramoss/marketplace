@@ -9,8 +9,17 @@ $secondary-color: linear-gradient(
   rgba(138, 206, 243, 0.756) 100%
 );
 
-$selected-color: rgba(135, 208, 247, 0.3);
-$selected-color-hover: rgba(135, 208, 247, 0.7);
+$selected-color: linear-gradient(
+  to right,
+  rgba(135, 208, 247, 0.4),
+  rgba(95, 178, 217, 0.4)
+);
+
+$selected-color-hover: linear-gradient(
+  to right,
+  rgba(135, 208, 247, 0.7),
+  rgba(95, 178, 217, 0.8)
+);
 
 $text-1: rgba(35, 258, 27, 1);
 $text-shadow-1: rgba(65, 128, 47, 1);

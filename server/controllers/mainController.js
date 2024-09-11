@@ -81,6 +81,18 @@ exports.add_points_post = (req, res, next) => {
   });
 };
 
+exports.get_points = (req, res, next) => {
+  User.findById(req.user._id).exec(function (err, user) {
+    if (err) {
+      console.error("Error finding user:", err);
+      return next(err);
+    }
+    return res.json({
+      points: user.points,
+    });
+  });
+};
+
 // Marketplace --------------------
 
 exports.get_item_categories = async (req, res) => {

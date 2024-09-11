@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { Helmet } from "react-helmet";
 import { observer } from "mobx-react-lite";
+import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
+import { useLocation, useNavigate } from "react-router-dom";
+
 import { toJS } from "mobx";
 
 //store
@@ -18,59 +19,39 @@ const Market = observer(() => {
   const navigate = useNavigate();
   const location = useLocation();
   const [selectedCategory, setSelectedCategory] = useState(null);
-
   useEffect(() => {
-    if (store.getCategories().length > 0) {
-      const initialCategory = location.hash
-        ? location.hash.substring(1)
-        : store.getCategories()[0]?.id;
-      const category = store
-        .getCategories()
-        .find((cat) => cat.id === initialCategory);
-      setSelectedCategory(category || store.getCategories()[0]);
-    }
-  }, [location.hash, store.getCategories()]);
+    const storedCategoryId = localStorage.getItem("selectedCategory-market");
+    const initialCategoryId = location.hash
+      ? location.hash.substring(1)
+      : storedCategoryId || store.getCategories()[0]?.id;
 
-  //hahahaha
-  const handleCategoryChange = (categoryId, subcategoryId) => {
-    if (subcategoryId) {
-      // If a subcategory ID is provided
-      const parentCategory = store
-        .getCategories()
-        .find((cat) =>
-          cat.subcategories.some((sub) => sub.id === subcategoryId)
-        );
+    // Update selectedCategory based on the initialCategoryId
+    const category = store.findCategory(initialCategoryId);
+    setSelectedCategory(category || store.getCategories()[0]);
 
-      if (parentCategory) {
-        const subcategory = parentCategory.subcategories.find(
-          (sub) => sub.id === subcategoryId
-        );
+    // Handle category change to load content if needed
+    const handleCategoryChange = (categoryId) => {
+      if (categoryId) {
+        const category = store.findCategory(categoryId);
 
-        setSelectedCategory(subcategory); // Set selected subcategory
-        navigate(`#${subcategoryId}`);
+        if (category) {
+          setSelectedCategory(category); // Ensure `selectedCategory` is updated
+          localStorage.setItem("selectedCategory-market", categoryId);
+          navigate(`#${categoryId}`);
 
-        const cachedContent = store.getContent(null, subcategoryId);
-        if (!cachedContent) {
-          store.loadContent(null, subcategoryId); // Only fetch if not cached
+          const cachedContent = store.getContent(categoryId);
+          if (!cachedContent) {
+            store.loadContent(categoryId); // Fetch content if not cached
+          }
         }
       }
-    } else if (!subcategoryId && categoryId) {
-      // If a category ID is provided
-      const category = store
-        .getCategories()
-        .find((cat) => cat.id === categoryId);
+    };
 
-      if (category) {
-        setSelectedCategory(category); // Set selected category
-        navigate(`#${categoryId}`);
+    console.log("SELECTED CATEGORY:", selectedCategory);
 
-        const cachedContent = store.getContent(categoryId, null);
-        if (!cachedContent) {
-          store.loadContent(categoryId, null); // Only fetch if not cached
-        }
-      }
-    }
-  };
+    // Handle category change to load content if needed
+    handleCategoryChange(initialCategoryId);
+  }, [location.hash]);
 
   return (
     <>
@@ -80,10 +61,12 @@ const Market = observer(() => {
       <Container className={styles.appContainerSettings} fullHeight={true}>
         <ReusableForm
           store={store}
+          bottomCategories={store.bottomCategories}
           categories={store.getRecommended()}
           categoriesSecondary={store.getCategories()}
           initialCategory={selectedCategory?.id}
-          onCategoryChange={handleCategoryChange}
+          onCategoryChange={store.handleCategoryChange} // Ensure this prop is called correctly
+          selectedCategory={selectedCategory}
         />
       </Container>
     </>

@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { observer } from "mobx-react-lite";
-import { Link, NavLink } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { API_BASE_URL, GOOGLE_CLIENT_ID } from "../../config";
-import logo from "../../assets/images/logo.png";
+import { observer } from "mobx-react-lite";
+import React, { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import Coins from "../../assets/images/coins1.png";
-import { toJS } from "mobx";
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import logo from "../../assets/images/logo.png";
+import { API_BASE_URL } from "../../config";
 
 import getMenuItems from "./MenuItems/getMenuItems";
 
@@ -29,10 +27,11 @@ const NavBar = observer(({ authenticated }) => {
   }, [window.location.pathname]);
 
   const menuItems = getMenuItems(authenticated);
-  const points = userStore.data.points;
+  const points = userStore.data ? userStore.data.points : 0;
   const numericPoints = Number(points);
+
   const formattedPoints = !numericPoints
-    ? null
+    ? 0
     : Number.isInteger(numericPoints)
     ? numericPoints
     : numericPoints.toFixed(2);

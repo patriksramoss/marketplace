@@ -30,7 +30,7 @@ const PointsSandbox = () => {
     }
     axios
       .post(
-        `${API_BASE_URL}/api/main/points/add`,
+        `${API_BASE_URL}/main/points/add`,
         { amountToAdd: numericAmountToAdd },
         { withCredentials: true }
       )

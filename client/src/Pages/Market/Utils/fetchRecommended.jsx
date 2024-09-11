@@ -5,7 +5,7 @@ import { API_BASE_URL } from "../../../config";
 export async function fetchRecommended() {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/api/main/contentRecommended`,
+      `${API_BASE_URL}/main/contentRecommended`,
       {
         withCredentials: true,
       }

@@ -1,6 +1,6 @@
+import axios from "axios";
 import { makeAutoObservable } from "mobx";
 import { API_BASE_URL } from "../config";
-import axios from "axios";
 
 class userStore {
   data = {};
@@ -11,7 +11,7 @@ class userStore {
 
   async fetchUser() {
     try {
-      const response = await axios.get(`${API_BASE_URL}/api/user`, {
+      const response = await axios.get(`${API_BASE_URL}/main/user`, {
         withCredentials: true,
       });
       this.setUser(response.data.user);
@@ -20,12 +20,26 @@ class userStore {
     }
   }
 
+  async fetchPoints() {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/main/points`, {
+        withCredentials: true,
+      });
+      this.setPoints(response.data.points);
+    } catch (error) {
+      // console.error("Failed to fetch user data:", error);
+    }
+  }
+
   setUser(user) {
     this.data = user;
   }
 
   setPoints(newPoints) {
-    this.data.points = parseFloat(newPoints).toFixed(2);
+    this.data.points =
+      newPoints && newPoints !== 0
+        ? parseFloat(newPoints).toFixed(2)
+        : parseFloat(0);
   }
 }
 

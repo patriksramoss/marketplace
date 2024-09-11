@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "../styles.module.scss";
-import { toJS } from "mobx";
 
 const StickyNavigation = ({
   categories,
@@ -23,9 +22,7 @@ const StickyNavigation = ({
       const mobileOffset = 0;
       const desktopOffset = 20;
 
-      if (viewportHeight < 1000) {
-        setBottomOffset(isMobile ? mobileOffset : desktopOffset);
-      } else if (distanceFromBottom <= viewportHeight * 0.1) {
+      if (viewportHeight < 1000 || distanceFromBottom <= viewportHeight * 0.1) {
         setBottomOffset((isMobile ? mobileOffset : viewportHeight * 0.1) + 20);
       } else {
         setBottomOffset(isMobile ? mobileOffset : desktopOffset);
@@ -47,11 +44,11 @@ const StickyNavigation = ({
                 {categories.map((category) => (
                   <li key={category.id} className={styles.categoryItem}>
                     <button
-                      onClick={() =>
-                        handleCategoryClick(category.id, null, category)
-                      }
+                      onClick={() => handleCategoryClick(category.id, category)}
                       className={`${styles.navButton} ${
-                        selectedCategory.id === category.id ? styles.active : ""
+                        selectedCategory?.id === category.id
+                          ? styles.active
+                          : ""
                       }`}
                     >
                       {category.title}
@@ -67,13 +64,12 @@ const StickyNavigation = ({
                               <button
                                 onClick={() =>
                                   handleCategoryClick(
-                                    category.id,
                                     subcategory.id,
                                     subcategory
                                   )
                                 }
                                 className={`${styles.navButtonSub} ${
-                                  selectedCategory.id === subcategory.id
+                                  selectedCategory?.id === subcategory.id
                                     ? styles.active
                                     : ""
                                 }`}
@@ -101,11 +97,11 @@ const StickyNavigation = ({
                 {categoriesSecondary.map((category) => (
                   <li key={category.id} className={styles.categoryItem}>
                     <button
-                      onClick={() =>
-                        handleCategoryClick(category.id, null, category)
-                      }
+                      onClick={() => handleCategoryClick(category.id, category)}
                       className={`${styles.navButton} ${
-                        selectedCategory.id === category.id ? styles.active : ""
+                        selectedCategory?.id === category.id
+                          ? styles.active
+                          : ""
                       }`}
                     >
                       {category.title}
@@ -121,13 +117,12 @@ const StickyNavigation = ({
                               <button
                                 onClick={() =>
                                   handleCategoryClick(
-                                    category.id,
                                     subcategory.id,
                                     subcategory
                                   )
                                 }
                                 className={`${styles.navButtonSub} ${
-                                  selectedCategory.id === subcategory.id
+                                  selectedCategory?.id === subcategory.id
                                     ? styles.active
                                     : ""
                                 }`}
@@ -158,11 +153,9 @@ const StickyNavigation = ({
               {bottomCategories.map((category) => (
                 <li key={category.id} className={styles.categoryItem}>
                   <button
-                    onClick={() =>
-                      handleCategoryClick(category.id, null, category)
-                    }
+                    onClick={() => handleCategoryClick(category.id, category)}
                     className={`${styles.navButton} ${
-                      selectedCategory.id === category.id ? styles.active : ""
+                      selectedCategory?.id === category.id ? styles.active : ""
                     }`}
                   >
                     <div width="24" height="24">
@@ -181,7 +174,7 @@ const StickyNavigation = ({
                             <button
                               onClick={() => handleCategoryClick(subcategory)}
                               className={`${styles.navButton} ${
-                                selectedCategory.id === subcategory.id
+                                selectedCategory?.id === subcategory.id
                                   ? styles.active
                                   : ""
                               }`}

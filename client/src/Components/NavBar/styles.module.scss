@@ -67,7 +67,9 @@
 }
 .navMenuLink:hover {
   transition-duration: 0.2s;
-  background: $selected-color;
+  // background: $selected-color;
+  box-shadow: rgba(120, 170, 223, 0.2) 0px 3px 60px -12px inset,
+    rgba(140, 190, 200, 0.2) 0px 1px 36px -8px inset;
 }
 
 .navMenu .selected:hover {
@@ -83,7 +85,7 @@
 
 .navMenu .navMenuLink a {
   text-decoration: none;
-  color: #354138;
+  color: black;
   font-weight: 700;
   font-size: 0.6rem;
   transition: 0.2s;
@@ -160,7 +162,7 @@
 }
 
 .points {
-  margin: 0px 20px 0px 20px;
+  margin: 0 0 0 20px;
   width: auto;
 }
 
@@ -187,13 +189,13 @@
 }
 
 .pointsNumber .icon {
-  width: 70px;
+  width: 40px;
   background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  padding: 10px 20px 10px 10px;
+  margin: 10px 1vw 10px 10px;
   transition: 0.1s ease-in-out;
 }
 
@@ -231,6 +233,12 @@
 .navRightContainer li > .navRightContainer ul {
   background: $primary-color;
   border-radius: 10px;
+}
+
+@media screen and (max-width: 50rem) {
+  .points {
+    display: none;
+  }
 }
 
 //MOBILE

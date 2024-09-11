@@ -20,7 +20,7 @@ class AppStore {
 
   async fetchHome() {
     try {
-      const response = await axios.get(`${API_BASE_URL}/api/landing`, {
+      const response = await axios.get(`${API_BASE_URL}/main/landing`, {
         withCredentials: true,
       });
       this.setNews(response.data);

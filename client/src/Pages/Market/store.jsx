@@ -9,6 +9,12 @@ import Container from "../../Components/Container/Container";
 // STORES
 import rootStore from "../../Store";
 
+import { IoSettingsOutline } from "react-icons/io5";
+import { RiAccountCircleLine } from "react-icons/ri";
+
+import Settings from "./BottomCategories/Settings";
+import Share from "./BottomCategories/Share";
+
 class InventoryStore {
   loading = true;
   categories = [];
@@ -17,6 +23,22 @@ class InventoryStore {
   categoriesRecommeded = [
     {
       content: this.contentCache["recommended"],
+    },
+  ];
+  bottomCategories = [
+    {
+      id: "share",
+      title: "Share",
+      icon: <RiAccountCircleLine />,
+      description: "Share your Table.",
+      content: <Share />,
+    },
+    {
+      id: "settings",
+      title: "Settings",
+      icon: <IoSettingsOutline />,
+      description: "Configure your Table.",
+      content: <Settings />,
     },
   ];
 
@@ -44,8 +66,8 @@ class InventoryStore {
     }
   }
 
-  async loadContent(categoryId = null, subcategoryId = null) {
-    const cacheKey = categoryId ? `cat-${categoryId}` : `sub-${subcategoryId}`;
+  async loadContent(categoryId) {
+    const cacheKey = categoryId;
 
     // Check if the content is already cached
     if (this.contentCache[cacheKey]) {
@@ -54,43 +76,22 @@ class InventoryStore {
 
     this.setLoading(true);
     try {
-      const items = await fetchContent(categoryId, subcategoryId);
+      const items = await fetchContent(categoryId);
 
       runInAction(() => {
         // Cache the fetched items
         this.contentCache[cacheKey] = items;
 
         // Update the content of the selected category or subcategory
-        if (subcategoryId) {
-          const category = this.categories.find((cat) =>
-            cat.subcategories.some((sub) => sub.id === subcategoryId)
+        const category = this.findCategory(categoryId);
+        if (category) {
+          category.content = (
+            <CategoryContent
+              title={category.title}
+              description={category.description}
+              items={items}
+            />
           );
-          if (category) {
-            const subcategory = category.subcategories.find(
-              (sub) => sub.id === subcategoryId
-            );
-
-            if (subcategory) {
-              subcategory.content = (
-                <CategoryContent
-                  title={subcategory.name}
-                  description={subcategory.description}
-                  items={items}
-                />
-              );
-            }
-          }
-        } else if (categoryId) {
-          const category = this.categories.find((cat) => cat.id === categoryId);
-          if (category) {
-            category.content = (
-              <CategoryContent
-                title={category.title}
-                description={category.description}
-                items={items}
-              />
-            );
-          }
         }
 
         this.setLoading(false);
@@ -157,10 +158,40 @@ class InventoryStore {
     return this.categoriesRecommeded;
   }
 
-  getContent(categoryId = null, subcategoryId = null) {
-    const cacheKey = categoryId ? `cat-${categoryId}` : `sub-${subcategoryId}`;
+  getContent(categoryId) {
+    const cacheKey = categoryId;
     return this.contentCache[cacheKey];
   }
+
+  //FIND, HANDLE
+
+  findCategory = (categoryId) => {
+    const allCategories = [
+      ...this.categories,
+      ...this.categoriesRecommeded,
+      ...this.bottomCategories,
+    ];
+
+    // First, try to find the category
+    const category = allCategories.find((cat) => cat.id === categoryId);
+
+    if (category) {
+      return category; // Return the category if found
+    }
+
+    // If no category is found, search for the subcategory
+    for (const cat of allCategories) {
+      const subcategory = cat.subcategories?.find(
+        (sub) => sub.id === categoryId
+      );
+      if (subcategory) {
+        return subcategory; // Return the subcategory if found
+      }
+    }
+
+    // Return null if neither category nor subcategory is found
+    return null;
+  };
 }
 
 const inventoryStore = new InventoryStore();
