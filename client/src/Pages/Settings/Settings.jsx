@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 
 //Components
 import Container from "../../Components/Container/Container";
-import ReusableForm from "../../Components/Input/Form/Form";
+import ReusableForm from "../../Components/Form/Form";
 
 //STYLES
 import styles from "./styles.module.scss";
@@ -21,11 +21,9 @@ const Settings = () => {
     : storedCategoryId;
 
   const handleCategoryChange = (categoryId) => {
-    console.log("Settings.handleCategoryChange:", { categoryId });
     if (categoryId) {
       const category = store.findCategory(categoryId);
       if (category) {
-        console.log("Settings.handleCategoryChange: category:", category);
         setSelectedCategory(category);
         localStorage.setItem("selectedCategory-settings", categoryId);
         navigate(`#${categoryId}`);
@@ -44,7 +42,7 @@ const Settings = () => {
       <Helmet>
         <title>Settings</title>
       </Helmet>
-      <Container className={styles.appContainerSettings}>
+      <Container className={styles.appContainerSettings} fullHeight={true}>
         <ReusableForm
           store={store}
           categories={store.categories}

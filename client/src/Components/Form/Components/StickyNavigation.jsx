@@ -16,16 +16,13 @@ const StickyNavigation = ({
       const viewportHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
       const scrollTop = window.scrollY;
-
       const distanceFromBottom = documentHeight - viewportHeight - scrollTop;
-      const isMobile = window.innerWidth <= 640;
-      const mobileOffset = 0;
       const desktopOffset = 20;
 
       if (viewportHeight < 1000 || distanceFromBottom <= viewportHeight * 0.1) {
-        setBottomOffset((isMobile ? mobileOffset : viewportHeight * 0.1) + 20);
+        setBottomOffset(viewportHeight * 0.1 + 20);
       } else {
-        setBottomOffset(isMobile ? mobileOffset : desktopOffset);
+        setBottomOffset(desktopOffset);
       }
     };
 

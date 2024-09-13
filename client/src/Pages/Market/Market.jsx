@@ -10,7 +10,7 @@ import store from "./store"; // Update path as needed
 
 // Components
 import Container from "../../Components/Container/Container";
-import ReusableForm from "../../Components/Input/Form/Form";
+import ReusableForm from "../../Components/Form/Form";
 
 // STYLES
 import styles from "./styles.module.scss";

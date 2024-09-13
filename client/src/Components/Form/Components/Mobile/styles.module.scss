@@ -1,0 +1,138 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import "../../../../Styles/variables";
+
+.navigationWrapper {
+  position: fixed;
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 10;
+}
+
+.navContainer {
+  position: sticky;
+  bottom: 5vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.navActive {
+  bottom: 0;
+}
+.menuButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: $light;
+  padding: 10px 20px;
+  border: 0;
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  box-shadow: $box-shadow-1;
+  color: $dark;
+  bottom: 9vh;
+  font-size: 2rem;
+  white-space: nowrap;
+  position: absolute;
+  cursor: pointer;
+  z-index: 110;
+  transition: 0.15s cubic-bezier(0.33, 1, 0.53, 1);
+
+  div {
+    display: flex;
+    align-items: center;
+    width: 12px;
+    height: 12px;
+    margin-right: 20px;
+    div {
+      display: table;
+      height: 1px;
+      background: $light;
+      box-shadow: 0 4px 0 $light, 0 -4px 0 $light;
+    }
+  }
+}
+
+.buttonActive {
+  bottom: 33vh;
+  border-radius: 1rem 1rem 0 0;
+  z-index: 104;
+}
+
+.menuBody {
+  display: block;
+  width: 100%;
+  border-radius: 20px 20px 0 0;
+  background: $light;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  position: sticky;
+  bottom: 0;
+  z-index: 105;
+  transition: 0.2s cubic-bezier(0.33, 1, 0.53, 1);
+
+  &.hidden {
+    transform: translateY(150%);
+  }
+}
+
+.menuHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+  border-bottom: 2px solid $neutral;
+}
+
+.menuHeader p {
+  width: 100%;
+}
+
+.menuLinks {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  margin-top: 3vh;
+  margin-bottom: 6vh;
+  overflow: auto;
+
+  button {
+    background: none;
+    border: none;
+    color: $dark;
+    margin: 1vh;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+      rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    &:hover {
+      color: $color;
+    }
+  }
+}
+
+.scrollableRow {
+  display: flex;
+  overflow-x: auto;
+  padding: 10px 0;
+  scroll-behavior: smooth;
+}
+
+.navButton {
+  min-width: 15vh;
+  height: 15vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}

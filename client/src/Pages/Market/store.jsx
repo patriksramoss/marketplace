@@ -118,6 +118,7 @@ class InventoryStore {
     this.setLoading(true);
     try {
       const recommendedItems = await fetchRecommended(); // Fetch recommended items from the API
+
       runInAction(() => {
         // Cache the fetched items
         this.contentCache[cacheKey] = recommendedItems;
@@ -142,7 +143,7 @@ class InventoryStore {
         this.setLoading(false);
       });
 
-      this.contentCache[cacheKey] = recommendedItems;
+      this.contentCache[cacheKey] = this.categoriesRecommeded;
 
       return recommendedItems;
     } catch (error) {

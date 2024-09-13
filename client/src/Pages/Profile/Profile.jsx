@@ -1,5 +1,5 @@
 import React from "react";
-import Form from "../../Components/Input/Form/Form";
+import Form from "../../Components/Form/Form";
 import Helmet from "react-helmet";
 
 //Components
