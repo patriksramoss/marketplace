@@ -3,11 +3,9 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Authentication/Login";
 import Register from "./Pages/Authentication/Register";
-import Table from "./Pages/Table/Table";
 import Loader from "./Components/Loader/Loader";
 import Settings from "./Pages/Settings/Settings";
 import Profile from "./Pages/Profile/Profile";
-import Plants from "./Pages/Plants/Plants";
 import Market from "./Pages/Market/Market";
 import { observer } from "mobx-react-lite";
 
@@ -43,24 +41,6 @@ const AppRoutes = observer(({ authenticated }) => {
 
           {/* Main Routes for authenticated user */}
           <Route path="/" element={<Home />} />
-          <Route
-            path="/table/*"
-            element={
-              <ProtectedRoute
-                authenticated={authenticated}
-                element={<Table />}
-              />
-            }
-          />
-          <Route
-            path="/plants/*"
-            element={
-              <ProtectedRoute
-                authenticated={authenticated}
-                element={<Plants />}
-              />
-            }
-          />
           <Route
             path="/market/*"
             element={

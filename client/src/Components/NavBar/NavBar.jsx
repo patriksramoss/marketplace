@@ -85,33 +85,6 @@ const NavBar = observer(({ authenticated }) => {
               <div className={styles.navMenu}>
                 <div
                   className={`${styles.navMenuLink} ${
-                    selectedPage.startsWith("/table") ||
-                    selectedPage === "/register"
-                      ? styles.selected
-                      : null
-                  }`}
-                >
-                  <NavLink to={authenticated ? "/table" : "/register"} end>
-                    {authenticated ? "Table" : "Register"}
-                  </NavLink>
-                </div>
-
-                {/* {authenticated ? (
-                  <div
-                    className={`${styles.navMenuLink} ${
-                      selectedPage.startsWith("/plants")
-                        ? styles.selected
-                        : null
-                    }`}
-                  >
-                    <NavLink to="/plants" end>
-                      Plants
-                    </NavLink>
-                  </div>
-                ) : null} */}
-
-                <div
-                  className={`${styles.navMenuLink} ${
                     selectedPage.startsWith("/market") ||
                     selectedPage === "/login"
                       ? styles.selected

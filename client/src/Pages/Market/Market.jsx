@@ -19,39 +19,32 @@ const Market = observer(() => {
   const navigate = useNavigate();
   const location = useLocation();
   const [selectedCategory, setSelectedCategory] = useState(null);
-  useEffect(() => {
-    const storedCategoryId = localStorage.getItem("selectedCategory-market");
-    const initialCategoryId = location.hash
-      ? location.hash.substring(1)
-      : storedCategoryId || store.getCategories()[0]?.id;
+  const storedCategoryId = localStorage.getItem("selectedCategory-market");
+  const initialCategoryId = location.hash
+    ? location.hash.substring(1)
+    : storedCategoryId || store.getCategories()[0]?.id;
 
-    // Update selectedCategory based on the initialCategoryId
-    const category = store.findCategory(initialCategoryId);
-    setSelectedCategory(category || store.getCategories()[0]);
+  const handleCategoryChange = (categoryId) => {
+    if (categoryId) {
+      const category = store.findCategory(categoryId);
+      if (category) {
+        setSelectedCategory(category);
+        localStorage.setItem("selectedCategory-market", categoryId);
+        navigate(`#${categoryId}`);
 
-    // Handle category change to load content if needed
-    const handleCategoryChange = (categoryId) => {
-      if (categoryId) {
-        const category = store.findCategory(categoryId);
-
-        if (category) {
-          setSelectedCategory(category); // Ensure `selectedCategory` is updated
-          localStorage.setItem("selectedCategory-market", categoryId);
-          navigate(`#${categoryId}`);
-
-          const cachedContent = store.getContent(categoryId);
-          if (!cachedContent) {
-            store.loadContent(categoryId); // Fetch content if not cached
-          }
+        const cachedContent = store.getContent(categoryId);
+        if (!cachedContent || cachedContent.length === 0) {
+          store.loadContent(categoryId);
         }
       }
-    };
+    }
+  };
 
-    console.log("SELECTED CATEGORY:", selectedCategory);
-
-    // Handle category change to load content if needed
-    handleCategoryChange(initialCategoryId);
-  }, [location.hash]);
+  useEffect(() => {
+    if (!selectedCategory || selectedCategory.id !== initialCategoryId) {
+      handleCategoryChange(initialCategoryId);
+    }
+  }, [initialCategoryId, selectedCategory]);
 
   return (
     <>
@@ -65,7 +58,7 @@ const Market = observer(() => {
           categories={store.getRecommended()}
           categoriesSecondary={store.getCategories()}
           initialCategory={selectedCategory?.id}
-          onCategoryChange={store.handleCategoryChange} // Ensure this prop is called correctly
+          onCategoryChange={handleCategoryChange}
           selectedCategory={selectedCategory}
         />
       </Container>

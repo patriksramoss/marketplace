@@ -110,19 +110,16 @@ exports.get_item_categories = async (req, res) => {
 
 exports.get_items_by_category = async (req, res) => {
   try {
-    const { categoryId, subcategoryId } = req.query; // Get categoryId and subcategoryId from query parameters
+    const { categoryId } = req.query; // Get categoryId and subcategoryId from query parameters
 
-    let query = {};
-    if (subcategoryId) {
-      query.subcategory = subcategoryId; // Filter by subcategory ID if present
-    } else if (!subcategoryId && categoryId) {
-      query.category = categoryId; // Filter by category ID if present
-    } else {
-      return res
-        .status(400)
-        .json({ error: "No categoryId or subcategoryId provided." });
+    if (!categoryId) {
+      return res.status(400).json({ error: "No categoryId provided." });
     }
 
+    // Filter by categoryId for both category and subcategory fields
+    const query = {
+      $or: [{ category: categoryId }, { subcategory: categoryId }],
+    };
     const items = await Item.find(query).lean().exec(); // Execute the query to find items
 
     // Get current date

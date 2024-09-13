@@ -6,52 +6,38 @@ import { Helmet } from "react-helmet";
 import Container from "../../Components/Container/Container";
 import ReusableForm from "../../Components/Input/Form/Form";
 
-import Account from "./Categories/Account";
-import Friends from "./Categories/Friends";
-import SettingsPage from "./Categories/Settings";
-
-// ICONS
-import { IoSettingsOutline } from "react-icons/io5";
-import { LiaUserFriendsSolid } from "react-icons/lia";
-import { RiAccountCircleLine } from "react-icons/ri";
-
 //STYLES
 import styles from "./styles.module.scss";
 
-const categories = [
-  {
-    id: "settings",
-    title: "Settings",
-    icon: <IoSettingsOutline />,
-    description: "General application settings.",
-    content: <SettingsPage />,
-  },
-  {
-    id: "account",
-    title: "Account",
-    icon: <RiAccountCircleLine />,
-    description: "Change your account settings",
-    content: <Account />,
-  },
-  {
-    id: "friends",
-    title: "Friends",
-    icon: <LiaUserFriendsSolid />,
-    description: "Manage and search other users.",
-    content: <Friends />,
-  },
-];
+import store from "./store";
 
 const Settings = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const initialCategory = location.hash
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const storedCategoryId = localStorage.getItem("selectedCategory-settings");
+  const initialCategoryId = location.hash
     ? location.hash.substring(1)
-    : categories[0].id;
+    : storedCategoryId;
 
   const handleCategoryChange = (categoryId) => {
-    navigate(`#${categoryId}`);
+    console.log("Settings.handleCategoryChange:", { categoryId });
+    if (categoryId) {
+      const category = store.findCategory(categoryId);
+      if (category) {
+        console.log("Settings.handleCategoryChange: category:", category);
+        setSelectedCategory(category);
+        localStorage.setItem("selectedCategory-settings", categoryId);
+        navigate(`#${categoryId}`);
+      }
+    }
   };
+
+  useEffect(() => {
+    if (!selectedCategory || selectedCategory.id !== initialCategoryId) {
+      handleCategoryChange(initialCategoryId);
+    }
+  }, [initialCategoryId, selectedCategory]);
 
   return (
     <>
@@ -60,10 +46,12 @@ const Settings = () => {
       </Helmet>
       <Container className={styles.appContainerSettings}>
         <ReusableForm
-          categories={categories}
-          initialCategory={initialCategory}
+          store={store}
+          categories={store.categories}
+          initialCategory={selectedCategory?.id}
           styleWrapper={{ maxWidth: "80vh" }}
           onCategoryChange={handleCategoryChange}
+          selectedCategory={selectedCategory}
         />
       </Container>
     </>

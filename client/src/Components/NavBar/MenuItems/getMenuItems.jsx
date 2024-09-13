@@ -47,16 +47,6 @@ const getMenuItems = (authenticated) => {
       children: [
         ...(isMobile
           ? [
-              {
-                label: authenticated ? "Table" : "Register",
-                key: authenticated ? "/table" : "/register",
-                icon: <FolderOpenOutlined />,
-              },
-              // {
-              //   label: authenticated ? "Plants" : "Login",
-              //   key: authenticated ? "/plants" : "/login",
-              //   icon: <ShopOutlined />,
-              // },
               ...(authenticated
                 ? [
                     {

@@ -19,12 +19,7 @@ class InventoryStore {
   loading = true;
   categories = [];
   recommendedContent = [];
-  contentCache = {}; // Cache to store fetched content
-  categoriesRecommeded = [
-    {
-      content: this.contentCache["recommended"],
-    },
-  ];
+  contentCache = {};
   bottomCategories = [
     {
       id: "share",
@@ -44,7 +39,13 @@ class InventoryStore {
 
   constructor() {
     makeAutoObservable(this);
-    this.loadCategories(); // Fetch categories on initialization
+    this.bottomCategories.forEach((category) => {
+      if (!this.contentCache[category.id]) {
+        this.contentCache[category.id] = [];
+      }
+      this.contentCache[category.id].push(category);
+    });
+    this.loadCategories();
     this.loadRecommended();
   }
 
@@ -69,9 +70,11 @@ class InventoryStore {
   async loadContent(categoryId) {
     const cacheKey = categoryId;
 
-    // Check if the content is already cached
-    if (this.contentCache[cacheKey]) {
-      return this.contentCache[cacheKey]; // Return cached content if available
+    if (
+      this.contentCache[cacheKey] &&
+      this.contentCache[cacheKey].length !== 0
+    ) {
+      return this.contentCache[cacheKey];
     }
 
     this.setLoading(true);
@@ -104,8 +107,6 @@ class InventoryStore {
     }
   }
 
-  // Method to load recommended items
-  // Method to load recommended items
   async loadRecommended() {
     const cacheKey = "recommended"; // Define a unique cache key for recommended items
 
@@ -131,7 +132,7 @@ class InventoryStore {
                 items={recommendedItems}
               />
             ),
-            id: "id-hot-123",
+            id: "recommended",
             title: "Hot 🔥",
             description: "Discounted items!",
             name: "Hot 🔥",
@@ -140,6 +141,8 @@ class InventoryStore {
 
         this.setLoading(false);
       });
+
+      this.contentCache[cacheKey] = recommendedItems;
 
       return recommendedItems;
     } catch (error) {
@@ -153,7 +156,6 @@ class InventoryStore {
     return this.categories;
   }
 
-  // Method to get recommended items from the cache
   getRecommended() {
     return this.categoriesRecommeded;
   }

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import clickSound from "../../../assets/sound/click.mp3";
 import { useNavigate } from "react-router-dom";
 
 //styles
@@ -9,9 +8,6 @@ const CustomButton = (params) => {
   const navigate = useNavigate();
 
   function onClick() {
-    //SOUND DISABLED FOR NOW
-    // const audio = new Audio(clickSound);
-    // audio.play();
     if (params.href) {
       navigate(params.href);
     } else if (params.onClick) {

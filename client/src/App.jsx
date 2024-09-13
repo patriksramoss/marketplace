@@ -8,18 +8,11 @@ import { observer } from "mobx-react";
 import Loader from "./Components/Loader/Loader";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GOOGLE_CLIENT_ID } from "./config.js";
-// import luxy from "luxy.js";
 
 //STORES
 import user from "../src/Stores/User";
 import packs from "../src/Stores/Packs";
 import root from "../src/Store";
-
-//SCRIPTS
-// import BackgroundAnimation from "./assets/javascripts/backgroundScript.js";
-// import { Gradient } from "./assets/javascripts/backgroundGradient.js";
-
-// import "./assets/javascripts/smoothscroll";
 
 //STYLING
 import "./Styles/CustomPresets.scss";
@@ -47,46 +40,13 @@ function App() {
       }
     }
     checkAuthentication();
-    //On page reload / init
   }, []);
 
-  //SMOOTH SCROLL JAUNAIS
-
-  // useEffect(() => {
-  //     luxy.init({
-  //       wrapperSpeed: 0.1,
-  //       wrapper: "#luxy",
-  //       targets: ".luxy-el",
-  //     });
-  // }, []);
-
-  //VECAIS FONA ANIIMACIJA
-
-  // useEffect(() => {
-  //   console.log("Creating BackgroundAnimation instance");
-  //   const animation = new BackgroundAnimation(canvasContainerRef.current);
-  //   return () => {
-  //     console.log("Destroying BackgroundAnimation instance");
-  //     animation && animation.destroy && animation.destroy();
-  //   };
-  // }, []);
-
-  //JAUNA  FONA ANIIMACIJA
-
-  // var gradient = new Gradient();
-  // gradient.initGradient("#gradient-canvas");
-
   return (
-    <div ref={canvasContainerRef} id="luxy">
-      {/* SIS VAJADZIGS JAUNAJAM GRADIENT FONA ANIMACIJAI */}
-      {/* <div className="flex-center">
-        <canvas id="gradient-canvas"> </canvas>
-      </div> */}
-      {/* {root.loading && <Loader />} */}
+    <div ref={canvasContainerRef}>
       <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
         <NavBar authenticated={authenticated} />
       </GoogleOAuthProvider>
-      {/* <CornerBox /> */}
       <AppRoutes authenticated={authenticated} />
       {isLoaded && root.showFooter && <Footer />}
     </div>
