@@ -10,6 +10,7 @@
   position: relative;
   min-height: 30vh;
   display: flex;
+  text-align: center;
   align-items: center;
   justify-content: center;
 }
@@ -23,4 +24,10 @@
 .loaded {
   opacity: 1;
   transform: translateY(0);
+}
+
+@media only screen and (max-width: 40rem) {
+  .loaded {
+    width: 100%;
+  }
 }

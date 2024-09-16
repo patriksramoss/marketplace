@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import {
-  AppstoreOutlined,
   SettingOutlined,
   UserOutlined,
   LoginOutlined,
   MenuOutlined,
-  HomeOutlined,
-  FolderOpenOutlined,
   ShopOutlined,
   DollarOutlined,
 } from "@ant-design/icons";
@@ -71,7 +68,18 @@ const getMenuItems = (authenticated) => {
                       icon: <LoginOutlined />,
                     },
                   ]
-                : []),
+                : [
+                    {
+                      label: "Log in",
+                      key: "/login",
+                      icon: <LoginOutlined />,
+                    },
+                    {
+                      label: "Register",
+                      key: "/register",
+                      icon: <UserOutlined />,
+                    },
+                  ]),
             ]
           : [
               {

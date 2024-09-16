@@ -9,8 +9,10 @@ import Container from "../../Components/Container/Container";
 // STORES
 import rootStore from "../../Store";
 
+// ICONS
 import { IoSettingsOutline } from "react-icons/io5";
 import { RiAccountCircleLine } from "react-icons/ri";
+import { FireOutlined } from "@ant-design/icons";
 
 import Settings from "./BottomCategories/Settings";
 import Share from "./BottomCategories/Share";
@@ -134,7 +136,8 @@ class InventoryStore {
               />
             ),
             id: "recommended",
-            title: "Hot 🔥",
+            title: "Hot",
+            icon: <FireOutlined />,
             description: "Discounted items!",
             name: "Hot 🔥",
           },

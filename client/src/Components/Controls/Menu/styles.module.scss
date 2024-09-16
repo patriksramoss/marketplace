@@ -19,8 +19,8 @@
 
   .ant-menu-submenu {
     background: $primary-color !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    border-radius: 10px !important;
+    box-shadow: $box-shadow-1 !important;
   }
 
   .ant-menu-item-active {
