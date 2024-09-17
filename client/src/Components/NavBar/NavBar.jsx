@@ -6,10 +6,15 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Coins from "../../assets/images/coins1.png";
 import logo from "../../assets/images/logo.png";
 import { API_BASE_URL } from "../../config";
+import { toJS } from "mobx";
+import { Link } from "react-router-dom";
 
 import getMenuItems from "./MenuItems/getMenuItems";
 
 import CustomMenu from "../Controls/Menu/Menu";
+
+//icons
+import { DollarOutlined } from "@ant-design/icons";
 
 //styling
 import styles from "./styles.module.scss";
@@ -27,14 +32,14 @@ const NavBar = observer(({ authenticated }) => {
   }, [window.location.pathname]);
 
   const menuItems = getMenuItems(authenticated);
-  const points = userStore.data ? userStore.data.points : 0;
-  const numericPoints = Number(points);
+  const balance = userStore.data ? userStore.data.balance : 0;
+  const numericBalance = Number(balance);
 
-  const formattedPoints = !numericPoints
-    ? 0
-    : Number.isInteger(numericPoints)
-    ? numericPoints
-    : numericPoints.toFixed(2);
+  const formattedBalance = !numericBalance
+    ? "0.00"
+    : Number.isInteger(numericBalance)
+    ? numericBalance
+    : numericBalance.toFixed(2);
 
   useEffect(() => {
     const handleResize = () => {
@@ -70,7 +75,7 @@ const NavBar = observer(({ authenticated }) => {
       {authenticated !== null && (
         <div className={styles.navWrapper}>
           <div className={styles.navLeftContainer}>
-            <div className={styles.pointsNumber}>
+            <div className={styles.balanceNumber}>
               <img
                 className={styles.logoIcon}
                 src={logo}
@@ -95,22 +100,36 @@ const NavBar = observer(({ authenticated }) => {
                     {authenticated ? "Market" : "Login"}
                   </NavLink>
                 </div>
+                {!authenticated && (
+                  <div
+                    className={`${styles.navMenuLink} ${
+                      selectedPage.startsWith("/register") ||
+                      selectedPage === "/register"
+                        ? styles.selected
+                        : null
+                    }`}
+                  >
+                    <NavLink to={"/register"} end>
+                      Register
+                    </NavLink>
+                  </div>
+                )}
               </div>
             </div>
           </div>
 
           <div className={styles.navRightContainer}>
             {authenticated && (
-              <div className={`${styles.navMenuContainer} ${styles.points}`}>
-                <div className={styles.pointsNumber}>
-                  <p className={styles.captionText}>{formattedPoints}</p>
-                  <img
-                    className={styles.icon}
-                    src={Coins}
-                    onClick={() => {
-                      navigate("/points");
-                    }}
-                  ></img>
+              <div className={`${styles.navMenuContainer} ${styles.balance}`}>
+                <div className={styles.balanceNumber}>
+                  <Link to="/balance" className={styles.captionText}>
+                    <div className={styles.captionTextTitle}>{"Balance: "}</div>
+                    {formattedBalance}
+                    <div className={styles.captionTextCurrency}>
+                      {userStore.data.currency}
+                    </div>
+                  </Link>
+                  <div className={styles.balanceIcon}></div>
                 </div>
               </div>
             )}

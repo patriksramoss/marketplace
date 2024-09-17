@@ -12,8 +12,9 @@ import { observer } from "mobx-react-lite";
 // STORES
 import userStore from "./Stores/User";
 
-// Lazy loading for Points sandbox
-const PointsSandbox = React.lazy(() => import("./Pages/Points/PointsSandbox"));
+const BalanceSandbox = React.lazy(() =>
+  import("./Pages/Balance/BalanceSandbox")
+);
 
 const ProtectedRoute = ({ element, authenticated }) =>
   authenticated ? element : <Navigate to="/login" replace />;
@@ -51,13 +52,13 @@ const AppRoutes = observer(({ authenticated }) => {
             }
           />
           <Route
-            path="/points"
+            path="/balance"
             element={
               <ProtectedRoute
                 authenticated={authenticated}
                 element={
                   <Suspense fallback={<Loader />}>
-                    <PointsSandbox />
+                    <BalanceSandbox />
                   </Suspense>
                 }
               />

@@ -52,8 +52,8 @@ const getMenuItems = (authenticated) => {
                       icon: <ShopOutlined />,
                     },
                     {
-                      label: "Points",
-                      key: "/points",
+                      label: "Balance",
+                      key: "/balance",
                       icon: <DollarOutlined />,
                     },
                     {
@@ -82,11 +82,6 @@ const getMenuItems = (authenticated) => {
                   ]),
             ]
           : [
-              {
-                label: "Points",
-                key: "/points",
-                icon: <DollarOutlined />,
-              },
               {
                 label: "Settings",
                 key: "/settings",

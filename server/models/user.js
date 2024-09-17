@@ -32,7 +32,8 @@ const UserSchema = new Schema(
         },
       ],
     },
-    points: { type: Number, required: true, default: 0.0 },
+    balance: { type: Number, required: true, default: 0.0 },
+    currency: { type: String, required: true },
     sandbox: { type: Boolean, required: true, default: true },
   },
   { timestamps: true }

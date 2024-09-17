@@ -20,12 +20,12 @@ class userStore {
     }
   }
 
-  async fetchPoints() {
+  async fetchBalance() {
     try {
-      const response = await axios.get(`${API_BASE_URL}/main/points`, {
+      const response = await axios.get(`${API_BASE_URL}/main/balance`, {
         withCredentials: true,
       });
-      this.setPoints(response.data.points);
+      this.setBalance(response.data.balance);
     } catch (error) {
       // console.error("Failed to fetch user data:", error);
     }
@@ -35,10 +35,10 @@ class userStore {
     this.data = user;
   }
 
-  setPoints(newPoints) {
-    this.data.points =
-      newPoints && newPoints !== 0
-        ? parseFloat(newPoints).toFixed(2)
+  setBalance(newBalance) {
+    this.data.balance =
+      newBalance && newBalance !== 0
+        ? parseFloat(newBalance).toFixed(2)
         : parseFloat(0);
   }
 }

@@ -15,32 +15,33 @@ import styles from "./styles.module.scss";
 //Components
 import Container from "../../Components/Container/Container";
 
-const PointsSandbox = () => {
+const BalanceSandbox = () => {
   const [amount, setAmount] = useState(5);
   const [loading, setLoading] = useState(null);
   const navigate = useNavigate();
 
-  const handlePointsAdd = (amountToAdd) => {
+  const handleBalanceAdd = (amountToAdd) => {
     setLoading(true);
     // Convert amountToAdd to a number to ensure the server receives the correct type
     const numericAmountToAdd = Number(amountToAdd);
+    console.log("111111", numericAmountToAdd);
     if (isNaN(numericAmountToAdd) || numericAmountToAdd <= 0) {
       console.error("Invalid amount:", amountToAdd);
       return; // Optionally, show an error message to the user
     }
     axios
       .post(
-        `${API_BASE_URL}/main/points/add`,
+        `${API_BASE_URL}/main/balance/add`,
         { amountToAdd: numericAmountToAdd },
         { withCredentials: true }
       )
       .then((response) => {
-        userStore.setPoints(response.data.points);
+        userStore.setBalance(response.data.balance);
         navigate("/"); // Navigate to the home page or confirmation page
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error updating points: ", error);
+        console.error("Error updating balance: ", error);
         setLoading(false);
         // Optionally, show an error message to the user
       });
@@ -56,7 +57,7 @@ const PointsSandbox = () => {
   return (
     <>
       <Helmet>
-        <title>Points</title>
+        <title>Balance</title>
       </Helmet>
       <Container loading={loading !== null ? loading : undefined}>
         <header className={styles.homeHeader}></header>
@@ -66,14 +67,14 @@ const PointsSandbox = () => {
           }}
           onSubmit={(e) => {
             e.preventDefault();
-            handlePointsAdd(amount);
+            handleBalanceAdd(amount);
           }}
         >
-          <p className="text-center">Add points:</p>
+          <p className="text-center">Add balance:</p>
 
           <div className="flex-center">
             <input
-              type="number"
+              type="decimal"
               name="amount"
               className={styles.customInput}
               value={amount}
@@ -84,7 +85,7 @@ const PointsSandbox = () => {
           </div>
           <div className="flex-center">
             <CustomButton
-              text="Add To Points"
+              text="Add To Balance"
               style={{ justifyContent: "center", alignItems: "center" }}
             />
           </div>
@@ -94,4 +95,4 @@ const PointsSandbox = () => {
   );
 };
 
-export default PointsSandbox;
+export default BalanceSandbox;

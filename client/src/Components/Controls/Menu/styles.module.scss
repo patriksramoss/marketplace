@@ -7,6 +7,12 @@
   }
 }
 
+.userIcon {
+  width: 100%;
+  height: auto;
+  transform: scale(0.8);
+}
+
 @media only screen and (max-width: 40rem) {
 }
 
@@ -32,6 +38,11 @@
 
   .ant-menu-item {
     font-weight: 700;
+  }
+
+  .ant-menu-submenu-placement-bottomRight,
+  .ant-menu-submenu-placement-bottomLeft {
+    padding-top: 0 !important;
   }
 
   .ant-menu-light.ant-menu-horizontal > .ant-menu-submenu-open::after,

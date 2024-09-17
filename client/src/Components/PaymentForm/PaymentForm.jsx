@@ -68,7 +68,7 @@ const PaymentForm = () => {
         <CustomButton
           type="submit"
           disabled={!stripe || loading || amount === 0}
-          text="Add Points"
+          text="Add Balance"
         ></CustomButton>
       </form>
     </div>

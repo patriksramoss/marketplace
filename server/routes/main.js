@@ -11,9 +11,9 @@ const authCheckTrue = require("../helpers/authCheckTrue");
 
 router.get("/home", main_controller.display_home);
 
-// _________________ Points  _________________ //
+// _________________ Balance  _________________ //
 
-router.post("/points/add", authCheckTrue, main_controller.add_points_post);
+router.post("/balance/add", authCheckTrue, main_controller.add_balance_post);
 
 // _________________ Marketplace  _________________ //
 
@@ -31,7 +31,7 @@ router.get("/contentRecommended", main_controller.get_recommended_items);
 // _________________ User  _________________ //
 
 router.get("/user", authCheckTrue, main_controller.get_current_user);
-router.get("/points", authCheckTrue, main_controller.get_points);
+router.get("/balance", authCheckTrue, main_controller.get_balance);
 router.get("/landing", authCheckTrue, main_controller.display_home);
 
 module.exports = router;

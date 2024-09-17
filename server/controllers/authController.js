@@ -3,6 +3,10 @@ const User = require("../models/user");
 const axios = require("axios");
 const News = require("../models/news");
 const bcrypt = require("bcrypt");
+const ip = require("ip");
+
+//helpers
+const findCurrency = require("../helpers/findCurrency");
 
 exports.google_register_post = async (req, res) => {
   try {
@@ -14,8 +18,6 @@ exports.google_register_post = async (req, res) => {
         .json({ success: false, message: "No token provided" });
     }
 
-    console.log("THERE IS TOKEN!");
-
     // Verify the token with Google
     const response = await axios.get(
       `https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${token}`
@@ -25,12 +27,15 @@ exports.google_register_post = async (req, res) => {
     // Check if the user already exists in the database
     let user = await User.findOne({ googleId: sub });
     if (!user) {
+      // Find the user's currency based on their IP
+      const currency = findCurrency(ip.address());
+
       // If the user doesn't exist, create a new user
       user = new User({
         username: name,
         email: email,
         googleId: sub,
-        // Add other fields as needed
+        currency: currency,
       });
       await user.save();
     }
@@ -117,12 +122,14 @@ exports.sign_up_post = [
         });
       }
 
+      const currency = findCurrency(ip.address());
+
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
       const newUser = new User({
         email: req.body.email,
         password: hashedPassword,
         username: req.body.username,
-        packs: "647148c3322591d9c61f46d0",
+        currency: currency,
       });
 
       await newUser.save();

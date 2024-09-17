@@ -24,7 +24,7 @@ exports.webhook = (req, res) => {
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
-    // Update user's points here
+    // Update user's balance here
     console.log("checkout.session.completed event received:", session);
   }
 
@@ -57,7 +57,7 @@ exports.createCheckoutSession = async (req, res) => {
           price_data: {
             currency: "eur",
             product_data: {
-              name: "Points",
+              name: "Balance",
             },
             unit_amount: amount,
           },

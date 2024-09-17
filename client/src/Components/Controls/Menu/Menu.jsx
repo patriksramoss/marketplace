@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Menu } from "antd";
 import { useNavigate } from "react-router-dom";
 
+import defaultUserIcon from "../../../assets/images/user.png";
+
 //styling
 import styles from "./styles.module.scss";
 
@@ -12,13 +14,25 @@ const CustomMenu = ({ items }) => {
     navigate(e.key);
   };
 
+  // Modify items to include custom icons
+  const customItems = items.map((item) => ({
+    ...item,
+    icon: (
+      <img
+        src={defaultUserIcon}
+        alt="custom-icon"
+        className={styles.userIcon}
+      />
+    ),
+  }));
+
   return (
     <div className={styles.customMenu}>
       <Menu
         onClick={onClick}
         selectedKeys={[current]}
         mode="horizontal"
-        items={items}
+        items={customItems}
         triggerSubMenuAction="click"
       />
     </div>

@@ -20,7 +20,7 @@ const StickyNavigation = ({
       const desktopOffset = 20;
 
       if (viewportHeight < 1000 || distanceFromBottom <= viewportHeight * 0.1) {
-        setBottomOffset(viewportHeight * 0.1 + 20);
+        // setBottomOffset(viewportHeight * 0.1 + 20);
       } else {
         setBottomOffset(desktopOffset);
       }

@@ -33,7 +33,7 @@ function App() {
         user.fetchUser();
         packs.fetchPOTD();
         root.fetchHome();
-        user.fetchPoints();
+        user.fetchBalance();
       } catch (error) {
         console.error("Error checking authentication:", error);
         setIsLoaded(true);

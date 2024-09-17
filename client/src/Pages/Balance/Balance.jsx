@@ -17,12 +17,12 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
-const Points = () => {
+const Balance = () => {
   const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLISHABLE_KEY);
   return (
     <div>
       <Helmet>
-        <title>Points</title>
+        <title>Balance</title>
       </Helmet>
       <div className="container">
         <div className="page-wrapper">
@@ -39,4 +39,4 @@ const Points = () => {
   );
 };
 
-export default Points;
+export default Balance;

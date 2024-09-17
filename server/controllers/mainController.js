@@ -41,6 +41,7 @@ exports.get_current_user = (req, res, next) => {
         console.error("Error fetching user:", err);
         return res.status(500).json({ message: "Internal server error" });
       }
+
       return res.json({
         user: user,
       });
@@ -53,42 +54,41 @@ exports.get_current_user = (req, res, next) => {
   }
 };
 
-// Points --------------------
-exports.add_points_post = (req, res, next) => {
+// Balance --------------------
+exports.add_balance_post = (req, res, next) => {
   let amountToAdd = Number(req.body.amountToAdd);
 
   if (isNaN(amountToAdd) || amountToAdd <= 0) {
     console.error("Invalid amount provided:", req.body.amountToAdd);
     return res.status(400).json({ error: "Invalid amount" });
   }
-  amountToAdd = Math.round(amountToAdd); // Sanitize: rounding to ensure it's a whole number
 
   User.findById(req.user._id).exec(function (err, user) {
     if (err) {
       console.error("Error finding user:", err);
       return next(err);
     }
-    user.points += amountToAdd;
+    user.balance += amountToAdd;
     user.save(function (err) {
       if (err) {
         console.error("Error saving user:", err);
         return next(err);
       }
       return res.json({
-        points: user.points,
+        balance: user.balance,
       });
     });
   });
 };
 
-exports.get_points = (req, res, next) => {
+exports.get_balance = (req, res, next) => {
   User.findById(req.user._id).exec(function (err, user) {
     if (err) {
       console.error("Error finding user:", err);
       return next(err);
     }
     return res.json({
-      points: user.points,
+      balance: user.balance,
     });
   });
 };

@@ -22,7 +22,7 @@ const NavigationMobile = ({
 
   const renderCategories = (categories) =>
     categories.map((category) => (
-      <SoundWrapper key={category.id} soundSrc={click1}>
+      <SoundWrapper key={category.id} audio={click1}>
         <button
           key={category.id}
           onClick={() => handleCategoryClick(category.id, category)}
