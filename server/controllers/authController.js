@@ -1,7 +1,11 @@
 const { body, validationResult } = require("express-validator");
+
+//MODELS
 const User = require("../models/user");
-const axios = require("axios");
+const Cart = require("../models/cart");
 const News = require("../models/news");
+
+const axios = require("axios");
 const bcrypt = require("bcrypt");
 const ip = require("ip");
 
@@ -37,6 +41,14 @@ exports.google_register_post = async (req, res) => {
         googleId: sub,
         currency: currency,
       });
+      await user.save();
+
+      // Create a cart for the new user
+      const cart = new Cart({ userId: user._id });
+      await cart.save();
+
+      // Assign the cart ID to the user
+      user.cart = cart._id;
       await user.save();
     }
 
@@ -133,6 +145,15 @@ exports.sign_up_post = [
       });
 
       await newUser.save();
+
+      // Create a cart for the new user
+      const cart = new Cart({ userId: newUser._id });
+      await cart.save();
+
+      // Assign the cart ID to the user
+      newUser.cart = cart._id;
+      await newUser.save();
+
       req.login(newUser, (err) => {
         if (err) {
           console.error("Error in req.login:", err);
@@ -177,7 +198,9 @@ exports.login_post = [
     // Check for validation errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ success: false, errors: errors.array() });
+      return res
+        .status(400)
+        .json({ success: false, message: "Incorrect email or password" });
     }
 
     const { email, password } = req.body;

@@ -47,14 +47,9 @@ const Login = () => {
         navigate(`/`);
         window.location.reload();
         console.log("Login successful");
-      } else {
-        setErrorMessage(response.data.message);
-        alert(response.data.message);
       }
     } catch (error) {
-      console.error("Login error:", error);
-      setErrorMessage("An error occurred. Please try again later.");
-      alert("An error occurred. Please try again later.");
+      alert(error.response.data.message);
       setLoading(false);
     }
   };

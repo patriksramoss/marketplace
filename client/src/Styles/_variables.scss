@@ -1,5 +1,6 @@
 $color-light: #e4f5fe;
 $color-dark: #54c9fc;
+
 $color: rgba(0, 0, 0, 0.2);
 $light: #ffffff;
 $light-transparent: #ffffff99;
@@ -11,6 +12,9 @@ $primary-color: linear-gradient(
   rgba(228, 245, 254, 0.2) 0%,
   rgba(239, 249, 252, 0.2) 100%
 );
+
+$primary-dark: #2985fe;
+
 $secondary-color: linear-gradient(
   45deg,
   rgba(84, 201, 252, 0.683) 0%,

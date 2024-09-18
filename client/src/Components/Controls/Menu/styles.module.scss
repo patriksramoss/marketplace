@@ -1,6 +1,9 @@
 @import "../../../Styles/variables";
 
 .customMenu {
+  margin: 0 0.5rem 0 0.5rem;
+  cursor: pointer;
+
   ul div {
     width: 46px;
     left: -16px;
@@ -26,7 +29,6 @@
   .ant-menu-submenu {
     background: $primary-color !important;
     border-radius: 10px !important;
-    box-shadow: $box-shadow-1 !important;
   }
 
   .ant-menu-item-active {

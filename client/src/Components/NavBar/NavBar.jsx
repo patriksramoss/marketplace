@@ -9,6 +9,8 @@ import { API_BASE_URL } from "../../config";
 import { toJS } from "mobx";
 import { Link } from "react-router-dom";
 
+import Cart from "../Cart/Cart";
+
 import getMenuItems from "./MenuItems/getMenuItems";
 
 import CustomMenu from "../Controls/Menu/Menu";
@@ -130,18 +132,23 @@ const NavBar = observer(({ authenticated }) => {
 
           <div className={styles.navRightContainer}>
             {authenticated && (
-              <div className={`${styles.navMenuContainer} ${styles.balance}`}>
-                <div className={styles.balanceNumber}>
-                  <Link to="/balance" className={styles.captionText}>
-                    <div className={styles.captionTextTitle}>{"Balance: "}</div>
-                    {formattedBalance}
-                    <div className={styles.captionTextCurrency}>
-                      {userStore.data.currency}
-                    </div>
-                  </Link>
-                  <div className={styles.balanceIcon}></div>
+              <>
+                <div className={`${styles.navMenuContainer} ${styles.balance}`}>
+                  <div className={styles.balanceNumber}>
+                    <Link to="/balance" className={styles.captionText}>
+                      <div className={styles.captionTextTitle}>
+                        {"Balance: "}
+                      </div>
+                      {formattedBalance}
+                      <div className={styles.captionTextCurrency}>
+                        {userStore.data.currency}
+                      </div>
+                    </Link>
+                    <div className={styles.balanceIcon}></div>
+                  </div>
                 </div>
-              </div>
+                <Cart />
+              </>
             )}
             {!authenticated && (
               <div className={styles.navMenuContainerAuth}>

@@ -1,0 +1,94 @@
+@import "../../Styles/variables";
+
+.cartWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cartIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0.5rem 0 0.5rem;
+  height: 46px;
+  width: 46px;
+  font-size: 2rem;
+  color: $primary-dark;
+  border: none;
+
+  background: $primary-color;
+  border-radius: 10px;
+  box-shadow: $box-shadow-2;
+  cursor: pointer;
+}
+
+// SIDE PANEL
+/* Define keyframes for fade-out */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.sidePanelWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: fixed;
+  width: 30rem;
+  height: 80vh;
+  max-height: 70%;
+  top: 6rem;
+  right: 0;
+  z-index: 25;
+  margin: 0 2rem 2rem 0;
+  background: $light;
+  border-radius: 10px;
+  box-shadow: $box-shadow-2;
+  transform: translateX(20%);
+  opacity: 0;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.shadow {
+  position: fixed;
+  background: linear-gradient(
+    to left,
+    rgba(0, 10, 29, 0.1) 0%,
+    rgba(0, 10, 29, 0.05) 5%,
+    rgba(0, 10, 29, 0.03) 40%,
+    rgba(0, 10, 29, 0.02) 65%,
+    rgba(0, 10, 29, 0) 100%
+  );
+
+  width: 50rem;
+  z-index: 20;
+  height: 110vh;
+  pointer-events: none;
+  top: -6rem;
+  right: -2rem;
+  transform: translateX(20%);
+  opacity: 0;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.sidePanel {
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+}
+
+.sidePanelWrapper.show,
+.shadow.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.sidePanelWrapper.fadeOut,
+.shadow.fadeOut {
+  animation: fadeOut 0.2s ease-in-out forwards;
+}
