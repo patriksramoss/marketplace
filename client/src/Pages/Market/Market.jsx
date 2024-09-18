@@ -60,6 +60,7 @@ const Market = observer(() => {
           initialCategory={selectedCategory?.id}
           onCategoryChange={handleCategoryChange}
           selectedCategory={selectedCategory}
+          styleSection={{ background: "transparent", boxShadow: "none" }}
         />
       </Container>
     </>

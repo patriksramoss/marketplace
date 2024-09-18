@@ -88,19 +88,7 @@ const NavBar = observer(({ authenticated }) => {
           <div className={styles.navContainer}>
             <div className={styles.nav}>
               <div className={styles.navMenu}>
-                <div
-                  className={`${styles.navMenuLink} ${
-                    selectedPage.startsWith("/market") ||
-                    selectedPage === "/login"
-                      ? styles.selected
-                      : null
-                  }`}
-                >
-                  <NavLink to={authenticated ? "/market" : "/login"} end>
-                    {authenticated ? "Market" : "Login"}
-                  </NavLink>
-                </div>
-                {!authenticated && (
+                {!authenticated ? (
                   <div
                     className={`${styles.navMenuLink} ${
                       selectedPage.startsWith("/register") ||
@@ -113,7 +101,29 @@ const NavBar = observer(({ authenticated }) => {
                       Register
                     </NavLink>
                   </div>
+                ) : (
+                  <div
+                    className={`${styles.navMenuLink} ${
+                      selectedPage === "/" ? styles.selected : null
+                    }`}
+                  >
+                    <NavLink to={"/"} end>
+                      Home
+                    </NavLink>
+                  </div>
                 )}
+                <div
+                  className={`${styles.navMenuLink} ${
+                    selectedPage.startsWith("/market") ||
+                    selectedPage === "/login"
+                      ? styles.selected
+                      : null
+                  }`}
+                >
+                  <NavLink to={authenticated ? "/market" : "/login"} end>
+                    {authenticated ? "Market" : "Login"}
+                  </NavLink>
+                </div>
               </div>
             </div>
           </div>
@@ -145,7 +155,7 @@ const NavBar = observer(({ authenticated }) => {
             )}
             {!authenticated && !isMobile ? null : (
               <div className={styles.navMenuContainer}>
-                <CustomMenu items={menuItems} />
+                <CustomMenu items={menuItems} authenticated={authenticated} />
               </div>
             )}
           </div>

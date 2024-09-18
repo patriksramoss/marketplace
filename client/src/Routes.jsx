@@ -94,7 +94,7 @@ const AppRoutes = observer(({ authenticated }) => {
       ) : (
         <>
           {/* Routes for non-authenticated user */}
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           {/* Redirect any other paths to login */}

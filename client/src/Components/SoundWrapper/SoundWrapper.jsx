@@ -9,7 +9,7 @@ const SoundWrapper = ({ children, audio, onClick }) => {
         onClick(event);
       }
     },
-    [soundSrc, onClick]
+    [audio, onClick]
   );
 
   return (

@@ -3,11 +3,12 @@ import { Menu } from "antd";
 import { useNavigate } from "react-router-dom";
 
 import defaultUserIcon from "../../../assets/images/user.png";
+import menuIcon from "../../../assets/images/menu-icon.png";
 
 //styling
 import styles from "./styles.module.scss";
 
-const CustomMenu = ({ items }) => {
+const CustomMenu = ({ items, authenticated }) => {
   const navigate = useNavigate();
   const [current, setCurrent] = useState(null);
   const onClick = (e) => {
@@ -19,7 +20,7 @@ const CustomMenu = ({ items }) => {
     ...item,
     icon: (
       <img
-        src={defaultUserIcon}
+        src={!authenticated ? menuIcon : defaultUserIcon}
         alt="custom-icon"
         className={styles.userIcon}
       />

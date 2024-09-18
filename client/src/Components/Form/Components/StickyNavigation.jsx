@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "../styles.module.scss";
 
+//icons
+import { RiArrowDropDownLine } from "react-icons/ri";
+
 const StickyNavigation = ({
   categories,
   categoriesSecondary,
@@ -10,6 +13,29 @@ const StickyNavigation = ({
 }) => {
   const [bottomOffset, setBottomOffset] = useState(20);
   const bottomNavRef = useRef(null);
+  // Retrieve expanded categories from localStorage or initialize with an empty array
+  const [expandedCategories, setExpandedCategories] = useState(
+    JSON.parse(localStorage.getItem("expandedCategories")) || []
+  );
+
+  // Update localStorage whenever expandedCategories state changes
+  useEffect(() => {
+    localStorage.setItem(
+      "expandedCategories",
+      JSON.stringify(expandedCategories)
+    );
+  }, [expandedCategories]);
+
+  // Function to toggle category expand/collapse
+  const toggleCategory = (categoryId) => {
+    if (expandedCategories.includes(categoryId)) {
+      setExpandedCategories(
+        expandedCategories.filter((id) => id !== categoryId)
+      );
+    } else {
+      setExpandedCategories([...expandedCategories, categoryId]);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,9 +74,13 @@ const StickyNavigation = ({
                           : ""
                       }`}
                     >
+                      <div width="24" height="24">
+                        {category.icon}
+                      </div>
                       {category.title}
                     </button>
                     {category.subcategories &&
+                      selectedCategory?.id === category.id &&
                       category.subcategories.length > 0 && (
                         <ul className={styles.subcategoryList}>
                           {category.subcategories.map((subcategory) => (
@@ -93,19 +123,41 @@ const StickyNavigation = ({
               <ul key="top-secondary-nav">
                 {categoriesSecondary.map((category) => (
                   <li key={category.id} className={styles.categoryItem}>
-                    <button
-                      onClick={() => handleCategoryClick(category.id, category)}
-                      className={`${styles.navButton} ${
-                        selectedCategory?.id === category.id
-                          ? styles.active
-                          : ""
-                      }`}
-                    >
-                      {category.title}
-                    </button>
+                    <div className={styles.categoryRow}>
+                      <button
+                        onClick={() =>
+                          handleCategoryClick(category.id, category)
+                        }
+                        className={`${styles.navButton} ${
+                          selectedCategory?.id === category.id
+                            ? styles.active
+                            : ""
+                        }`}
+                      >
+                        <div width="24" height="24">
+                          {category.icon}
+                        </div>
+                        <div className={styles.categoryTitleWrapper}>
+                          <div>{category.title}</div>
+                        </div>
+                      </button>
+                      <button
+                        className={styles.categoryArrow}
+                        onClick={() => toggleCategory(category.id)}
+                      >
+                        <RiArrowDropDownLine />
+                      </button>
+                    </div>
                     {category.subcategories &&
-                      category.subcategories.length > 0 && (
-                        <ul className={styles.subcategoryList}>
+                      category.subcategories.length > 0 &&
+                      expandedCategories.includes(category.id) && (
+                        <ul
+                          className={`${styles.subcategoryList} ${
+                            expandedCategories.includes(category.id)
+                              ? styles.showSubcategories
+                              : styles.hideSubcategories
+                          }`}
+                        >
                           {category.subcategories.map((subcategory) => (
                             <li
                               key={subcategory.id}

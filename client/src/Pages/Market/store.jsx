@@ -174,7 +174,9 @@ class InventoryStore {
   findCategory = (categoryId) => {
     const allCategories = [
       ...this.categories,
-      ...this.categoriesRecommeded,
+      ...(Array.isArray(this.categoriesRecommeded)
+        ? this.categoriesRecommeded
+        : [this.categoriesRecommeded]),
       ...this.bottomCategories,
     ];
 
