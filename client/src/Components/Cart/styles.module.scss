@@ -12,6 +12,7 @@
   align-items: center;
   margin: 0 0.5rem 0 0.5rem;
   height: 46px;
+  position: relative;
   width: 46px;
   font-size: 2rem;
   color: $primary-dark;
@@ -79,7 +80,9 @@
 .sidePanel {
   width: 100%;
   height: 100%;
-  padding: 2rem;
+  max-height: 100%;
+  padding: 0.7rem 2rem 0.7rem 2rem;
+  overflow-y: auto;
 }
 
 .sidePanelWrapper.show,
@@ -91,4 +94,185 @@
 .sidePanelWrapper.fadeOut,
 .shadow.fadeOut {
   animation: fadeOut 0.2s ease-in-out forwards;
+}
+
+//sidepanel
+
+.cartTitle {
+  text-align: center;
+  margin: 0;
+  font-size: 1rem;
+  padding-top: 10px;
+}
+
+.cartList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  height: 80%;
+}
+
+.cartItem {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0 0.5rem 0;
+  position: relative;
+  border-radius: 10px;
+
+  box-shadow: none;
+  transition: all 0.2s ease-in-out;
+}
+.cartItem:hover {
+  box-shadow: $box-shadow-2;
+  transition: all 0.2s ease-in-out;
+}
+
+.itemImage {
+  width: 5rem; // Set a fixed width for images
+  height: auto; // Maintain aspect ratio
+  margin-right: 1rem; // Space between image and text
+}
+
+.itemDetails {
+  flex-grow: 1; // Allow details to take available space
+}
+
+.itemName {
+  position: relative;
+  top: 0; /* Position at the top */
+  padding: 0 0 0 0.6rem;
+}
+
+.itemQuantity {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 0 0 0;
+  font-size: 0.8rem;
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+  bottom: 0;
+  left: 0;
+}
+
+.itemQuantityInput {
+  width: 2rem;
+  text-align: center;
+  z-index: 2;
+}
+
+.quantityArrows {
+  display: flex;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 2;
+  transition: all 0.2s ease-in-out;
+}
+
+.quantityArrows:hover {
+  transform: scale(1.2);
+  color: $primary-dark;
+  transition: all 0.2s ease-in-out;
+}
+
+h2 {
+  margin-bottom: 1rem; // Space below the heading
+}
+
+.totalItemCountContainer {
+  display: flex;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+}
+
+.totalItemCount {
+  width: 25px;
+  height: 25px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  background: $primary-dark;
+  border: 2px $light solid;
+  box-shadow: $box-shadow-2;
+  color: $light;
+  border-radius: 50%;
+  padding: 0.2rem;
+}
+
+//side panel footer
+
+.sidePanelFooter {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.1);
+}
+
+.clearButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 14px;
+  cursor: pointer;
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  background: linear-gradient(180deg, $primary-red-1 0%, $primary-red-2 100%);
+  background-origin: border-box;
+  font-size: 1.2rem;
+  box-shadow: $box-shadow-2;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.deleteItemContainer {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 10px;
+  z-index: 0;
+
+  justify-content: end;
+  align-items: center;
+  position: absolute;
+}
+
+.deleteItem {
+  padding: 3px;
+  margin: 5px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: $primary-red-1;
+  font-size: 1.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.deleteItem:hover {
+  transform: scale(1.2);
+  color: $primary-red-2;
+  transition: all 0.2s ease-in-out;
+}
+
+.emptyCart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+}
+
+.emptyCart svg {
+  font-size: 4rem;
+  padding: 1rem;
 }

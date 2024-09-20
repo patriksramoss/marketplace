@@ -83,3 +83,18 @@ body {
 body.fallback-scrollbars {
   overflow-y: scroll;
 }
+
+//removing arrows from input element
+
+/* Remove arrows in Chrome, Safari, Edge */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remove arrows in Firefox */
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}

@@ -9,6 +9,7 @@ class AppStore {
     loading: false,
   };
   showFooter = true;
+  cartOpened = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -31,6 +32,10 @@ class AppStore {
 
   setNews(data) {
     this.data.news = data;
+  }
+
+  setCartOpened(value) {
+    this.cartOpened = value;
   }
 
   setShowFooter(value) {

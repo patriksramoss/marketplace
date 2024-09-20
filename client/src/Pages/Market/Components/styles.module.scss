@@ -16,22 +16,26 @@
 }
 
 .gridContainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
 }
 
 .gridItem {
+  flex: 0 1 200px;
+  min-height: 150px;
+  position: relative;
   overflow: hidden;
   text-align: center;
   border-radius: 20px;
+  background: transparent;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
 }
 
 .gridItem:hover {
   box-shadow: $box-shadow-2;
-  background-color: $white-background;
+  background: $color-light;
   transform: scale(1.05);
   transition: all 0.1s ease-in-out;
 }
@@ -54,4 +58,41 @@
   font-size: 0.8rem;
   color: #666;
   margin-top: 0.1rem;
+}
+
+.details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.addToCart {
+  position: absolute; /* Position it absolutely within the grid item */
+  top: 15%;
+  left: 60%;
+  transform: translate(-50%, -50%); /* Offset by half its width and height */
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0; /* Start invisible */
+  transition: opacity 0.2s ease; /* Smooth transition */
+  pointer-events: none; /* Prevent interaction when not visible */
+  background: $primary-color;
+  color: $light;
+  border-radius: 5px;
+  box-shadow: none;
+  padding: 0.2rem 0.3rem;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+.gridItem:hover .addToCart {
+  opacity: 1; /* Make visible on hover */
+  pointer-events: auto; /* Allow interaction when visible */
+}
+.addToCart:hover {
+  background: $light;
+  color: $dark;
+  box-shadow: $box-shadow-2;
+  transition: all 0.1s ease-in-out;
 }

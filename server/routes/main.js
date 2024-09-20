@@ -28,6 +28,10 @@ router.get(
 // Fetch recommended content
 router.get("/contentRecommended", main_controller.get_recommended_items);
 
+router.post("/addToCart", authCheckTrue, main_controller.add_to_cart);
+router.get("/clearCart", authCheckTrue, main_controller.clear_cart);
+router.get("/getCart", authCheckTrue, main_controller.get_cart);
+
 // _________________ User  _________________ //
 
 router.get("/user", authCheckTrue, main_controller.get_current_user);

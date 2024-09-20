@@ -230,14 +230,14 @@
   transform: scale(1.1);
 }
 
-.navRightContainer ul li {
+.navRightContainer .navMenuContainer ul li {
   width: 46px;
   height: 46px;
   padding-inline: 0px;
   display: flex;
 }
 
-.navRightContainer ul {
+.navRightContainer .navMenuContainer ul {
   background: $primary-color;
   border-radius: 10px;
   box-shadow: $box-shadow-2;
@@ -246,16 +246,22 @@
 .navRightContainer .ant-menu-submenu-title {
   position: absolute;
   width: 46px;
+  left: 0 !important;
 }
 
-.navRightContainer li div span {
+.navRightContainer .navMenuContainer li div span {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
 }
 
-.navRightContainer li > .navRightContainer ul {
+.navRightContainer
+  .navMenuContainer
+  li
+  > .navRightContainer
+  .navMenuContainer
+  ul {
   background: $primary-color;
   border-radius: 10px;
 }

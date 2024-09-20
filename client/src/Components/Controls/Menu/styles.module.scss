@@ -6,7 +6,7 @@
 
   ul div {
     width: 46px;
-    left: -16px;
+    left: 0;
   }
 }
 
@@ -36,6 +36,11 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     transition: all 0.3s !important;
+  }
+
+  .ant-menu-vertical.ant-menu-sub:not([class*="-active"]) {
+    position: relative !important;
+    top: 1rem !important;
   }
 
   .ant-menu-item {

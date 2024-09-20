@@ -3,11 +3,13 @@ import { makeAutoObservable, runInAction, toJS } from "mobx";
 import { fetchCategories } from "./Utils/fetchCategories";
 import { fetchContent } from "./Utils/fetchContent";
 import { fetchRecommended } from "./Utils/fetchRecommended";
+import { addToCart } from "./Utils/addToCart";
 import CategoryContent from "./Components/CategoryContent";
 import Container from "../../Components/Container/Container";
 
 // STORES
 import rootStore from "../../Store";
+import userStore from "../../Stores/User";
 
 // ICONS
 import { IoSettingsOutline } from "react-icons/io5";
@@ -38,6 +40,9 @@ class InventoryStore {
       content: <Settings />,
     },
   ];
+  cart = {
+    items: [],
+  };
 
   constructor() {
     makeAutoObservable(this);
@@ -109,6 +114,19 @@ class InventoryStore {
     }
   }
 
+  async loadCategories() {
+    this.setLoading(true);
+    try {
+      const categories = await fetchCategories();
+      runInAction(() => {
+        this.categories = categories;
+        this.setLoading(false);
+      });
+    } catch (error) {
+      this.setLoading(false);
+    }
+  }
+
   async loadRecommended() {
     const cacheKey = "recommended"; // Define a unique cache key for recommended items
 
@@ -156,6 +174,16 @@ class InventoryStore {
     }
   }
 
+  async addToCart(itemId, quantity) {
+    userStore.setLoading("cart", true);
+    try {
+      const response = await addToCart(itemId, quantity);
+      userStore.getCart();
+    } catch (error) {
+      console.error("Failed to add item to cart:", error);
+    }
+  }
+
   getCategories() {
     return this.categories;
   }
@@ -181,7 +209,7 @@ class InventoryStore {
     ];
 
     // First, try to find the category
-    const category = allCategories.find((cat) => cat.id === categoryId);
+    const category = allCategories?.find((cat) => cat?.id === categoryId);
 
     if (category) {
       return category; // Return the category if found

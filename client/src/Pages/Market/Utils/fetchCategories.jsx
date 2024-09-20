@@ -12,26 +12,28 @@ export async function fetchCategories() {
       withCredentials: true,
     });
 
-    const categories = await Promise.all(
-      response.data.map(async (cat) => {
-        const IconComponent = await loadIcon(cat.icon);
-        return {
-          id: cat._id,
-          title: cat.name,
-          icon: IconComponent ? <IconComponent /> : <DefaultIcon />, // Use default icon if not found
-          description: cat.description,
-          subcategories: cat.subcategories.map((sub) => ({
-            id: sub._id,
-            name: sub.name,
-            description: sub.description,
+    if (response.data && Array.isArray(response.data)) {
+      const categories = await Promise.all(
+        response.data.map(async (cat) => {
+          const IconComponent = await loadIcon(cat.icon);
+          return {
+            id: cat._id,
+            title: cat.name,
+            icon: IconComponent ? <IconComponent /> : <DefaultIcon />,
+            description: cat.description,
+            subcategories: cat.subcategories.map((sub) => ({
+              id: sub._id,
+              name: sub.name,
+              description: sub.description,
+              content: <Container loader={true} container={false} />,
+            })),
             content: <Container loader={true} container={false} />,
-          })),
-          content: <Container loader={true} container={false} />,
-        };
-      })
-    );
-
-    return categories;
+          };
+        })
+      );
+      return categories;
+    }
+    return [];
   } catch (error) {
     console.error("Error fetching categories:", error);
     throw error;

@@ -5,6 +5,8 @@ import NavigationMobile from "./Components/Mobile/Navigation";
 
 import styles from "./styles.module.scss";
 
+import rootStore from "../../Store";
+
 const ReusableForm = ({
   categories,
   categoriesSecondary,
@@ -62,7 +64,14 @@ const ReusableForm = ({
         />
       )}
       <main className={styles.formPageContent}>
-        <section style={styleSection}>{selectedCategory?.content}</section>
+        <section
+          style={styleSection}
+          className={`${
+            rootStore.cartOpened ? styles.sectionSrink : styles.section
+          }`}
+        >
+          {selectedCategory?.content}
+        </section>
       </main>
     </div>
   );

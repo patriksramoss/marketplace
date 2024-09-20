@@ -151,8 +151,17 @@
 
   .formPageContent {
     padding: 2em 0;
-    max-width: 100%;
     width: 100%;
+  }
+
+  .section {
+    margin-right: 0;
+    transition: all 0.2s ease-out;
+  }
+
+  .sectionSrink {
+    margin-right: 32rem;
+    transition: all 0.2s ease-out;
   }
 
   section {

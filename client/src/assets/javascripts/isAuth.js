@@ -7,15 +7,21 @@ export const isAuthenticated = async () => {
       method: "GET",
       credentials: "include", // Include cookies in the request
     });
-    if (response.status === 200) {
-      // User is authenticated on the server.
-      return true;
+
+    if (response.ok) {
+      // Checks if response status is 200-299
+      return true; // User is authenticated
+    } else if (response.status === 401) {
+      // User is not authenticated, handle this case quietly
+      return false;
     } else {
-      // User is not authenticated on the server.
+      // Handle any other unexpected status
+      console.warn("Unexpected response status:", response.status);
       return false;
     }
   } catch (error) {
-    console.error("Authentication check error:", error);
-    return false; // Handle errors gracefully
+    // Handle network errors or other unexpected issues without logging the error
+    console.warn("Authentication check encountered an error:", error);
+    return false; // Return false for any errors
   }
 };
