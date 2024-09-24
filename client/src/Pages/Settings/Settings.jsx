@@ -47,7 +47,6 @@ const Settings = () => {
           store={store}
           categories={store.categories}
           initialCategory={selectedCategory?.id}
-          styleWrapper={{ maxWidth: "80vh" }}
           onCategoryChange={handleCategoryChange}
           selectedCategory={selectedCategory}
         />

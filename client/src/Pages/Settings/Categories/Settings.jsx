@@ -37,14 +37,12 @@ const Settings = observer(() => {
   return (
     <>
       <Container
-        className={styles.settingsAccountWrapper}
+        className={styles.container}
         loading={loading !== null ? loading : undefined}
-        container={false}
+        container={true}
       >
         <form
-          style={{
-            padding: "2rem",
-          }}
+          className={styles.form}
           onSubmit={() => {
             console.log("SUBMITTED");
           }}

@@ -339,3 +339,77 @@ exports.clear_cart = async (req, res, next) => {
     return next(err);
   }
 };
+
+exports.cart_remove_item = async (req, res, next) => {
+  const itemId = req.body.itemId;
+  try {
+    // Find the user
+    const user = await User.findById(req.user._id).populate("cart");
+
+    if (!user || !user.cart) {
+      return res.status(404).json({ message: "User does not have a cart" });
+    }
+
+    // Find the cart associated with the user
+    const cart = await Cart.findById(user.cart);
+
+    if (!cart) {
+      return res.status(404).json({ message: "Cart not found" });
+    }
+
+    cart.items.find((item) => {
+      if (item) {
+        if (item.item.toString() === itemId) {
+          cart.items.splice(cart.items.indexOf(item), 1);
+        }
+      }
+    });
+
+    await cart.save();
+
+    return res.status(200).json({ message: "Cart updated successfully", cart });
+  } catch (err) {
+    console.error("Error updating cart:", err);
+    return next(err);
+  }
+};
+
+exports.cart_change_item_quantity = async (req, res, next) => {
+  const itemId = req.body.itemId;
+  const value = req.body.value;
+  const override = req.body.override;
+  try {
+    // Find the user
+    const user = await User.findById(req.user._id).populate("cart");
+
+    if (!user || !user.cart) {
+      return res.status(404).json({ message: "User does not have a cart" });
+    }
+
+    // Find the cart associated with the user
+    const cart = await Cart.findById(user.cart);
+
+    if (!cart) {
+      return res.status(404).json({ message: "Cart not found" });
+    }
+
+    cart.items.find((item) => {
+      if (item) {
+        if (item.item.toString() === itemId) {
+          if (override) {
+            item.quantity = value;
+          } else {
+            item.quantity += value;
+          }
+        }
+      }
+    });
+
+    await cart.save();
+
+    return res.status(200).json({ message: "Cart updated successfully", cart });
+  } catch (err) {
+    console.error("Error updating cart:", err);
+    return next(err);
+  }
+};

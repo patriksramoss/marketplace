@@ -41,7 +41,9 @@ const NavigationMobile = ({
   return (
     // Wrapper element to detect outside clicks
     <div
-      className={styles.navigationWrapper}
+      className={`${styles.navigationWrapper} ${
+        menuOpen === true ? styles.navigationWrapperActive : ""
+      }`}
       onClick={() => closeMenu()} // Close the menu if clicked outside
     >
       <div

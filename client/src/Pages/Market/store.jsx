@@ -61,19 +61,6 @@ class InventoryStore {
     rootStore.loading = newLoading;
   }
 
-  async loadCategories() {
-    this.setLoading(true);
-    try {
-      const categories = await fetchCategories();
-      runInAction(() => {
-        this.categories = categories;
-        this.setLoading(false);
-      });
-    } catch (error) {
-      this.setLoading(false);
-    }
-  }
-
   async loadContent(categoryId) {
     const cacheKey = categoryId;
 
@@ -175,7 +162,7 @@ class InventoryStore {
   }
 
   async addToCart(itemId, quantity) {
-    userStore.setLoading("cart", true);
+    this.setLoading("cart", true);
     try {
       const response = await addToCart(itemId, quantity);
       userStore.getCart();
@@ -217,9 +204,11 @@ class InventoryStore {
 
     // If no category is found, search for the subcategory
     for (const cat of allCategories) {
-      const subcategory = cat.subcategories?.find(
-        (sub) => sub.id === categoryId
-      );
+      let subcategory = null;
+      if (cat.subcategories) {
+        subcategory = cat.subcategories.find((sub) => sub.id === categoryId);
+      }
+
       if (subcategory) {
         return subcategory; // Return the subcategory if found
       }

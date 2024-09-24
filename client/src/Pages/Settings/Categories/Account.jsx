@@ -57,16 +57,11 @@ const Account = observer(() => {
   return (
     <>
       <Container
-        className={styles.settingsAccountWrapper}
+        className={styles.container}
         loading={loading !== null ? loading : undefined}
-        container={false}
+        container={true}
       >
-        <form
-          style={{
-            padding: "2rem",
-          }}
-          onSubmit={handleSubmit(onSubmit)}
-        >
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <div className="flex-center">
             <img
               src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"

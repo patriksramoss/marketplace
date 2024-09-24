@@ -96,3 +96,26 @@
   box-shadow: $box-shadow-2;
   transition: all 0.1s ease-in-out;
 }
+
+.loader {
+  position: relative;
+  height: 20px;
+  width: 70px;
+  display: flex;
+  justify-content: center;
+  transform: scale(3);
+
+  align-items: center;
+  background: transparent !important;
+}
+
+//MOBILE
+
+@media screen and (max-width: 40rem) {
+  .addToCart {
+    opacity: 1;
+  }
+  .gridContainer {
+    justify-content: center;
+  }
+}

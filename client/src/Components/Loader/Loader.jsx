@@ -7,7 +7,7 @@ const Loader = (params) => {
     <div
       className={`${styles.loader} ${
         params.contained === true ? styles.contained : ""
-      }`}
+      } ${params.className}`}
       style={params.style}
     >
       {/* <a>Please wait ...</a> */}

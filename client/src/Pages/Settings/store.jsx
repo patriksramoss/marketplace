@@ -75,9 +75,11 @@ class SettingsStore {
 
     // If no category is found, search for the subcategory
     for (const cat of allCategories) {
-      const subcategory = cat.subcategories?.find(
-        (sub) => sub.id === categoryId
-      );
+      let subcategory = null;
+      if (cat.subcategories) {
+        subcategory = cat.subcategories.find((sub) => sub.id === categoryId);
+      }
+
       if (subcategory) {
         return subcategory; // Return the subcategory if found
       }

@@ -24,7 +24,6 @@ const BalanceSandbox = () => {
     setLoading(true);
     // Convert amountToAdd to a number to ensure the server receives the correct type
     const numericAmountToAdd = Number(amountToAdd);
-    console.log("111111", numericAmountToAdd);
     if (isNaN(numericAmountToAdd) || numericAmountToAdd <= 0) {
       console.error("Invalid amount:", amountToAdd);
       return; // Optionally, show an error message to the user

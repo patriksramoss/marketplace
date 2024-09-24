@@ -29,8 +29,15 @@ router.get(
 router.get("/contentRecommended", main_controller.get_recommended_items);
 
 router.post("/addToCart", authCheckTrue, main_controller.add_to_cart);
-router.get("/clearCart", authCheckTrue, main_controller.clear_cart);
 router.get("/getCart", authCheckTrue, main_controller.get_cart);
+
+router.get("/clearCart", authCheckTrue, main_controller.clear_cart);
+router.post("/cartRemoveItem", authCheckTrue, main_controller.cart_remove_item);
+router.post(
+  "/cartChangeItemQuantity",
+  authCheckTrue,
+  main_controller.cart_change_item_quantity
+);
 
 // _________________ User  _________________ //
 

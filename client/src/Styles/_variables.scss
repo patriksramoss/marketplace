@@ -18,6 +18,9 @@ $primary-dark: #2985fe;
 $primary-red-1: #f44336;
 $primary-red-2: #f33756;
 
+$primary-green-1: #33d836;
+$primary-green-2: #14f069;
+
 $secondary-color: linear-gradient(
   45deg,
   rgba(84, 201, 252, 0.683) 0%,
@@ -32,8 +35,15 @@ $text-1: rgba(35, 258, 27, 1);
 $text-shadow-1: rgba(65, 128, 47, 1);
 
 $gray-1: rgb(70, 70, 70);
+$gray-2: rgb(120, 120, 120);
 
 $white-background: rgba(255, 253, 251, 1);
+
+$background-hover-1: linear-gradient(
+  45deg,
+  rgba(239, 249, 252, 0.4) 0%,
+  rgba(228, 245, 254, 0.4) 100%
+);
 
 $font-stack: "Helvetica, Arial, sans-serif";
 $border-radius: 4px;

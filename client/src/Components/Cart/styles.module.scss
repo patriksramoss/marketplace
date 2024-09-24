@@ -18,7 +18,7 @@
   color: $primary-dark;
   border: none;
 
-  background: $primary-color;
+  background: $light;
   border-radius: 10px;
   box-shadow: $box-shadow-2;
   cursor: pointer;
@@ -68,7 +68,7 @@
 
   width: 50rem;
   z-index: 20;
-  height: 110vh;
+  min-height: 110vh;
   pointer-events: none;
   top: -6rem;
   right: -2rem;
@@ -93,16 +93,18 @@
 
 .sidePanelWrapper.fadeOut,
 .shadow.fadeOut {
+  pointer-events: none;
   animation: fadeOut 0.2s ease-in-out forwards;
 }
 
 //sidepanel
 
 .cartTitle {
-  text-align: center;
+  text-align: left;
   margin: 0;
   font-size: 1rem;
-  padding-top: 10px;
+  padding: 10px 0 20px 0;
+  border-bottom: 1px solid $color;
 }
 
 .cartList {
@@ -117,62 +119,95 @@
   align-items: center;
   margin: 0.5rem 0 0.5rem 0;
   position: relative;
-  border-radius: 10px;
+  border-bottom: 1px solid $color;
 
   box-shadow: none;
   transition: all 0.2s ease-in-out;
 }
 .cartItem:hover {
+  background: $background-hover-1;
   box-shadow: $box-shadow-2;
   transition: all 0.2s ease-in-out;
 }
 
 .itemImage {
-  width: 5rem; // Set a fixed width for images
+  width: 6rem; // Set a fixed width for images
   height: auto; // Maintain aspect ratio
-  margin-right: 1rem; // Space between image and text
+  margin: 0.5rem 1rem 0.5rem 0.5rem;
 }
 
 .itemDetails {
   flex-grow: 1; // Allow details to take available space
+  height: 80px;
 }
 
 .itemName {
   position: relative;
-  top: 0; /* Position at the top */
-  padding: 0 0 0 0.6rem;
+  top: 0;
+  padding: 0 0 0 1.2rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.itemPrice {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  left: 140px;
+  vertical-align: middle;
+  bottom: 15px;
+  width: auto;
+  overflow: hidden; /* Hides any overflow text */
+  text-overflow: ellipsis; /* Optionally adds "..." to indicate overflow */
+  font-size: 0.8rem;
+}
+
+.itemPrice h3 {
+  margin: 0 0.5rem 0 0;
+}
+
+.itemPrice p {
+  bottom: 0;
 }
 
 .itemQuantity {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 10px 0 0 0;
+  justify-content: end;
   font-size: 0.8rem;
   text-align: center;
   vertical-align: middle;
-  position: relative;
-  bottom: 0;
-  left: 0;
+  position: absolute;
+  right: 10px;
+  bottom: 15px;
 }
 
 .itemQuantityInput {
   width: 2rem;
   text-align: center;
   z-index: 2;
+  border: 1px solid $color;
+  background: $light;
 }
 
 .quantityArrows {
   display: flex;
-  font-size: 2rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.15rem 0.4rem 0.15rem 0.4rem;
   cursor: pointer;
+  border: 1px solid $color;
   z-index: 2;
+  background: $light;
   transition: all 0.2s ease-in-out;
 }
 
 .quantityArrows:hover {
-  transform: scale(1.2);
-  color: $primary-dark;
+  color: $light;
+  background: $dark;
   transition: all 0.2s ease-in-out;
 }
 
@@ -212,37 +247,68 @@ h2 {
   align-items: center;
   justify-content: end;
   padding: 0.5rem 1rem 0.5rem 1rem;
-  box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.1);
 }
 
 .clearButton {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   padding: 6px 14px;
   cursor: pointer;
   border-radius: 6px;
   border: none;
-  color: #fff;
-  background: linear-gradient(180deg, $primary-red-1 0%, $primary-red-2 100%);
-  background-origin: border-box;
-  font-size: 1.2rem;
-  box-shadow: $box-shadow-2;
+  left: 20px;
+  position: absolute;
+  background: transparent;
+  color: $primary-red-1;
+  font-size: 0.8rem;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
 }
 
+.orderButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 6px 14px;
+  cursor: pointer;
+  border-radius: 6px;
+  border: none;
+  right: 20px;
+  position: absolute;
+  color: $dark;
+  background: linear-gradient(to right, $primary-green-1, $primary-green-2);
+  font-size: 0.8rem;
+  user-select: none;
+  box-shadow: $box-shadow-2;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  transition: all 0.2s ease-in-out;
+}
+
+.orderButton:hover {
+  color: $primary-green-1;
+  background: $dark;
+  transform: scale(1.1);
+  transition: all 0.1s ease-in-out;
+}
+
+.orderButton p {
+  padding: 0 0 0 0.5rem;
+}
+
 .deleteItemContainer {
   display: flex;
-  width: 100%;
+  width: auto;
   height: 100%;
-  top: 0;
+  top: 5px;
   right: 10px;
   z-index: 0;
 
   justify-content: end;
-  align-items: center;
+  align-items: start;
   position: absolute;
 }
 
@@ -275,4 +341,90 @@ h2 {
 .emptyCart svg {
   font-size: 4rem;
   padding: 1rem;
+}
+
+.cartSummary {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  position: absolute;
+  bottom: 90px;
+  z-index: 0;
+  padding: 0.5rem 1rem 1.5rem 1rem;
+  height: auto;
+  width: 85%;
+  left: 7%;
+  border-top: 1px solid $color;
+  margin: 0 auto 0 auto;
+  background: $light;
+}
+
+.cartSummary span,
+.cartTotal span {
+  right: 0;
+  position: absolute;
+}
+
+.cartSummary p {
+  font-size: 0.8rem;
+  color: $gray-2;
+  margin: 0.2rem 0 0.2rem 0;
+}
+
+.cartTotal {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  position: absolute;
+  bottom: 50px;
+  z-index: 0;
+  background: $light;
+  font-size: 1rem;
+  padding: 0.5rem 1rem 1.5rem 1rem;
+  height: auto;
+  width: 85%;
+  left: 7%;
+  border-top: 1px solid $color;
+  margin: 0 auto 0 auto;
+}
+
+.loader {
+  backdrop-filter: blur(5px);
+  // pointer-events: none;
+  cursor: progress;
+  z-index: 1000;
+  opacity: 1;
+  transition: all 0.1s ease-in-out;
+}
+.loaded {
+  opacity: 0;
+  backdrop-filter: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+//MOBILE
+
+@media screen and (max-width: 40rem) {
+  .sidePanelWrapper {
+    margin: 0;
+    width: 95%;
+    left: 2.5%;
+  }
+  .itemName {
+    padding: 0;
+  }
+  .itemPrice {
+    left: 120px;
+  }
+  .cartList {
+    height: calc(90% - 190px);
+  }
 }

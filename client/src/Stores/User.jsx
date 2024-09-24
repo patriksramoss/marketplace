@@ -3,11 +3,14 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { API_BASE_URL } from "../config";
 import { getCart } from "./Utils/getCart";
 import { clearCart } from "./Utils/clearCart";
+import { removeItemFromCart } from "./Utils/removeItemFromCart";
+import { changeItemQuantity } from "./Utils/changeItemQuantity";
 
 class userStore {
   data = {};
   cart = [];
   cartTotalItems = 0;
+  cartTotalSum = 0;
   loading = {
     main: false,
     cart: false,
@@ -60,19 +63,47 @@ class userStore {
     }
   }
 
+  async removeItemFromCart(itemId) {
+    this.setLoading("cart", true);
+    try {
+      const response = await removeItemFromCart(itemId);
+      this.getCart();
+    } catch (error) {
+      console.error("Failed to add item to cart:", error);
+    }
+  }
+
+  async changeItemQuantity(itemId, value, override) {
+    this.setLoading("cart", true);
+    try {
+      const response = await changeItemQuantity(itemId, value, override);
+      this.getCart();
+    } catch (error) {
+      console.error("Failed to add item to cart:", error);
+    }
+  }
+
   setLoading(item, value) {
     this.loading[item] = value;
   }
-
   setCart(cart) {
     this.cart = cart;
+
     if (cart.items?.length === 0) {
       this.cartTotalItems = 0;
+      this.cartTotalSum = 0;
     } else {
-      this.cartTotalItems = cart.reduce(
-        (total, cartItem) => total + cartItem.quantity,
-        0
+      const { totalItems, totalSum } = cart.reduce(
+        (acc, cartItem) => {
+          acc.totalItems += cartItem.quantity;
+          acc.totalSum += cartItem.data.price * cartItem.quantity;
+          return acc;
+        },
+        { totalItems: 0, totalSum: 0 }
       );
+
+      this.cartTotalItems = totalItems;
+      this.cartTotalSum = totalSum;
     }
 
     this.setLoading("cart", false);

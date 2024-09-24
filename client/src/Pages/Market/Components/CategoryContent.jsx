@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import styles from "./styles.module.scss";
 import { observer } from "mobx-react-lite";
-
+import loader from "../../../assets/images/load.svg";
 //store
 import store from "../store";
-
+import userStore from "../../../Stores/User";
 //icons
 import { IoMdCart } from "react-icons/io";
-
 //Components
 import Container from "../../../Components/Container/Container";
 
@@ -32,7 +31,13 @@ const CategoryContent = ({ title, description, items }) => {
               className={styles.addToCart}
               onClick={() => handleAddToCart(item._id)}
             >
-              <IoMdCart /> Add to cart
+              {userStore.loading.cart ? (
+                <img className={styles.loader} src={loader} />
+              ) : (
+                <>
+                  <IoMdCart /> Add to cart
+                </>
+              )}
             </div>
             <img
               src={item.images.min[0]}

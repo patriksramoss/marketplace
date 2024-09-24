@@ -3,13 +3,17 @@
 
 .navigationWrapper {
   position: fixed;
-  min-height: 100vh;
-  height: 100%;
+  height: auto;
   width: 100%;
+  bottom: 0;
   left: 0;
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  z-index: 1;
+}
+
+.navigationWrapperActive {
   z-index: 10;
 }
 
@@ -158,4 +162,12 @@
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px !important;
   color: $gray-1 !important;
+}
+
+//MOBILE
+
+@media screen and (max-width: 40rem) {
+  // .navigationWrapper {
+  //   z-index: 0;
+  // }
 }

@@ -45,7 +45,7 @@ const ReusableForm = ({
   };
 
   return (
-    <div className={styles.formPage} style={styleWrapper}>
+    <>
       {isMobile ? (
         <NavigationMobile
           categories={categories}
@@ -54,26 +54,29 @@ const ReusableForm = ({
           handleCategoryClick={handleCategoryClick}
           selectedCategory={selectedCategory}
         />
-      ) : (
-        <StickyNavigation
-          categories={categories}
-          categoriesSecondary={categoriesSecondary}
-          bottomCategories={bottomCategories}
-          handleCategoryClick={handleCategoryClick}
-          selectedCategory={selectedCategory}
-        />
-      )}
-      <main className={styles.formPageContent}>
-        <section
-          style={styleSection}
-          className={`${
-            rootStore.cartOpened ? styles.sectionSrink : styles.section
-          }`}
-        >
-          {selectedCategory?.content}
-        </section>
-      </main>
-    </div>
+      ) : null}
+      <div className={styles.formPage} style={styleWrapper}>
+        {isMobile ? null : (
+          <StickyNavigation
+            categories={categories}
+            categoriesSecondary={categoriesSecondary}
+            bottomCategories={bottomCategories}
+            handleCategoryClick={handleCategoryClick}
+            selectedCategory={selectedCategory}
+          />
+        )}
+        <main className={styles.formPageContent}>
+          <section
+            style={styleSection}
+            className={`${
+              rootStore.cartOpened ? styles.sectionSrink : styles.section
+            }`}
+          >
+            {selectedCategory?.content}
+          </section>
+        </main>
+      </div>
+    </>
   );
 };
 export default observer(ReusableForm);

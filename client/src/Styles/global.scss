@@ -47,6 +47,10 @@ p {
   font-weight: 500;
 }
 
+.ant-menu-horizontal > .ant-menu-submenu .ant-menu-submenu-title:hover {
+  background-color: $light !important;
+}
+
 /* ###################### SCROLLBAR ################## */
 
 ::-webkit-scrollbar {
