@@ -19,7 +19,7 @@ export async function fetchCategories() {
           return {
             id: cat._id,
             title: cat.name,
-            icon: IconComponent ? <IconComponent /> : <DefaultIcon />,
+            icon: IconComponent ? <IconComponent /> : null,
             description: cat.description,
             subcategories: cat.subcategories.map((sub) => ({
               id: sub._id,

@@ -22,8 +22,11 @@ const CategoryContent = ({ title, description, items }) => {
 
   return (
     <Container className={styles.categoryContainer} container={true}>
-      <h2 className={styles.categoryTitle}>{title}</h2>
-      <p className={styles.categoryDescription}>{description}</p>
+      <div className={styles.categoryHeader}>
+        <h2 className={styles.categoryTitle}>{title}</h2>
+        <p className={styles.categoryDescription}>{description}</p>
+      </div>
+
       <div className={styles.gridContainer}>
         {items.map((item) => (
           <div key={item._id} className={styles.gridItem}>

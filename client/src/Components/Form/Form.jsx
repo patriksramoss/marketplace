@@ -68,7 +68,7 @@ const ReusableForm = ({
           <section
             style={styleSection}
             className={`${
-              rootStore.cartOpened ? styles.sectionSrink : styles.section
+              rootStore.cartOpened ? styles.section : styles.section
             }`}
           >
             {selectedCategory?.content}

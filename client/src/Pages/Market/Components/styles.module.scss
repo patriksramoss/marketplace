@@ -4,6 +4,10 @@
   padding: 1rem;
 }
 
+.categoryHeader {
+  display: block;
+}
+
 .categoryTitle {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
@@ -27,10 +31,10 @@
   position: relative;
   overflow: hidden;
   text-align: center;
-  border-radius: 20px;
   background: transparent;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
+  overflow: visible;
 }
 
 .gridItem:hover {
@@ -41,12 +45,38 @@
 }
 
 .itemImage {
-  width: 100%;
-  height: auto;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
 }
 
 .itemDetails {
-  padding: 0 0 1rem 0;
+  overflow-wrap: break-word;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  top: 0px;
+  align-items: center;
+  justify-content: start;
+  height: 40px; /* Limit the height of the container (optional) */
+  width: 200px; /* Set a width for the div */
+  padding: 10px;
+}
+
+.itemDetails h3 {
+  font-weight: 500;
+  font-size: 0.8rem;
+  position: relative; /* Keep h3 positioned at the top */
+  white-space: nowrap; /* Prevent the text from wrapping */
+  text-overflow: ellipsis; /* Show an ellipsis (...) when the text overflows */
+}
+
+.itemDetails p {
+  white-space: nowrap; /* Prevent the text from wrapping */
+  overflow: hidden; /* Hide the overflowed text */
+  text-overflow: ellipsis; /* Show an ellipsis (...) when the text overflows */
+  width: 100%;
 }
 
 .itemName {
@@ -63,25 +93,28 @@
 .details {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
+  height: 40px;
+  width: 200px;
 }
 
 .addToCart {
   position: absolute; /* Position it absolutely within the grid item */
-  top: 15%;
-  left: 60%;
+  top: 8%;
+  left: 70%;
   transform: translate(-50%, -50%); /* Offset by half its width and height */
   font-size: 0.8rem;
   white-space: nowrap;
   opacity: 0; /* Start invisible */
   transition: opacity 0.2s ease; /* Smooth transition */
   pointer-events: none; /* Prevent interaction when not visible */
-  background: $primary-color;
+  background: $dark;
   color: $light;
   border-radius: 5px;
   box-shadow: none;
   padding: 0.2rem 0.3rem;
   user-select: none;
+
   -webkit-user-select: none;
   -moz-user-select: none;
 }
@@ -123,5 +156,8 @@
   }
   .gridContainer {
     justify-content: center;
+  }
+  .categoryHeader {
+    display: none;
   }
 }
