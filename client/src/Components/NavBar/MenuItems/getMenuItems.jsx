@@ -17,7 +17,7 @@ const getMenuItems = (authenticated) => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 640); // 640px = 40rem
+      setIsMobile(window.innerWidth <= 1045); // 640px = 40rem
     };
     handleResize();
     window.addEventListener("resize", handleResize);

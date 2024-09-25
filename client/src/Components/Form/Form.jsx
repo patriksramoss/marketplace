@@ -17,10 +17,9 @@ const ReusableForm = ({
   styleSection,
   selectedCategory,
 }) => {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 640); // Detect if the screen is mobile (768px or less)
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
 
   useEffect(() => {
-    // Update the screen size when the window is resized
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 640);
     };
@@ -46,7 +45,7 @@ const ReusableForm = ({
 
   return (
     <>
-      {isMobile ? (
+      {/* {isMobile ? (
         <NavigationMobile
           categories={categories}
           categoriesSecondary={categoriesSecondary}
@@ -54,7 +53,7 @@ const ReusableForm = ({
           handleCategoryClick={handleCategoryClick}
           selectedCategory={selectedCategory}
         />
-      ) : null}
+      ) : null} */}
       <div className={styles.formPage} style={styleWrapper}>
         {isMobile ? null : (
           <StickyNavigation

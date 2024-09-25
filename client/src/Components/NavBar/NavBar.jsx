@@ -8,19 +8,13 @@ import logo from "../../assets/images/logo.png";
 import { API_BASE_URL } from "../../config";
 import { toJS } from "mobx";
 import { Link } from "react-router-dom";
-
 import Cart from "../Cart/Cart";
-
 import getMenuItems from "./MenuItems/getMenuItems";
-
 import CustomMenu from "../Controls/Menu/Menu";
-
 //icons
 import { DollarOutlined } from "@ant-design/icons";
-
 //styling
 import styles from "./styles.module.scss";
-
 //Stores
 import userStore from "../../Stores/User";
 
@@ -45,7 +39,7 @@ const NavBar = observer(({ authenticated }) => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 640); // 640px = 40rem
+      setIsMobile(window.innerWidth <= 1045); // 640px = 40rem
     };
     handleResize();
     window.addEventListener("resize", handleResize);

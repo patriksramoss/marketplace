@@ -17,7 +17,7 @@
   font-size: 2rem;
   color: $primary-dark;
   border: none;
-
+  z-index: 2;
   background: $light;
   border-radius: 10px;
   box-shadow: $box-shadow-2;
@@ -25,7 +25,6 @@
 }
 
 // SIDE PANEL
-/* Define keyframes for fade-out */
 @keyframes fadeOut {
   from {
     opacity: 1;
@@ -86,13 +85,15 @@
 }
 
 .sidePanelWrapper.show,
-.shadow.show {
+.shadow.show,
+.panelBackground.show {
   transform: translateX(0);
   opacity: 1;
 }
 
 .sidePanelWrapper.fadeOut,
-.shadow.fadeOut {
+.shadow.fadeOut,
+.panelBackground.fadeOut {
   pointer-events: none;
   animation: fadeOut 0.2s ease-in-out forwards;
 }
@@ -410,7 +411,35 @@ h2 {
   cursor: not-allowed;
 }
 
+.panelBackground {
+  opacity: 0;
+  position: fixed;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background: transparent;
+  transition: all 0.3s ease-in-out;
+}
+
 //MOBILE
+
+@media screen and (max-width: 80rem) {
+  .sidePanelWrapper {
+    margin: 0;
+    width: 97%;
+    left: 1.5%;
+  }
+
+  .panelBackground {
+    opacity: 1;
+    pointer-events: auto;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+  }
+}
 
 @media screen and (max-width: 40rem) {
   .sidePanelWrapper {

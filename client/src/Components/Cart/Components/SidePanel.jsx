@@ -39,6 +39,11 @@ const SidePanel = observer(({ show }) => {
         }`}
       ></div>
       <div
+        className={`${styles.panelBackground} ${
+          isVisible ? styles.show : styles.fadeOut
+        }`}
+      ></div>
+      <div
         className={`${styles.sidePanelWrapper} ${
           isVisible ? styles.show : styles.fadeOut
         }`}

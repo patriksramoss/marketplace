@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { toJS } from "mobx";
+import NavigationMobile from "../../Components/Form/Components/Mobile/Navigation";
 
 //store
 import store from "./store"; // Update path as needed
@@ -23,6 +24,15 @@ const Market = observer(() => {
   const initialCategoryId = location.hash
     ? location.hash.substring(1)
     : storedCategoryId || store.getCategories()[0]?.id;
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 640);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleCategoryChange = (categoryId) => {
     if (categoryId) {
@@ -51,6 +61,15 @@ const Market = observer(() => {
       <Helmet>
         <title>Market</title>
       </Helmet>
+      {isMobile && (
+        <NavigationMobile
+          categories={store.getRecommended()}
+          categoriesSecondary={store.getCategories()}
+          bottomCategories={store.bottomCategories}
+          handleCategoryClick={handleCategoryChange}
+          selectedCategory={selectedCategory}
+        />
+      )}
       <Container className={styles.appContainerSettings} fullHeight={true}>
         <ReusableForm
           store={store}

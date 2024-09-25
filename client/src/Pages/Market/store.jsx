@@ -205,8 +205,10 @@ class InventoryStore {
     // If no category is found, search for the subcategory
     for (const cat of allCategories) {
       let subcategory = null;
-      if (cat.subcategories) {
-        subcategory = cat.subcategories.find((sub) => sub.id === categoryId);
+      if (cat) {
+        if (cat.subcategories) {
+          subcategory = cat.subcategories.find((sub) => sub.id === categoryId);
+        }
       }
 
       if (subcategory) {
