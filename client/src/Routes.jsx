@@ -7,6 +7,7 @@ import Loader from "./Components/Loader/Loader";
 import Settings from "./Pages/Settings/Settings";
 import Profile from "./Pages/Profile/Profile";
 import Market from "./Pages/Market/Market";
+import Balance from "./Pages/Balance/Balance";
 import { observer } from "mobx-react-lite";
 
 // STORES
@@ -58,7 +59,7 @@ const AppRoutes = observer(({ authenticated }) => {
                 authenticated={authenticated}
                 element={
                   <Suspense fallback={<Loader />}>
-                    <BalanceSandbox />
+                    {userStore.data.sandbox ? <BalanceSandbox /> : null}
                   </Suspense>
                 }
               />

@@ -10,9 +10,13 @@ import userStore from "../../../Stores/User";
 import { FiPlus, FiMinus } from "react-icons/fi";
 import { IoMdTrash } from "react-icons/io";
 import { ImFileEmpty } from "react-icons/im";
-import { MdOutlinePayment } from "react-icons/md";
-
+import { Elements } from "@stripe/react-stripe-js";
+import { REACT_APP_STRIPE_PUBLISHABLE_KEY } from "../../../config.js";
+import { loadStripe } from "@stripe/stripe-js";
 import Loader from "../../Loader/Loader";
+import PayButton from "../../../Components/PaymentForm/PayButton";
+
+const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
 const SidePanel = observer(({ show }) => {
   const [isVisible, setIsVisible] = useState(show);
@@ -201,9 +205,10 @@ const SidePanel = observer(({ show }) => {
                     >
                       <IoMdTrash /> Clear cart
                     </button>
-                    <button className={styles.orderButton} onClick={() => {}}>
-                      <MdOutlinePayment /> <p>Order</p>
-                    </button>
+
+                    <Elements stripe={stripePromise}>
+                      <PayButton />
+                    </Elements>
                   </div>
                 </div>
               ))

@@ -50,7 +50,7 @@ const CategoryContent = ({ title, description, items }) => {
             <div className={styles.details}>
               <div className={styles.itemDetails}>
                 <h3 className={styles.itemName}>{item.name}</h3>
-                <p className={styles.itemDescription}>{item.description}</p>
+                {/* <p className={styles.itemDescription}>{item.description}</p> */}
               </div>
             </div>
           </div>

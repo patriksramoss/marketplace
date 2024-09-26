@@ -6,7 +6,10 @@ import {
   REACT_APP_STRIPE_PUBLISHABLE_KEY,
 } from "../../config.js";
 import { useNavigate } from "react-router-dom";
-
+//Components
+import Container from "../../Components/Container/Container";
+//styles
+import styles from "./styles.module.scss";
 //STRIPE
 import PaymentForm from "../../Components/PaymentForm/PaymentForm";
 import {
@@ -24,17 +27,15 @@ const Balance = () => {
       <Helmet>
         <title>Balance</title>
       </Helmet>
-      <div className="container">
-        <div className="page-wrapper">
-          <header className="home-header"></header>
-          <div className="flex-center"></div>
-          <div className="flex-center">
-            <Elements stripe={stripePromise}>
-              <PaymentForm />
-            </Elements>
-          </div>
-        </div>
-      </div>
+      <Container
+        className={styles.balanceContainer}
+        container={true}
+        fullHeight
+      >
+        <Elements stripe={stripePromise}>
+          <PaymentForm />
+        </Elements>
+      </Container>
     </div>
   );
 };

@@ -129,7 +129,7 @@ const NavBar = observer(({ authenticated }) => {
               <>
                 <div className={`${styles.navMenuContainer} ${styles.balance}`}>
                   <div className={styles.balanceNumber}>
-                    <Link to="/balance" className={styles.captionText}>
+                    <div className={styles.captionText}>
                       <div className={styles.captionTextTitle}>
                         {"Balance: "}
                       </div>
@@ -137,7 +137,7 @@ const NavBar = observer(({ authenticated }) => {
                       <div className={styles.captionTextCurrency}>
                         {userStore.data.currency}
                       </div>
-                    </Link>
+                    </div>
                     <div className={styles.balanceIcon}></div>
                   </div>
                 </div>

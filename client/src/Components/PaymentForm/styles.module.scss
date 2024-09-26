@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import "../../Styles/variables";
+
+.orderButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 6px 14px;
+  cursor: pointer;
+  border-radius: 6px;
+  border: none;
+  right: 20px;
+  position: absolute;
+  color: $dark;
+  background: linear-gradient(to right, $primary-green-1, $primary-green-2);
+  font-size: 0.8rem;
+  user-select: none;
+  box-shadow: $box-shadow-2;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  transition: all 0.2s ease-in-out;
+}
+
+.orderButton:hover {
+  color: $primary-green-1;
+  background: $dark;
+  transform: scale(1.1);
+  transition: all 0.1s ease-in-out;
+}
+
+.payForm {
+  position: relative;
+  height: 100%;
+  width: auto;
+  top: -13px;
+}
