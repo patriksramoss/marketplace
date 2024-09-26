@@ -22,10 +22,10 @@ const CategoryContent = ({ title, description, items }) => {
 
   return (
     <Container className={styles.categoryContainer} container={true}>
-      <div className={styles.categoryHeader}>
+      {/* <div className={styles.categoryHeader}>
         <h2 className={styles.categoryTitle}>{title}</h2>
         <p className={styles.categoryDescription}>{description}</p>
-      </div>
+      </div> */}
 
       <div className={styles.gridContainer}>
         {items.map((item) => (

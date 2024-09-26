@@ -8,6 +8,7 @@ import {
 import { loadStripe } from "@stripe/stripe-js";
 import styles from "./styles.module.scss";
 import userStore from "../../Stores/User";
+import Loader from "../../Components/Loader/Loader";
 
 //icons
 import { MdOutlinePayment } from "react-icons/md";
@@ -22,36 +23,55 @@ const PaymentForm = () => {
     e.preventDefault();
     setLoading(true);
 
-    // Fetch the Checkout Session's id from your server
-    const response = await fetch(
-      `${API_BASE_URL}/payment/create-checkout-session`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ amount: userStore.cartTotalSum * 100 }), // Amount is in cents
+    try {
+      // Fetch the Checkout Session's id from your server
+      const response = await fetch(
+        `${API_BASE_URL}/payment/create-checkout-session`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ amount: userStore.cartTotalSum * 100 }), // Amount is in cents
+        }
+      );
+      const data = await response.json();
+      const sessionId = data.sessionId;
+
+      const stripe = await stripePromise;
+      const { error } = await stripe.redirectToCheckout({
+        sessionId,
+      });
+
+      if (error) {
+        // Handle error here
       }
-    );
-    const data = await response.json();
-    const sessionId = data.sessionId;
-
-    const stripe = await stripePromise;
-    const { error } = await stripe.redirectToCheckout({
-      sessionId,
-    });
-
-    if (error) {
-      // Handle error here
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.payForm}>
+    <form
+      onSubmit={(e) => {
+        if (!loading) {
+          handleSubmit(e);
+        } else {
+          e.preventDefault();
+        }
+      }}
+      className={styles.payForm}
+    >
       <button className={styles.orderButton}>
-        <MdOutlinePayment /> <p>Order</p>
+        {loading ? (
+          <Loader className={styles.loader} />
+        ) : (
+          <>
+            <MdOutlinePayment /> <p>Order</p>
+          </>
+        )}
       </button>
     </form>
   );

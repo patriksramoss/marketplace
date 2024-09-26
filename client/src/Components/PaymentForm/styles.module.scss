@@ -28,9 +28,25 @@
   transition: all 0.1s ease-in-out;
 }
 
+.orderButton p {
+  padding: 0 0 0 0.5rem;
+}
+
 .payForm {
   position: relative;
   height: 100%;
   width: auto;
   top: -13px;
+}
+
+.loader {
+  height: 15px;
+  width: 50px;
+  position: relative;
+  background-size: 60px;
+  pointer-events: auto;
+}
+
+.loader:hover {
+  filter: invert(1);
 }
