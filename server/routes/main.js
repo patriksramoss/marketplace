@@ -39,6 +39,13 @@ router.post(
   main_controller.cart_change_item_quantity
 );
 
+router.get(
+  "/searchForItems",
+  cache,
+  main_controller.search_for_items,
+  setCache
+);
+
 // _________________ User  _________________ //
 
 router.get("/user", authCheckTrue, main_controller.get_current_user);

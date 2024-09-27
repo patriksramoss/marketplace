@@ -2,16 +2,16 @@ import { observer } from "mobx-react-lite";
 import React, { useEffect, useState } from "react";
 import StickyNavigation from "./Components/StickyNavigation";
 import NavigationMobile from "./Components/Mobile/Navigation";
+import { toJS } from "mobx";
 
 import styles from "./styles.module.scss";
 
-import rootStore from "../../Store";
+//Stores
+import userStore from "../../Stores/User";
 
 const ReusableForm = ({
-  categories,
-  categoriesSecondary,
-  bottomCategories,
-  initialCategory,
+  store,
+  allCategories,
   onCategoryChange,
   styleWrapper,
   styleSection,
@@ -29,14 +29,8 @@ const ReusableForm = ({
   }, []);
 
   const handleCategoryClick = (categoryId, category) => {
-    let newSelectedCategory = category;
-
-    if (newSelectedCategory) {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-
+    if (category) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
       if (onCategoryChange) {
         onCategoryChange(categoryId);
       }
@@ -44,38 +38,35 @@ const ReusableForm = ({
   };
 
   return (
-    <>
-      {/* {isMobile ? (
+    <div className={styles.formPage} style={styleWrapper}>
+      {/* Mobile Navigation */}
+      {isMobile ? (
         <NavigationMobile
-          categories={categories}
-          categoriesSecondary={categoriesSecondary}
+          categories={categoriesRecommended}
+          categoriesSecondary={categories}
           bottomCategories={bottomCategories}
           handleCategoryClick={handleCategoryClick}
           selectedCategory={selectedCategory}
         />
-      ) : null} */}
-      <div className={styles.formPage} style={styleWrapper}>
-        {isMobile ? null : (
-          <StickyNavigation
-            categories={categories}
-            categoriesSecondary={categoriesSecondary}
-            bottomCategories={bottomCategories}
-            handleCategoryClick={handleCategoryClick}
-            selectedCategory={selectedCategory}
-          />
-        )}
-        <main className={styles.formPageContent}>
-          <section
-            style={styleSection}
-            className={`${
-              rootStore.cartOpened ? styles.section : styles.section
-            }`}
-          >
-            {selectedCategory?.content}
-          </section>
-        </main>
-      </div>
-    </>
+      ) : (
+        <StickyNavigation
+          handleCategoryClick={handleCategoryClick}
+          selectedCategory={selectedCategory}
+          allCategories={allCategories}
+        />
+      )}
+
+      {/* Main Content */}
+      <main className={styles.formPageContent}>
+        <section
+          style={styleSection}
+          className={`${store.cartOpened ? styles.section : styles.section}`}
+        >
+          {selectedCategory?.content}
+        </section>
+      </main>
+    </div>
   );
 };
+
 export default observer(ReusableForm);

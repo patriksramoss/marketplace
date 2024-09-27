@@ -11,6 +11,11 @@ class userStore {
   cart = [];
   cartTotalItems = 0;
   cartTotalSum = 0;
+
+  search = {
+    market: "",
+  };
+
   loading = {
     main: false,
     cart: false,
@@ -86,6 +91,11 @@ class userStore {
   setLoading(item, value) {
     this.loading[item] = value;
   }
+
+  setSearch(item, value) {
+    this.search[item] = value;
+  }
+
   setCart(cart) {
     this.cart = cart;
 

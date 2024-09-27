@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import { observer } from "mobx-react-lite";
 import loader from "../../../assets/images/load.svg";
+import { toJS } from "mobx";
 //store
 import store from "../store";
 import userStore from "../../../Stores/User";
@@ -12,6 +13,18 @@ import Container from "../../../Components/Container/Container";
 
 const CategoryContent = ({ title, description, items }) => {
   const [loadingItems, setLoadingItems] = useState({});
+
+  // useEffect(() => {
+  //   if (
+  //     !store.selectedCategory &&
+  //     userStore.search.market &&
+  //     userStore.search.market !== ""
+  //   ) {
+  //     items = store.searchedItems;
+  //   }
+  // }, [userStore.search.market]);
+
+  console.log("CATEGORY CONTENT ITEMS", items);
 
   if (!items || items.length === 0) {
     return <Container container={false}>No items available.</Container>;

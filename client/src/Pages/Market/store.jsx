@@ -4,6 +4,7 @@ import { fetchCategories } from "./Utils/fetchCategories";
 import { fetchContent } from "./Utils/fetchContent";
 import { fetchRecommended } from "./Utils/fetchRecommended";
 import { addToCart } from "./Utils/addToCart";
+import { searchItems } from "./Utils/searchItems";
 import CategoryContent from "./Components/CategoryContent";
 import Container from "../../Components/Container/Container";
 
@@ -14,16 +15,32 @@ import userStore from "../../Stores/User";
 // ICONS
 import { IoSettingsOutline } from "react-icons/io5";
 import { RiAccountCircleLine } from "react-icons/ri";
-import { FireOutlined } from "@ant-design/icons";
 
 import Settings from "./BottomCategories/Settings";
 import Share from "./BottomCategories/Share";
 
 class InventoryStore {
   loading = true;
+  selectedCategory = null;
   categories = [];
   recommendedContent = [];
   contentCache = {};
+  extraCategories = [
+    {
+      id: "share",
+      title: "Share",
+      icon: <RiAccountCircleLine />,
+      description: "Share your Table.",
+      content: <Share />,
+    },
+    {
+      id: "settings",
+      title: "Settings",
+      icon: <IoSettingsOutline />,
+      description: "Configure your Table.",
+      content: <Settings />,
+    },
+  ];
   bottomCategories = [
     {
       id: "share",
@@ -40,9 +57,12 @@ class InventoryStore {
       content: <Settings />,
     },
   ];
+
   cart = {
     items: [],
   };
+
+  searchedItems = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -114,6 +134,19 @@ class InventoryStore {
     }
   }
 
+  async searchItems(search) {
+    this.setLoading(true);
+    try {
+      const items = await searchItems(search);
+      runInAction(() => {
+        this.searchedItems = items;
+        this.setLoading(false);
+      });
+    } catch (error) {
+      this.setLoading(false);
+    }
+  }
+
   async loadRecommended() {
     const cacheKey = "recommended"; // Define a unique cache key for recommended items
 
@@ -142,7 +175,7 @@ class InventoryStore {
             ),
             id: "recommended",
             title: "Hot",
-            icon: <FireOutlined />,
+            icon: null,
             description: "Discounted items!",
             name: "Hot 🔥",
           },
@@ -182,6 +215,27 @@ class InventoryStore {
   getContent(categoryId) {
     const cacheKey = categoryId;
     return this.contentCache[cacheKey];
+  }
+
+  getAllCategories() {
+    const allCategories = {
+      top: {
+        categoriesRecommeded: Array.isArray(this.categoriesRecommeded)
+          ? this.categoriesRecommeded
+          : [this.categoriesRecommeded],
+        categories: this.categories,
+        extraCategories: this.extraCategories,
+      },
+      bottom: {
+        bottomCategories: this.bottomCategories,
+      },
+    };
+
+    return allCategories;
+  }
+
+  setSelectedCategory(category) {
+    this.selectedCategory = category;
   }
 
   //FIND, HANDLE

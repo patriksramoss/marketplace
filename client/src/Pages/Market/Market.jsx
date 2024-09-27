@@ -8,10 +8,12 @@ import NavigationMobile from "../../Components/Form/Components/Mobile/Navigation
 
 //store
 import store from "./store"; // Update path as needed
+import userStore from "../../Stores/User";
 
 // Components
 import Container from "../../Components/Container/Container";
 import ReusableForm from "../../Components/Form/Form";
+import CategoryContent from "./Components/CategoryContent";
 
 // STYLES
 import styles from "./styles.module.scss";
@@ -19,11 +21,13 @@ import styles from "./styles.module.scss";
 const Market = observer(() => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [selectedCategory, setSelectedCategory] = useState(null);
   const storedCategoryId = localStorage.getItem("selectedCategory-market");
   const initialCategoryId = location.hash
     ? location.hash.substring(1)
     : storedCategoryId || store.getCategories()[0]?.id;
+
+  const selectedCategory = store.selectedCategory;
+  const search = userStore.search.market;
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
   useEffect(() => {
@@ -38,7 +42,7 @@ const Market = observer(() => {
     if (categoryId) {
       const category = store.findCategory(categoryId);
       if (category) {
-        setSelectedCategory(category);
+        store.setSelectedCategory(category);
         localStorage.setItem("selectedCategory-market", categoryId);
         navigate(`#${categoryId}`);
 
@@ -50,11 +54,34 @@ const Market = observer(() => {
     }
   };
 
+  // useEffect(() => {
+  //   if (!selectedCategory || selectedCategory.id !== initialCategoryId) {
+  //     handleCategoryChange(initialCategoryId);
+  //   }
+  // }, [initialCategoryId, selectedCategory]);
+
   useEffect(() => {
-    if (!selectedCategory || selectedCategory.id !== initialCategoryId) {
-      handleCategoryChange(initialCategoryId);
+    console.log("SEARCH", search);
+    if (search && search !== "") {
+      const searchCategory = {
+        id: "search",
+        title: "search",
+        icon: null,
+        description: "search",
+        content: (
+          <CategoryContent
+            title="search"
+            description="search"
+            items={store.searchedItems}
+          />
+        ),
+      };
+
+      console.log("SELECTED CATEGORY", store.selectedCategory);
+      store.setSelectedCategory(searchCategory);
+      console.log("searchCategory", searchCategory);
     }
-  }, [initialCategoryId, selectedCategory]);
+  }, [search]);
 
   return (
     <>
@@ -63,9 +90,7 @@ const Market = observer(() => {
       </Helmet>
       {isMobile && (
         <NavigationMobile
-          categories={store.getRecommended()}
-          categoriesSecondary={store.getCategories()}
-          bottomCategories={store.bottomCategories}
+          allCategories={store.getAllCategories()}
           handleCategoryClick={handleCategoryChange}
           selectedCategory={selectedCategory}
         />
@@ -73,9 +98,7 @@ const Market = observer(() => {
       <Container className={styles.appContainerSettings} fullHeight={true}>
         <ReusableForm
           store={store}
-          bottomCategories={store.bottomCategories}
-          categories={store.getRecommended()}
-          categoriesSecondary={store.getCategories()}
+          allCategories={store.getAllCategories()}
           initialCategory={selectedCategory?.id}
           onCategoryChange={handleCategoryChange}
           selectedCategory={selectedCategory}

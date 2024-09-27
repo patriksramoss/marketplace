@@ -6,7 +6,6 @@
   min-width: 55vw;
   width: 100%;
   margin: 0 auto;
-  position: relative;
   top: 60px;
 
   ul {
@@ -54,11 +53,11 @@
     align-items: center;
   }
 
-  .categoryArrow {
+  .arrowIcon {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     cursor: pointer;
     border: 0;
     margin: 0 0 0 0.3rem;
@@ -69,19 +68,24 @@
     transition: all 0.1s;
   }
 
-  .categoryArrow:hover {
+  .arrowIcon:hover {
     background: $light;
     box-shadow: $box-shadow-1;
     transition: all 0.1s;
   }
 
-  .categoryArrow svg {
+  .arrowIcon svg {
     margin: 0 !important;
   }
 
   .topFirst {
-    padding: 2em 1em 0.5em 0;
+    padding: 2em 1em 0.5em 0.2rem;
     flex-shrink: 0;
+    position: sticky;
+    width: 15rem;
+    top: 60px;
+    max-height: 77vh;
+    overflow-y: auto;
   }
 
   .topSecond {
@@ -98,7 +102,19 @@
   }
 
   .topNav,
-  .bottomNav {
+  .searchWrapper {
+    margin: 0 0 1rem 0;
+  }
+
+  .categoryItem,
+  .search {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .topNav,
+  .bottomNav,
+  .searchWrapper {
     z-index: 1;
     padding: 0.5em;
     background: $primary-color;
@@ -111,9 +127,10 @@
   }
 
   .navButton,
-  .navButtonSub {
+  .navButtonSub,
+  .searchInput {
     display: flex;
-    padding: 0.25em 1em 0.25em 0.25em;
+    padding: 0.5em 1em 0.5em 0.25em;
     text-decoration: none;
     border: none;
     background: none;
@@ -123,9 +140,11 @@
     align-items: center;
     font-weight: 700;
     cursor: pointer;
-    width: 90%;
+    width: 11rem;
     text-align: left;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     &:hover {
       background: $selected-color;
@@ -147,6 +166,24 @@
       margin-right: 1em;
       color: #1f2937;
     }
+  }
+
+  .searchInput {
+    padding: 0;
+    margin: 0;
+    &:hover {
+      background: transparent;
+    }
+    height: 30px;
+    &:focus {
+      outline: none;
+      border: none;
+    }
+    cursor: text;
+  }
+
+  .searchIcon {
+    font-size: 0.8rem;
   }
 
   .navButtonSub {

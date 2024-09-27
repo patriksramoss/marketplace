@@ -12,17 +12,20 @@
 
 .captionText {
   color: #354138;
+  background: $light;
   font-size: 0.6rem;
   text-shadow: 2px 1px 5px rgba(235, 247, 244, 0.945);
   padding: 10px;
-  width: 100%;
+  right: 0;
+  bottom: 0;
+  position: fixed;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .footer {
-  position: relative;
+  position: absolute;
   width: 100%;
   bottom: 0px;
   height: 10vh;
@@ -30,9 +33,6 @@
   padding: 20px 0;
   color: #354138;
   z-index: -1;
-  // box-shadow: rgba(9, 30, 66, 0.25) -10px 14px 20px -15px inset,
-  //   rgba(9, 30, 66, 0.08) 0px 0px 0px 1px inset;
-  // background: $primary-color;
 }
 
 @media only screen and (max-width: 40rem) {
