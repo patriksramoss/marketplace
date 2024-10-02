@@ -79,12 +79,12 @@
   }
 
   .topFirst {
-    padding: 2em 1em 0.5em 0.2rem;
+    padding: 5em 1em 0.5em 0.2rem;
     flex-shrink: 0;
     position: sticky;
     width: 15rem;
     top: 60px;
-    max-height: 77vh;
+    // max-height: 77vh;
     overflow-y: auto;
   }
 
@@ -134,13 +134,13 @@
     text-decoration: none;
     border: none;
     background: none;
-    margin: 0.25em 0.25em 0.25em 0.25em;
+    margin: 0;
     border-radius: 0.25em;
     color: #374151;
     align-items: center;
     font-weight: 700;
     cursor: pointer;
-    width: 11rem;
+    width: 100%;
     text-align: left;
     white-space: nowrap;
     overflow: hidden;
@@ -171,15 +171,16 @@
   .searchInput {
     padding: 0;
     margin: 0;
+    height: 30px;
+    cursor: text;
+
     &:hover {
       background: transparent;
     }
-    height: 30px;
     &:focus {
       outline: none;
       border: none;
     }
-    cursor: text;
   }
 
   .searchIcon {
@@ -191,7 +192,7 @@
   }
 
   .formPageContent {
-    padding: 2em 0;
+    padding: 5em 0;
     width: 100%;
   }
 

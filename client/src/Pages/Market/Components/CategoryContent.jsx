@@ -24,8 +24,6 @@ const CategoryContent = ({ title, description, items }) => {
   //   }
   // }, [userStore.search.market]);
 
-  console.log("CATEGORY CONTENT ITEMS", items);
-
   if (!items || items.length === 0) {
     return <Container container={false}>No items available.</Container>;
   }

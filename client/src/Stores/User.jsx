@@ -98,22 +98,23 @@ class userStore {
 
   setCart(cart) {
     this.cart = cart;
+    if (cart) {
+      if (cart.length === 0) {
+        this.cartTotalItems = 0;
+        this.cartTotalSum = 0;
+      } else {
+        const { totalItems, totalSum } = cart.reduce(
+          (acc, cartItem) => {
+            acc.totalItems += cartItem.quantity;
+            acc.totalSum += cartItem.data.price * cartItem.quantity;
+            return acc;
+          },
+          { totalItems: 0, totalSum: 0 }
+        );
 
-    if (cart.items?.length === 0) {
-      this.cartTotalItems = 0;
-      this.cartTotalSum = 0;
-    } else {
-      const { totalItems, totalSum } = cart.reduce(
-        (acc, cartItem) => {
-          acc.totalItems += cartItem.quantity;
-          acc.totalSum += cartItem.data.price * cartItem.quantity;
-          return acc;
-        },
-        { totalItems: 0, totalSum: 0 }
-      );
-
-      this.cartTotalItems = totalItems;
-      this.cartTotalSum = totalSum;
+        this.cartTotalItems = totalItems;
+        this.cartTotalSum = totalSum;
+      }
     }
 
     this.setLoading("cart", false);

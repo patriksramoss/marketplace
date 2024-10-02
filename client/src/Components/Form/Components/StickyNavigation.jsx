@@ -25,12 +25,23 @@ const StickyNavigation = ({
       ...prevState,
       [categoryId]: !prevState[categoryId], // Toggle expand/collapse
     }));
+
+    // Save the opened categories in the store
+    const openedCategories = marketStore.getOpenedCategories();
+    if (openedCategories.includes(categoryId)) {
+      // Category is already opened, remove it from the list
+      marketStore.setOpenedCategories(
+        openedCategories.filter((id) => id !== categoryId)
+      );
+    } else {
+      // Category is not opened, add it to the list
+      marketStore.setOpenedCategories([...openedCategories, categoryId]);
+    }
   };
 
   const handleSearch = (query) => {
     userStore.setSearch("market", query);
     if (query && query !== "") {
-      console.log("QUERY", query);
       marketStore.searchItems(query);
     }
 
@@ -93,6 +104,42 @@ const StickyNavigation = ({
     handleSearch(userStore.search.market);
   }, [allCategories]);
 
+  useEffect(() => {
+    const openedCategories = marketStore.getOpenedCategories();
+    if (openedCategories.length > 0) {
+      setExpandedCategories(
+        openedCategories.reduce((acc, categoryId) => {
+          acc[categoryId] = true;
+          return acc;
+        }, {})
+      );
+    }
+  }, [marketStore]);
+
+  useEffect(() => {
+    const storedCategories = localStorage.getItem("openedCategories");
+    if (storedCategories) {
+      setExpandedCategories(JSON.parse(storedCategories));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "openedCategories",
+      JSON.stringify(expandedCategories)
+    );
+  }, [expandedCategories]);
+
+  useEffect(() => {
+    const getSelectedCategory = localStorage.getItem("selectedCategory-market");
+    const findSelectedCategory = marketStore.findCategory(getSelectedCategory);
+    marketStore.setSelectedCategory(findSelectedCategory);
+    const cachedContent = marketStore.getContent(getSelectedCategory);
+    if (!cachedContent || cachedContent.length === 0) {
+      marketStore.loadContent(getSelectedCategory);
+    }
+  }, []);
+
   return (
     <div className={styles.navigationWrapper}>
       <div className={`${styles.formPageNavigationTop} ${styles.topFirst}`}>
@@ -125,20 +172,23 @@ const StickyNavigation = ({
                 <React.Fragment key={category.id}>
                   <li className={styles.categoryItem}>
                     <button
-                      onClick={() => handleCategoryClick(category.id, category)}
+                      onClick={() => {
+                        handleCategoryClick(category.id, category);
+                        toggleCategory(category.id);
+                      }}
                       className={`${styles.navButton} ${
-                        selectedCategory?.id === category.id
+                        selectedCategory && selectedCategory?.id === category.id
                           ? styles.active
                           : ""
                       }`}
                     >
                       <div width="24" height="24">
-                        {category.icon}
+                        {category && category.icon}
                       </div>
-                      {category.title}
+                      {category && category.title}
                     </button>
 
-                    {category.subcategories && (
+                    {/* {category.subcategories && (
                       <div className={styles.arrowIcon}>
                         <RiArrowDropDownLine
                           onClick={() => toggleCategory(category.id)}
@@ -149,7 +199,7 @@ const StickyNavigation = ({
                           }}
                         />
                       </div>
-                    )}
+                    )} */}
                   </li>
                   {category.subcategories &&
                     expandedCategories[category.id] && (

@@ -61,7 +61,6 @@ const Market = observer(() => {
   // }, [initialCategoryId, selectedCategory]);
 
   useEffect(() => {
-    console.log("SEARCH", search);
     if (search && search !== "") {
       const searchCategory = {
         id: "search",
@@ -77,9 +76,7 @@ const Market = observer(() => {
         ),
       };
 
-      console.log("SELECTED CATEGORY", store.selectedCategory);
       store.setSelectedCategory(searchCategory);
-      console.log("searchCategory", searchCategory);
     }
   }, [search]);
 

@@ -25,6 +25,7 @@ class InventoryStore {
   categories = [];
   recommendedContent = [];
   contentCache = {};
+  openedCategories = [];
   extraCategories = [
     {
       id: "share",
@@ -42,20 +43,20 @@ class InventoryStore {
     },
   ];
   bottomCategories = [
-    {
-      id: "share",
-      title: "Share",
-      icon: <RiAccountCircleLine />,
-      description: "Share your Table.",
-      content: <Share />,
-    },
-    {
-      id: "settings",
-      title: "Settings",
-      icon: <IoSettingsOutline />,
-      description: "Configure your Table.",
-      content: <Settings />,
-    },
+    // {
+    //   id: "share",
+    //   title: "Share",
+    //   icon: <RiAccountCircleLine />,
+    //   description: "Share your Table.",
+    //   content: <Share />,
+    // },
+    // {
+    //   id: "settings",
+    //   title: "Settings",
+    //   icon: <IoSettingsOutline />,
+    //   description: "Configure your Table.",
+    //   content: <Settings />,
+    // },
   ];
 
   cart = {
@@ -79,6 +80,15 @@ class InventoryStore {
   setLoading(newLoading) {
     this.loading = newLoading;
     rootStore.loading = newLoading;
+  }
+
+  getOpenedCategories() {
+    console.log("this.openedCategories", this.openedCategories);
+    return this.openedCategories;
+  }
+
+  setOpenedCategories(categories) {
+    this.openedCategories = categories;
   }
 
   async loadContent(categoryId) {
