@@ -45,7 +45,7 @@ const Settings = () => {
       <Container className={styles.appContainerSettings} fullHeight={true}>
         <ReusableForm
           store={store}
-          categories={store.categories}
+          allCategories={store.getAllCategories()}
           initialCategory={selectedCategory?.id}
           onCategoryChange={handleCategoryChange}
           selectedCategory={selectedCategory}

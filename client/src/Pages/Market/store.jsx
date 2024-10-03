@@ -26,22 +26,7 @@ class InventoryStore {
   recommendedContent = [];
   contentCache = {};
   openedCategories = [];
-  extraCategories = [
-    {
-      id: "share",
-      title: "Share",
-      icon: <RiAccountCircleLine />,
-      description: "Share your Table.",
-      content: <Share />,
-    },
-    {
-      id: "settings",
-      title: "Settings",
-      icon: <IoSettingsOutline />,
-      description: "Configure your Table.",
-      content: <Settings />,
-    },
-  ];
+  extraCategories = [];
   bottomCategories = [
     // {
     //   id: "share",
@@ -58,7 +43,6 @@ class InventoryStore {
     //   content: <Settings />,
     // },
   ];
-
   cart = {
     items: [],
   };
@@ -83,8 +67,8 @@ class InventoryStore {
   }
 
   getOpenedCategories() {
-    console.log("this.openedCategories", this.openedCategories);
-    return this.openedCategories;
+    const openedCategories = this.openedCategories;
+    return openedCategories;
   }
 
   setOpenedCategories(categories) {

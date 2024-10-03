@@ -9,8 +9,8 @@ $neutral: #cccccc;
 
 $primary-color: linear-gradient(
   45deg,
-  rgba(228, 245, 254, 0.3) 0%,
-  rgba(239, 249, 252, 0.3) 100%
+  rgba(255, 253, 251, 0.7) 0%,
+  rgba(255, 253, 251, 0.7) 100%
 );
 
 $primary-dark: #2985fe;
@@ -38,6 +38,7 @@ $gray-1: rgb(70, 70, 70);
 $gray-2: rgb(120, 120, 120);
 
 $white-background: rgba(255, 253, 251, 1);
+$white-background-warm: rgba(245, 243, 241, 1);
 $white-background-07: rgba(255, 253, 251, 0.7);
 
 $background-hover-1: linear-gradient(

@@ -14,6 +14,8 @@ import { RiAccountCircleLine } from "react-icons/ri";
 class SettingsStore {
   loading = true;
   recommendedContent = [];
+  selectedCategory = null;
+  openedCategories = [];
   contentCache = {};
   categories = [
     {
@@ -64,9 +66,74 @@ class SettingsStore {
     return this.contentCache[cacheKey];
   }
 
+  getOpenedCategories() {
+    const openedCategories = this.openedCategories;
+    return openedCategories;
+  }
+
+  setOpenedCategories(categories) {
+    this.openedCategories = categories;
+  }
+
+  async loadContent(categoryId) {
+    const cacheKey = categoryId;
+
+    if (
+      this.contentCache[cacheKey] &&
+      this.contentCache[cacheKey].length !== 0
+    ) {
+      return this.contentCache[cacheKey];
+    }
+
+    this.setLoading(true);
+    try {
+      const items = await fetchContent(categoryId);
+
+      runInAction(() => {
+        // Cache the fetched items
+        this.contentCache[cacheKey] = items;
+
+        // Update the content of the selected category or subcategory
+        const category = this.findCategory(categoryId);
+        if (category) {
+          category.content = (
+            <CategoryContent
+              title={category.title}
+              description={category.description}
+              items={items}
+            />
+          );
+        }
+
+        this.setLoading(false);
+      });
+
+      return items;
+    } catch (error) {
+      this.setLoading(false);
+      return null;
+    }
+  }
+
+  setSelectedCategory(category) {
+    this.selectedCategory = category;
+  }
+
+  getAllCategories() {
+    const allCategories = {
+      top: {
+        categories: this.categories,
+      },
+    };
+
+    return allCategories;
+  }
+
   //FIND, HANDLE
 
   findCategory = (categoryId) => {
+    const allCategories = [...this.categories];
+
     const category = this.categories.find((cat) => cat.id === categoryId);
 
     if (category) {

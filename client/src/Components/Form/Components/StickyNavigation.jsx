@@ -5,12 +5,14 @@ import { toJS } from "mobx";
 // Icons
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { FaSearch } from "react-icons/fa";
+import { RiMenuSearchLine } from "react-icons/ri";
+import { IoClose } from "react-icons/io5";
 
 //Stores
 import userStore from "../../../Stores/User";
-import marketStore from "../../../Pages/Market/store";
 
 const StickyNavigation = ({
+  store,
   allCategories, // This includes top and bottom categories
   handleCategoryClick,
   selectedCategory,
@@ -18,6 +20,16 @@ const StickyNavigation = ({
   // State to track expanded categories
   const [expandedCategories, setExpandedCategories] = useState({});
   const [filteredCategories, setFilteredCategories] = useState(allCategories);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
+  const [menuOpened, setMenuOpened] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 640);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Function to toggle subcategory visibility
   const toggleCategory = (categoryId) => {
@@ -27,22 +39,21 @@ const StickyNavigation = ({
     }));
 
     // Save the opened categories in the store
-    const openedCategories = marketStore.getOpenedCategories();
+    const openedCategories = store.getOpenedCategories();
     if (openedCategories.includes(categoryId)) {
       // Category is already opened, remove it from the list
-      marketStore.setOpenedCategories(
+      store.setOpenedCategories(
         openedCategories.filter((id) => id !== categoryId)
       );
     } else {
       // Category is not opened, add it to the list
-      marketStore.setOpenedCategories([...openedCategories, categoryId]);
+      store.setOpenedCategories([...openedCategories, categoryId]);
     }
   };
 
   const handleSearch = (query) => {
-    userStore.setSearch("market", query);
     if (query && query !== "") {
-      marketStore.searchItems(query);
+      store.searchItems(query);
     }
 
     // Create a new object for filtered categories
@@ -55,15 +66,13 @@ const StickyNavigation = ({
     for (const section in allCategories) {
       for (const categoryKey in allCategories[section]) {
         const category = allCategories[section][categoryKey];
-
-        // Filter the category itself by title/description
-        const filteredCategory = category.filter((item) =>
-          item.title.toLowerCase().includes(query)
-        );
-
+        const filteredCategory = category.filter((item) => {
+          if (item && item.title) {
+            item.title.toLowerCase().includes(query);
+          }
+        });
         // Loop through each category and filter its subcategories
         const filteredCategoryWithSubcategories = category.map((cat) => {
-          // Filter subcategories
           const filteredSubcategories = cat.subcategories
             ? cat.subcategories.filter(
                 (subcat) =>
@@ -105,7 +114,7 @@ const StickyNavigation = ({
   }, [allCategories]);
 
   useEffect(() => {
-    const openedCategories = marketStore.getOpenedCategories();
+    const openedCategories = store.getOpenedCategories();
     if (openedCategories.length > 0) {
       setExpandedCategories(
         openedCategories.reduce((acc, categoryId) => {
@@ -114,7 +123,7 @@ const StickyNavigation = ({
         }, {})
       );
     }
-  }, [marketStore]);
+  }, [store]);
 
   useEffect(() => {
     const storedCategories = localStorage.getItem("openedCategories");
@@ -132,166 +141,190 @@ const StickyNavigation = ({
 
   useEffect(() => {
     const getSelectedCategory = localStorage.getItem("selectedCategory-market");
-    const findSelectedCategory = marketStore.findCategory(getSelectedCategory);
-    marketStore.setSelectedCategory(findSelectedCategory);
-    const cachedContent = marketStore.getContent(getSelectedCategory);
+    const findSelectedCategory = store.findCategory(getSelectedCategory);
+    store.setSelectedCategory(findSelectedCategory);
+    const cachedContent = store.getContent(getSelectedCategory);
     if (!cachedContent || cachedContent.length === 0) {
-      marketStore.loadContent(getSelectedCategory);
+      store.loadContent(getSelectedCategory);
     }
   }, []);
 
   return (
-    <div className={styles.navigationWrapper}>
-      <div className={`${styles.formPageNavigationTop} ${styles.topFirst}`}>
-        <nav className={styles.searchWrapper}>
-          <ul>
-            <li className={styles.search}>
-              <div className={styles.searchInput}>
-                <FaSearch className={styles.searchIcon} />
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className={styles.searchInput}
-                  value={userStore.search.market}
-                  onChange={(e) => {
-                    if (userStore.search.market) {
-                      marketStore.selectedCategory = null;
-                    }
-                    handleSearch(e.target.value.toLowerCase());
-                  }}
-                />
-              </div>
-            </li>
-          </ul>
-        </nav>
-
-        {Object.entries(filteredCategories.top).map(
-          ([key, topCategoryArray]) => (
-            <nav key={key} className={styles.topNav}>
-              {topCategoryArray.map((category) => (
-                <React.Fragment key={category.id}>
-                  <li className={styles.categoryItem}>
-                    <button
-                      onClick={() => {
-                        handleCategoryClick(category.id, category);
-                        toggleCategory(category.id);
-                      }}
-                      className={`${styles.navButton} ${
-                        selectedCategory && selectedCategory?.id === category.id
-                          ? styles.active
-                          : ""
-                      }`}
-                    >
-                      <div width="24" height="24">
-                        {category && category.icon}
-                      </div>
-                      {category && category.title}
-                    </button>
-
-                    {/* {category.subcategories && (
-                      <div className={styles.arrowIcon}>
-                        <RiArrowDropDownLine
-                          onClick={() => toggleCategory(category.id)}
-                          style={{
-                            transform: expandedCategories[category.id]
-                              ? "rotate(180deg)"
-                              : "rotate(0deg)",
-                          }}
-                        />
-                      </div>
-                    )} */}
-                  </li>
-                  {category.subcategories &&
-                    expandedCategories[category.id] && (
-                      <ul
-                        className={`${styles.subcategoryList} ${
-                          expandedCategories[category.id]
-                            ? styles.showSubcategories
-                            : styles.hideSubcategories
-                        }`}
-                      >
-                        {category.subcategories.map((subcategory) => (
-                          <li
-                            key={subcategory.id}
-                            className={styles.subcategoryItem}
-                          >
-                            <button
-                              onClick={() =>
-                                handleCategoryClick(subcategory.id, subcategory)
-                              }
-                              className={`${styles.navButtonSub} ${
-                                selectedCategory?.id === subcategory.id
-                                  ? styles.active
-                                  : ""
-                              }`}
-                            >
-                              {subcategory.name}
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                </React.Fragment>
-              ))}
-            </nav>
-          )
-        )}
-      </div>
-
-      {allCategories.bottom.bottomCategories.length > 0 && (
-        <div className={styles.formPageNavigationBottom}>
-          <nav className={styles.bottomNav}>
-            <ul>
-              {allCategories.bottom.bottomCategories.map((category) => (
-                <li key={category.id} className={styles.categoryItem}>
-                  <button
-                    onClick={() => handleCategoryClick(category.id, category)}
-                    className={`${styles.navButton} ${
-                      selectedCategory?.id === category.id ? styles.active : ""
-                    }`}
-                  >
-                    <div width="24" height="24">
-                      {category.icon}
-                    </div>
-                    {category.title}
-                  </button>
-
-                  {category.subcategories && (
-                    <ul
-                      className={`${styles.subcategoryList} ${
-                        expandedCategories[category.id]
-                          ? styles.showSubcategories
-                          : styles.hideSubcategories
-                      }`}
-                    >
-                      {category.subcategories.map((subcategory) => (
-                        <li
-                          key={subcategory.id}
-                          className={styles.subcategoryItem}
-                        >
-                          <button
-                            onClick={() =>
-                              handleCategoryClick(subcategory.id, subcategory)
-                            }
-                            className={`${styles.navButtonSub} ${
-                              selectedCategory?.id === subcategory.id
-                                ? styles.active
-                                : ""
-                            }`}
-                          >
-                            {subcategory.name}
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </nav>
+    <>
+      {isMobile && (
+        <div
+          className={`${styles.mobileNavButtonWrapper} ${
+            menuOpened ? styles.mobileNavButtonWrapperActive : ""
+          }`}
+        >
+          <button
+            onClick={() => setMenuOpened(!menuOpened)}
+            className={`${styles.mobileNavButton} ${
+              menuOpened ? styles.mobileNavButtonActive : ""
+            }`}
+          >
+            {menuOpened ? <IoClose /> : <RiMenuSearchLine />}
+          </button>
         </div>
       )}
-    </div>
+      <div
+        className={`${styles.navigationWrapper} ${
+          isMobile ? styles.navigationWrapperMobile : ""
+        }
+      ${isMobile && menuOpened ? styles.navigationWrapperMobileActive : ""}
+      `}
+      >
+        <div className={`${styles.formPageNavigationTop} ${styles.topFirst}`}>
+          <nav className={styles.searchWrapper}>
+            <ul>
+              <li className={styles.search}>
+                <div className={styles.searchInput}>
+                  <FaSearch className={styles.searchIcon} />
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    className={styles.searchInput}
+                    value={userStore.search.market}
+                    onChange={(e) => {
+                      if (userStore.search.market) {
+                        store.selectedCategory = null;
+                      }
+                      handleSearch(e.target.value.toLowerCase());
+                    }}
+                  />
+                </div>
+              </li>
+            </ul>
+          </nav>
+
+          {Object.entries(filteredCategories.top).map(
+            ([key, topCategoryArray]) => (
+              <nav key={key} className={styles.topNav}>
+                {topCategoryArray.map((category) => (
+                  <React.Fragment key={category.id}>
+                    <li className={styles.categoryItem}>
+                      <button
+                        onClick={() => {
+                          handleCategoryClick(category.id, category);
+                          toggleCategory(category.id);
+                        }}
+                        className={`${styles.navButton} ${
+                          selectedCategory &&
+                          selectedCategory?.id === category.id
+                            ? styles.active
+                            : ""
+                        }`}
+                      >
+                        <div width="24" height="24">
+                          {category && category.icon}
+                        </div>
+                        {category && category.title}
+                      </button>
+                    </li>
+                    {category &&
+                      category.subcategories &&
+                      expandedCategories[category.id] && (
+                        <ul
+                          className={`${styles.subcategoryList} ${
+                            expandedCategories[category.id]
+                              ? styles.showSubcategories
+                              : styles.hideSubcategories
+                          }`}
+                        >
+                          {category.subcategories.map((subcategory) => (
+                            <li
+                              key={subcategory.id}
+                              className={styles.subcategoryItem}
+                            >
+                              <button
+                                onClick={() =>
+                                  handleCategoryClick(
+                                    subcategory.id,
+                                    subcategory
+                                  )
+                                }
+                                className={`${styles.navButtonSub} ${
+                                  selectedCategory?.id === subcategory.id
+                                    ? styles.active
+                                    : ""
+                                }`}
+                              >
+                                {subcategory.name}
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                  </React.Fragment>
+                ))}
+              </nav>
+            )
+          )}
+        </div>
+
+        {allCategories.bottom &&
+          allCategories.bottom.bottomCategories.length > 0 && (
+            <div className={styles.formPageNavigationBottom}>
+              <nav className={styles.bottomNav}>
+                <ul>
+                  {allCategories.bottom.bottomCategories.map((category) => (
+                    <li key={category.id} className={styles.categoryItem}>
+                      <button
+                        onClick={() =>
+                          handleCategoryClick(category.id, category)
+                        }
+                        className={`${styles.navButton} ${
+                          selectedCategory?.id === category.id
+                            ? styles.active
+                            : ""
+                        }`}
+                      >
+                        <div width="24" height="24">
+                          {category.icon}
+                        </div>
+                        {category.title}
+                      </button>
+
+                      {category.subcategories && (
+                        <ul
+                          className={`${styles.subcategoryList} ${
+                            expandedCategories[category.id]
+                              ? styles.showSubcategories
+                              : styles.hideSubcategories
+                          }`}
+                        >
+                          {category.subcategories.map((subcategory) => (
+                            <li
+                              key={subcategory.id}
+                              className={styles.subcategoryItem}
+                            >
+                              <button
+                                onClick={() =>
+                                  handleCategoryClick(
+                                    subcategory.id,
+                                    subcategory
+                                  )
+                                }
+                                className={`${styles.navButtonSub} ${
+                                  selectedCategory?.id === subcategory.id
+                                    ? styles.active
+                                    : ""
+                                }`}
+                              >
+                                {subcategory.name}
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          )}
+      </div>
+    </>
   );
 };
 

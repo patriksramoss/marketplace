@@ -5,6 +5,7 @@ import { getCart } from "./Utils/getCart";
 import { clearCart } from "./Utils/clearCart";
 import { removeItemFromCart } from "./Utils/removeItemFromCart";
 import { changeItemQuantity } from "./Utils/changeItemQuantity";
+import { toJS } from "mobx";
 
 class userStore {
   data = {};
@@ -62,7 +63,7 @@ class userStore {
     this.setLoading("cart", true);
     try {
       const response = await clearCart();
-      this.setCart(response.cart);
+      this.getCart();
     } catch (error) {
       console.error("Failed to add item to cart:", error);
     }

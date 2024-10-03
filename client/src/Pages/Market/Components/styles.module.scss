@@ -115,7 +115,7 @@
   box-shadow: none;
   padding: 0.2rem 0.3rem;
   user-select: none;
-  transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.1s ease-in-out;
 
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -124,12 +124,12 @@
 .gridItem:hover .addToCart {
   opacity: 1; /* Make visible on hover */
   pointer-events: auto; /* Allow interaction when visible */
-  transition: opacity 0.3s ease-in-out, background 0.6s ease-in-out;
+  transition: opacity 0.1s ease-in-out, background 0.2s ease-in-out;
 }
 .addToCart:hover {
   background: $light;
   color: $dark;
-  transition: background 0.3s ease-in-out;
+  transition: background 0.1s ease-in-out;
   box-shadow: $box-shadow-2;
 }
 

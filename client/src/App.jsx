@@ -21,7 +21,6 @@ import "./Styles/global.scss";
 function App() {
   const [authenticated, setAuthenticated] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const canvasContainerRef = React.useRef(null);
 
   useEffect(() => {
     async function checkAuthentication() {
@@ -43,13 +42,11 @@ function App() {
   }, []);
 
   return (
-    <div ref={canvasContainerRef}>
-      <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-        <NavBar authenticated={authenticated} />
-      </GoogleOAuthProvider>
+    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+      <NavBar authenticated={authenticated} />
       <AppRoutes authenticated={authenticated} />
       {isLoaded && root.showFooter && <Footer />}
-    </div>
+    </GoogleOAuthProvider>
   );
 }
 

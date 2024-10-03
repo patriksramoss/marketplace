@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { toJS } from "mobx";
 import NavigationMobile from "../../Components/Form/Components/Mobile/Navigation";
+import StickyNavigation from "../../Components/Form/Components/StickyNavigation";
 
 //store
 import store from "./store"; // Update path as needed
@@ -85,23 +86,14 @@ const Market = observer(() => {
       <Helmet>
         <title>Market</title>
       </Helmet>
-      {isMobile && (
-        <NavigationMobile
-          allCategories={store.getAllCategories()}
-          handleCategoryClick={handleCategoryChange}
-          selectedCategory={selectedCategory}
-        />
-      )}
-      <Container className={styles.appContainerSettings} fullHeight={true}>
-        <ReusableForm
-          store={store}
-          allCategories={store.getAllCategories()}
-          initialCategory={selectedCategory?.id}
-          onCategoryChange={handleCategoryChange}
-          selectedCategory={selectedCategory}
-          styleSection={{ background: "transparent", boxShadow: "none" }}
-        />
-      </Container>
+      <ReusableForm
+        store={store}
+        allCategories={store.getAllCategories()}
+        initialCategory={selectedCategory?.id}
+        onCategoryChange={handleCategoryChange}
+        selectedCategory={selectedCategory}
+        styleSection={{ background: "transparent", boxShadow: "none" }}
+      />
     </>
   );
 });

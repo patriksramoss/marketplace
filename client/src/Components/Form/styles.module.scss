@@ -7,308 +7,360 @@
   width: 100%;
   margin: 0 auto;
   top: 60px;
+  padding: 1rem 2rem;
+}
 
-  ul {
-    display: block;
-    flex-direction: unset;
-  }
-  nav {
-    position: sticky;
+ul {
+  display: block;
+  flex-direction: unset;
+}
+nav {
+  position: sticky;
+}
+
+.displayNone {
+  display: none;
+}
+
+.navigationWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 94vh; /* Full height to make the sticky effect more pronounced */
+  flex: 1; /* Allow it to fill available space */
+}
+
+.navigationWrapperMobile {
+  opacity: 0;
+  position: fixed;
+  pointer-events: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.navigationWrapperMobileActive {
+  opacity: 1;
+  pointer-events: all;
+  transition: all 0.1s ease-in-out;
+}
+
+.topNavigationWrapper {
+  position: sticky;
+  top: 60px;
+}
+
+.formPageNavigationTop {
+  flex-shrink: 0;
+}
+
+.categoryRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.categoryRow .navButton {
+  width: 100%;
+}
+
+.categoryTitleWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.arrowIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+  cursor: pointer;
+  border: 0;
+  margin: 0 0 0 0.3rem;
+  background: none;
+  box-shadow: none;
+  border-radius: 20%;
+  z-index: 10;
+  transition: all 0.1s;
+}
+
+.arrowIcon:hover {
+  background: $light;
+  box-shadow: $box-shadow-1;
+  transition: all 0.1s;
+}
+
+.arrowIcon svg {
+  margin: 0 !important;
+}
+
+.topFirst {
+  padding: 5em 1em 0.5em 0.2rem;
+  flex-shrink: 0;
+  position: sticky;
+  width: 15rem;
+  top: 60px;
+  // max-height: 77vh;
+  overflow-y: auto;
+}
+
+.topSecond {
+  padding: 0.5em 1em 2em 0;
+  flex-shrink: 0;
+}
+
+.formPageNavigationBottom {
+  padding: 2em 1em 0 0;
+  flex-shrink: 0;
+  position: sticky;
+  bottom: 20px; /* Initial distance from the bottom */
+  transition: bottom 0s ease; /* Smooth transition for bottom position change */
+}
+
+.topNav,
+.searchWrapper {
+  margin: 0 0 1rem 0;
+}
+
+.categoryItem,
+.search {
+  display: flex;
+  justify-content: space-between;
+}
+
+.topNav,
+.bottomNav,
+.searchWrapper {
+  z-index: 1;
+  padding: 0.5em;
+  background: $white-background;
+  border-radius: 10px;
+  box-shadow: $box-shadow-2;
+}
+
+.navButton,
+.navButtonSub,
+.searchInput {
+  display: flex;
+  padding: 0.5em 1em 0.5em 0.25em;
+  text-decoration: none;
+  border: none;
+  background: none;
+  margin: 0;
+  border-radius: 0.25em;
+  color: #374151;
+  align-items: center;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &:hover {
+    background: $selected-color;
+    transition: all 0.3s;
   }
 
-  .displayNone {
+  &.active {
+    background: $selected-color;
+    outline: 1px solid $selected-color-hover;
+    transition: all 0.1s;
+    &:hover {
+      background: $selected-color-hover;
+    }
+  }
+
+  svg {
+    width: 1.25em;
+    height: 1.25em;
+    margin-right: 1em;
+    color: #1f2937;
+  }
+}
+
+.searchInput {
+  padding: 0;
+  margin: 0;
+  height: 30px;
+  cursor: text;
+
+  &:hover {
+    background: transparent;
+  }
+  &:focus {
+    outline: none;
+    border: none;
+  }
+}
+
+.searchIcon {
+  font-size: 0.8rem;
+}
+
+.navButtonSub {
+  font-weight: 500;
+}
+
+.formPageContent {
+  padding: 5em 0;
+  width: 100%;
+}
+
+.section {
+  margin-right: 0;
+  transition: all 0.2s ease-out;
+}
+
+.sectionSrink {
+  margin-right: 32rem;
+  transition: all 0.2s ease-out;
+}
+
+section {
+  background: $primary-color;
+  border-radius: 10px;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+    rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+  padding: 2em;
+  margin-bottom: 2rem;
+}
+
+.table section {
+  background: transparent;
+  box-shadow: none;
+}
+
+section h1 {
+  font-weight: 500;
+  font-size: 1.25rem;
+  color: #000;
+  margin-bottom: 0.75rem;
+}
+
+.subcategoryList {
+  list-style-type: none;
+  padding-left: 2rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  opacity: 0;
+}
+
+.showSubcategories {
+  max-height: 500px; /* adjust this value based on your content size */
+  opacity: 1;
+}
+
+.hideSubcategories {
+  max-height: 0;
+  opacity: 0;
+}
+
+.mobileNavButton {
+  border-radius: 50%;
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: 20px;
+  background: $white-background;
+  box-shadow: $box-shadow-2;
+  cursor: pointer;
+}
+
+.mobileNavButtonWrapper {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  pointer-events: none;
+  z-index: 2;
+  backdrop-filter: blur(0px);
+  transition: all 0.3s ease-in-out;
+}
+
+.mobileNavButtonWrapperActive {
+  background: $white-background-07;
+  backdrop-filter: blur(10px);
+  transition: all 0.1s ease-in-out;
+}
+
+.mobileNavButton {
+  border-radius: 50%;
+  position: fixed;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  pointer-events: auto;
+  align-items: center;
+  justify-content: center;
+  bottom: 40px;
+  right: 40px;
+  border: 0;
+  color: $dark;
+  font-size: 1.5rem;
+  background: $light;
+  box-shadow: $box-shadow-2;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.mobileNavButtonActive {
+  background: $dark;
+  color: $light;
+  transition: all 0.1s ease-in-out;
+}
+
+//MOBILE
+
+@media only screen and (max-width: 750px) {
+  .formPageNavigation {
     display: none;
   }
-
+  .formPageNavigation {
+    display: block !important;
+  }
+  form {
+    // padding: 0 !important;
+    // padding-right: 1rem !important;
+    overflow: hidden;
+  }
+}
+@media only screen and (max-width: 40rem) {
   .navigationWrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 94vh; /* Full height to make the sticky effect more pronounced */
-    flex: 1; /* Allow it to fill available space */
-  }
-
-  .topNavigationWrapper {
-    position: sticky;
-    top: 60px;
-  }
-
-  .formPageNavigationTop {
-    flex-shrink: 0;
-  }
-
-  .categoryRow {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .categoryRow .navButton {
+    margin: 0 auto;
+    left: 1%;
+    position: fixed;
+    max-height: 10vh;
     width: 100%;
+    z-index: 3;
+    min-height: unset;
+    max-height: 10vh;
   }
 
-  .categoryTitleWrapper {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .arrowIcon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.4rem;
-    cursor: pointer;
-    border: 0;
-    margin: 0 0 0 0.3rem;
-    background: none;
-    box-shadow: none;
-    border-radius: 20%;
-    z-index: 10;
-    transition: all 0.1s;
-  }
-
-  .arrowIcon:hover {
-    background: $light;
-    box-shadow: $box-shadow-1;
-    transition: all 0.1s;
-  }
-
-  .arrowIcon svg {
-    margin: 0 !important;
-  }
-
-  .topFirst {
-    padding: 5em 1em 0.5em 0.2rem;
-    flex-shrink: 0;
-    position: sticky;
-    width: 15rem;
-    top: 60px;
-    // max-height: 77vh;
-    overflow-y: auto;
-  }
-
-  .topSecond {
-    padding: 0.5em 1em 2em 0;
-    flex-shrink: 0;
-  }
-
+  .formPageNavigationTop,
   .formPageNavigationBottom {
-    padding: 2em 1em 0 0;
-    flex-shrink: 0;
-    position: sticky;
-    bottom: 20px; /* Initial distance from the bottom */
-    transition: bottom 0s ease; /* Smooth transition for bottom position change */
-  }
-
-  .topNav,
-  .searchWrapper {
-    margin: 0 0 1rem 0;
-  }
-
-  .categoryItem,
-  .search {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .topNav,
-  .bottomNav,
-  .searchWrapper {
-    z-index: 1;
-    padding: 0.5em;
-    background: $primary-color;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2509803922);
-    border-radius: 10px;
-    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
-      rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
-  }
-
-  .navButton,
-  .navButtonSub,
-  .searchInput {
-    display: flex;
-    padding: 0.5em 1em 0.5em 0.25em;
-    text-decoration: none;
-    border: none;
-    background: none;
-    margin: 0;
-    border-radius: 0.25em;
-    color: #374151;
-    align-items: center;
-    font-weight: 700;
-    cursor: pointer;
+    position: absolute;
+    padding-top: 1rem;
     width: 100%;
-    text-align: left;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
-    &:hover {
-      background: $selected-color;
-      transition: all 0.3s;
-    }
-
-    &.active {
-      background: $selected-color;
-      outline: 1px solid $selected-color-hover;
-      transition: all 0.1s;
-      &:hover {
-        background: $selected-color-hover;
-      }
-    }
-
-    svg {
-      width: 1.25em;
-      height: 1.25em;
-      margin-right: 1em;
-      color: #1f2937;
-    }
-  }
-
-  .searchInput {
-    padding: 0;
-    margin: 0;
-    height: 30px;
-    cursor: text;
-
-    &:hover {
-      background: transparent;
-    }
-    &:focus {
-      outline: none;
-      border: none;
-    }
-  }
-
-  .searchIcon {
-    font-size: 0.8rem;
-  }
-
-  .navButtonSub {
-    font-weight: 500;
-  }
-
-  .formPageContent {
-    padding: 5em 0;
-    width: 100%;
-  }
-
-  .section {
-    margin-right: 0;
-    transition: all 0.2s ease-out;
-  }
-
-  .sectionSrink {
-    margin-right: 32rem;
-    transition: all 0.2s ease-out;
-  }
-
-  section {
-    background: $primary-color;
-    border-radius: 10px;
-    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
-      rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
-    padding: 2em;
-    margin-bottom: 2rem;
-  }
-
-  .table section {
-    background: transparent;
-    box-shadow: none;
-  }
-
-  section h1 {
-    font-weight: 500;
-    font-size: 1.25rem;
-    color: #000;
-    margin-bottom: 0.75rem;
-  }
-
-  .subcategoryList {
-    list-style-type: none;
-    padding-left: 2rem;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-    opacity: 0;
-  }
-
-  .showSubcategories {
-    max-height: 500px; /* adjust this value based on your content size */
-    opacity: 1;
-  }
-
-  .hideSubcategories {
-    max-height: 0;
-    opacity: 0;
-  }
-
-  //MOBILE
-
-  @media only screen and (max-width: 750px) {
-    .formPageNavigation {
-      display: none;
-    }
-    .formPageNavigation {
-      display: block !important;
-    }
-    form {
-      padding: 0 !important;
-      padding-right: 1rem !important;
-      overflow: hidden;
-    }
-  }
-  @media only screen and (max-width: 40rem) {
-    .navigationWrapper {
-      position: relative;
-      z-index: 1;
-      min-height: unset;
-      width: 80vw;
-      height: auto;
-    }
-    .active {
-      width: 95%;
-    }
-    .formPageNavigationTop,
-    .formPageNavigationBottom {
-      display: flex !important;
-      position: relative;
-      padding: 0 0 0.5rem 0;
-      width: 100%;
-      justify-content: center;
-
-      ul {
-        display: flex;
-        flex-direction: column;
-        width: 80vw;
-      }
-      nav {
-        position: relative;
-        max-width: 80vw;
-      }
-    }
-    .formPageNavigationTop {
-      top: 20px;
-    }
-    .formPageNavigationBottom {
-      bottom: 20px;
-    }
-
-    .formPageContent {
-      // margin-top: 4rem;
-    }
+    justify-content: center;
   }
 }
 
 @media screen and (max-width: 40rem) {
   .formPage {
-    width: 80vw;
+    width: 90vw;
     min-width: unset;
     display: flex;
     flex-direction: column;
+    padding: 0;
   }
   .formPageContent section {
     width: auto !important;
