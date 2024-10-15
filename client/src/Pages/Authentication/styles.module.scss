@@ -1,13 +1,16 @@
+@import "../../Styles/variables";
+
 .appContainerAuth {
   height: 100%;
   margin-top: 100px;
   padding-bottom: 30px;
   padding: 0 30% 50px 30%;
+  color: $font-color-1;
 }
 
 .formWrapper {
   padding: 5px 5px 5px 0px;
-  border-radius: 20px 20px 0px 0px;
+  border-radius: 20px 20px;
   backdrop-filter: blur(10px);
 }
 

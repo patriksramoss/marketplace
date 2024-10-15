@@ -18,7 +18,7 @@
   color: $primary-dark;
   border: none;
   z-index: 2;
-  background: $light;
+  background: $primary-color;
   border-radius: 10px;
   box-shadow: $box-shadow-2;
   cursor: pointer;
@@ -44,9 +44,10 @@
   // max-height: 70%;
   top: 6rem;
   right: 0;
+  backdrop-filter: blur(10px);
   z-index: 25;
   margin: 0 2rem 2rem 0;
-  background: $light;
+  background: $primary-color;
   border-radius: 10px;
   box-shadow: $box-shadow-2;
   transform: translateX(20%);
@@ -106,7 +107,7 @@
   border-bottom: 1px solid $color;
   position: fixed;
   z-index: 2;
-  background: $light;
+  background: $primary-color;
   width: 100%;
   left: 0;
   top: 0;
@@ -198,7 +199,6 @@
   text-align: center;
   z-index: 2;
   border: 1px solid $color;
-  background: $light;
 }
 
 .quantityArrows {
@@ -209,12 +209,10 @@
   cursor: pointer;
   border: 1px solid $color;
   z-index: 2;
-  background: $light;
   transition: all 0.2s ease-in-out;
 }
 
 .quantityArrows:hover {
-  color: $light;
   background: $dark;
   transition: all 0.2s ease-in-out;
 }
@@ -255,7 +253,7 @@ h2 {
   z-index: 1;
   align-items: center;
   justify-content: end;
-  background: $light;
+  background: $primary-color;
   padding: 10rem 1rem 2rem 1rem;
 }
 
@@ -270,11 +268,24 @@ h2 {
   left: 20px;
   position: absolute;
   background: transparent;
-  color: $primary-red-1;
+  color: $font-color-1;
   font-size: 0.8rem;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+}
+
+.clearButton:hover {
+  background: $selected-color;
+}
+
+.clearButton svg {
+  fill: $light;
+  background: $primary-red-1;
+  font-size: 1.5rem;
+  padding: 2px;
+  margin-right: 5px;
+  border-radius: 5px;
 }
 
 .orderButton {
@@ -325,11 +336,17 @@ h2 {
   padding: 3px;
   margin: 5px;
   border: none;
-  background: none;
+  background: $light;
+  border-radius: 5px;
   cursor: pointer;
   color: $primary-red-1;
   font-size: 1.5rem;
+  height: 30px;
   transition: all 0.2s ease-in-out;
+}
+
+.deleteItem svg {
+  fill: $primary-red-1;
 }
 
 .deleteItem:hover {
@@ -366,7 +383,7 @@ h2 {
   left: 7%;
   border-top: 1px solid $color;
   margin: 0 auto 0 auto;
-  background: $light;
+  background: $primary-color;
 }
 
 .cartSummary span,
@@ -377,7 +394,7 @@ h2 {
 
 .cartSummary p {
   font-size: 0.8rem;
-  color: $gray-2;
+  color: $font-color-1;
   margin: 0.2rem 0 0.2rem 0;
 }
 
@@ -389,7 +406,7 @@ h2 {
   position: absolute;
   bottom: 50px;
   z-index: 0;
-  background: $light;
+  background: $primary-color;
   font-size: 1rem;
   padding: 0.5rem 1rem 1.5rem 1rem;
   height: auto;

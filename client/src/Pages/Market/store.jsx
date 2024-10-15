@@ -134,10 +134,13 @@ class InventoryStore {
       const items = await searchItems(search);
       runInAction(() => {
         this.searchedItems = items;
-        this.setLoading(false);
       });
     } catch (error) {
-      this.setLoading(false);
+      console.error("Error searching items:", error);
+    } finally {
+      runInAction(() => {
+        this.setLoading(false); // Ensure loading is stopped in both success and error cases
+      });
     }
   }
 

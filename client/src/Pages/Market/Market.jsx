@@ -4,8 +4,6 @@ import { Helmet } from "react-helmet";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { toJS } from "mobx";
-import NavigationMobile from "../../Components/Form/Components/Mobile/Navigation";
-import StickyNavigation from "../../Components/Form/Components/StickyNavigation";
 
 //store
 import store from "./store"; // Update path as needed
@@ -79,7 +77,7 @@ const Market = observer(() => {
 
       store.setSelectedCategory(searchCategory);
     }
-  }, [search]);
+  }, [search, store.searchedItems]);
 
   return (
     <>

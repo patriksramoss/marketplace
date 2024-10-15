@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles.module.scss";
 import { toJS } from "mobx";
+import { observer } from "mobx-react-lite";
 
 // Icons
 import { RiArrowDropDownLine } from "react-icons/ri";
@@ -10,6 +11,7 @@ import { IoClose } from "react-icons/io5";
 
 //Stores
 import userStore from "../../../Stores/User";
+import rootStore from "../../../Store";
 
 const StickyNavigation = ({
   store,
@@ -19,6 +21,7 @@ const StickyNavigation = ({
 }) => {
   // State to track expanded categories
   const [expandedCategories, setExpandedCategories] = useState({});
+  const [cartOpened, setCartOpened] = useState(false);
   const [filteredCategories, setFilteredCategories] = useState(allCategories);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
   const [menuOpened, setMenuOpened] = useState(false);
@@ -151,7 +154,7 @@ const StickyNavigation = ({
 
   return (
     <>
-      {isMobile && (
+      {isMobile && !rootStore.cartOpened ? (
         <div
           className={`${styles.mobileNavButtonWrapper} ${
             menuOpened ? styles.mobileNavButtonWrapperActive : ""
@@ -166,7 +169,7 @@ const StickyNavigation = ({
             {menuOpened ? <IoClose /> : <RiMenuSearchLine />}
           </button>
         </div>
-      )}
+      ) : null}
       <div
         className={`${styles.navigationWrapper} ${
           isMobile ? styles.navigationWrapperMobile : ""
@@ -186,7 +189,11 @@ const StickyNavigation = ({
                     className={styles.searchInput}
                     value={userStore.search.market}
                     onChange={(e) => {
+                      userStore.setSearch("market", e.target.value);
                       if (userStore.search.market) {
+                        store.selectedCategory = null;
+                      }
+                      if (userStore.search.market === "") {
                         store.selectedCategory = null;
                       }
                       handleSearch(e.target.value.toLowerCase());
@@ -328,4 +335,4 @@ const StickyNavigation = ({
   );
 };
 
-export default StickyNavigation;
+export default observer(StickyNavigation);

@@ -15,6 +15,7 @@ class userStore {
 
   search = {
     market: "",
+    settings: "",
   };
 
   loading = {

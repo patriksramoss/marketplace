@@ -90,19 +90,16 @@
 
 .navMenu .navMenuLink a {
   text-decoration: none;
-  color: black;
   font-weight: 700;
   font-size: 0.6rem;
   transition: 0.2s;
   letter-spacing: 3px;
   text-transform: uppercase;
   transition-duration: 0.5s;
-  text-shadow: 2px 1px 5px rgba(235, 247, 244, 0.945);
   height: 30px;
   padding: 0px 20px 0px 20px;
 }
 .navMenu .navMenuLink a:hover {
-  color: rgb(6, 12, 2);
   transition-duration: 0.2s;
 }
 
@@ -193,10 +190,9 @@
   font-size: 0.8rem;
   padding: 10px;
   border-radius: 10px;
-  background: $light;
+  background: $primary-color;
   height: 30px;
-  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
-    rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+  box-shadow: $box-shadow-2;
   transition: transform 0.1s ease-in-out;
 }
 

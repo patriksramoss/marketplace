@@ -9,6 +9,11 @@ $neutral: #cccccc;
 
 $primary-color: linear-gradient(
   45deg,
+  rgba(109, 109, 102, 0.7) 0%,
+  rgba(108, 105, 104, 0.8) 100%
+);
+$primary-background: linear-gradient(
+  45deg,
   rgba(255, 253, 251, 0.7) 0%,
   rgba(255, 253, 251, 0.7) 100%
 );
@@ -36,6 +41,8 @@ $text-shadow-1: rgba(65, 128, 47, 1);
 
 $gray-1: rgb(70, 70, 70);
 $gray-2: rgb(120, 120, 120);
+
+$font-color-1: rgba(255, 253, 251, 1);
 
 $white-background: rgba(255, 253, 251, 1);
 $white-background-warm: rgba(245, 243, 241, 1);

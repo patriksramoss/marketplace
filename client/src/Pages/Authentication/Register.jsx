@@ -62,12 +62,8 @@ const Register = () => {
         <title>Register</title>
       </Helmet>
       <Container className={styles.appContainerAuth} fullHeight={true}>
-        <div className={`${formStyles.formWrapper} ${styles.formWrapper}`}>
-          <h2 className={styles.title}>Register</h2>
-        </div>
         <form
           className={formStyles.formWrapper}
-          style={{ borderRadius: "0px 0px 20px 20px" }}
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className={formStyles.formControl}>

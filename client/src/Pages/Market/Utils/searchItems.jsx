@@ -9,7 +9,8 @@ export async function searchItems(search) {
       params: { search },
       withCredentials: true,
     });
-    console.log("searchForItems API");
+    console.log("search", search);
+    console.log("data", response.data);
     return response.data; // Return fetched content
   } catch (error) {
     console.error("Error fetching content:", error);

@@ -21,6 +21,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  color: $font-color-1;
 }
 
 #root {
@@ -35,7 +36,7 @@ li {
 }
 
 a {
-  color: rgb(39, 38, 38);
+  color: $font-color-1;
   text-decoration: none;
   transition: text-decoration-color 0.3s, color 0.3s;
   text-underline-offset: 0.3rem;
@@ -43,8 +44,10 @@ a {
   font-weight: 500;
 }
 
-p {
+p,
+label {
   font-weight: 500;
+  color: $font-color-1;
 }
 
 .ant-menu-horizontal > .ant-menu-submenu .ant-menu-submenu-title:hover {
@@ -76,6 +79,7 @@ p {
 * {
   scrollbar-width: thin;
   scrollbar-color: rgba(84, 155, 221, 0.683) rgba(9, 30, 66, 0.08);
+  color: $font-color-1;
 }
 
 /* For Edge and IE (not supported but to avoid issues) */
@@ -89,6 +93,17 @@ body.fallback-scrollbars {
 }
 
 //removing arrows from input element
+
+input {
+  background: $gray-1;
+  border: 0;
+  border-radius: 10px;
+  color: $font-color-1;
+}
+
+input::placeholder {
+  color: $neutral;
+}
 
 /* Remove arrows in Chrome, Safari, Edge */
 input[type="number"]::-webkit-outer-spin-button,

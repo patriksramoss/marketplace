@@ -132,7 +132,8 @@ nav {
 .searchWrapper {
   z-index: 1;
   padding: 0.5em;
-  background: $white-background;
+  background: $primary-color;
+  color: $font-color-1;
   border-radius: 10px;
   box-shadow: $box-shadow-2;
 }
@@ -147,7 +148,6 @@ nav {
   background: none;
   margin: 0;
   border-radius: 0.25em;
-  color: #374151;
   align-items: center;
   font-weight: 700;
   cursor: pointer;
@@ -341,8 +341,8 @@ section h1 {
     max-height: 10vh;
     width: 100%;
     z-index: 3;
-    min-height: unset;
-    max-height: 10vh;
+    // min-height: unset;
+    min-height: 90%;
   }
 
   .formPageNavigationTop,
@@ -351,6 +351,9 @@ section h1 {
     padding-top: 1rem;
     width: 100%;
     justify-content: center;
+  }
+  .formPageNavigationTop {
+    max-height: calc(100% - 150px);
   }
 }
 

@@ -36,12 +36,7 @@
   height: 20px;
   box-sizing: border-box;
   font-family: montserrat;
-  color: #1f2328;
-  font-size: 0.6rem;
-  background: rgba(0, 0, 0, 0);
-
-  border-radius: 0px;
-  border-bottom: 1px solid black;
+  font-size: 0.8rem;
   transition-duration: 0.2s;
 }
 
@@ -73,7 +68,6 @@
 .formControl label {
   font-weight: 500;
   font-size: 0.8rem;
-  color: #161919;
 }
 
 .formControl > input:-webkit-autofill {
