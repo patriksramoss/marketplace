@@ -79,8 +79,9 @@
 
 .sidePanel {
   width: 100%;
-  height: calc(80vh - 12rem);
-  padding: 0.7rem 2rem 0.7rem 2rem;
+  height: calc(80vh - 15rem);
+  padding: 0 2rem 2.7rem 2rem;
+  margin-top: 2rem;
   overflow-y: auto;
 }
 
@@ -451,7 +452,7 @@ h2 {
 
 //MOBILE
 
-@media screen and (max-width: 80rem) {
+@media screen and (max-width: 50rem) {
   .sidePanelWrapper {
     margin: 0;
     width: 97%;
