@@ -60,6 +60,7 @@
   flex-direction: column;
   top: 0px;
   align-items: center;
+  background: $primary-color;
   justify-content: start;
   height: 40px; /* Limit the height of the container (optional) */
   width: 200px; /* Set a width for the div */
@@ -121,6 +122,10 @@
   -moz-user-select: none;
 }
 
+.addToCart svg {
+  fill: $light;
+}
+
 .gridItem:hover .addToCart {
   opacity: 1; /* Make visible on hover */
   pointer-events: auto; /* Allow interaction when visible */
@@ -131,6 +136,10 @@
   color: $dark;
   transition: background 0.1s ease-in-out;
   box-shadow: $box-shadow-2;
+}
+
+.addToCart:hover svg {
+  fill: $dark;
 }
 
 .loader {

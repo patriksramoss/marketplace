@@ -11,7 +11,6 @@ import { GOOGLE_CLIENT_ID } from "./config.js";
 
 //STORES
 import user from "../src/Stores/User";
-import packs from "../src/Stores/Packs";
 import root from "../src/Store";
 
 //STYLING
@@ -30,7 +29,6 @@ function App() {
         setIsLoaded(true);
 
         user.fetchUser();
-        packs.fetchPOTD();
         root.fetchHome();
         user.fetchBalance();
       } catch (error) {

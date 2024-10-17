@@ -69,11 +69,12 @@ const StickyNavigation = ({
     for (const section in allCategories) {
       for (const categoryKey in allCategories[section]) {
         const category = allCategories[section][categoryKey];
+        console.log("category", toJS(category));
         const filteredCategory = category.filter((item) => {
-          if (item && item.title) {
-            item.title.toLowerCase().includes(query);
-          }
+          item.title.toLowerCase().includes(query);
         });
+        console.log("filteredCategory", filteredCategory);
+
         // Loop through each category and filter its subcategories
         const filteredCategoryWithSubcategories = category.map((cat) => {
           const filteredSubcategories = cat.subcategories
@@ -106,6 +107,8 @@ const StickyNavigation = ({
         }
       }
     }
+
+    console.log("newFilteredCategories", newFilteredCategories);
 
     setFilteredCategories(newFilteredCategories);
   };
@@ -151,6 +154,8 @@ const StickyNavigation = ({
       store.loadContent(getSelectedCategory);
     }
   }, []);
+
+  console.log("filteredCategories", filteredCategories);
 
   return (
     <>

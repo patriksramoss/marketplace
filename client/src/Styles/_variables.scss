@@ -9,9 +9,14 @@ $neutral: #cccccc;
 
 $primary-color: linear-gradient(
   45deg,
-  rgba(109, 109, 102, 0.7) 0%,
-  rgba(108, 105, 104, 0.8) 100%
+  rgba(227, 249, 254, 0.737) 0%,
+  rgba(217, 239, 255, 0.8) 100%
 );
+// $primary-color: linear-gradient(
+//   45deg,
+//   rgba(109, 109, 102, 0.7) 0%,
+//   rgba(108, 105, 104, 0.8) 100%
+// );
 $primary-background: linear-gradient(
   45deg,
   rgba(255, 253, 251, 0.7) 0%,
@@ -42,7 +47,7 @@ $text-shadow-1: rgba(65, 128, 47, 1);
 $gray-1: rgb(70, 70, 70);
 $gray-2: rgb(120, 120, 120);
 
-$font-color-1: rgba(255, 253, 251, 1);
+$font-color-1: rgba(5, 3, 12, 1);
 
 $white-background: rgba(255, 253, 251, 1);
 $white-background-warm: rgba(245, 243, 241, 1);
