@@ -5,8 +5,9 @@
   display: flex;
   min-width: 55vw;
   width: 100%;
+  position: relative;
   margin: 0 auto;
-  top: 60px;
+  top: 70px;
   padding: 1rem 1rem;
 }
 
@@ -94,7 +95,7 @@ nav {
 }
 
 .topFirst {
-  padding: 4em 1em 0.5em 0.2rem;
+  padding: 3em 1em 0.5em 0.2rem;
   flex-shrink: 0;
   position: sticky;
   width: 15rem;
@@ -116,7 +117,6 @@ nav {
   transition: bottom 0s ease; /* Smooth transition for bottom position change */
 }
 
-.topNav,
 .searchWrapper {
   margin: 0 0 1rem 0;
 }

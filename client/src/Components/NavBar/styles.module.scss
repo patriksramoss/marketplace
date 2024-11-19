@@ -5,13 +5,23 @@
   padding: 0px;
   width: 100%;
   display: flex;
-  justify-content: center;
-  // background: $white-background-07;
+  justify-content: start;
+  align-items: center;
+  background: transparent;
+  background: $white-background-03;
   // box-shadow: $box-shadow-3;
-  // backdrop-filter: blur(10px);
+  backdrop-filter: blur(1px);
   z-index: 1;
   height: 70px;
   position: fixed;
+  transition: all 0.5s ease-in-out;
+  border-bottom: $border-1;
+}
+
+.navWrapperScrolled {
+  background: $primary-background;
+  backdrop-filter: blur(10px);
+  transition: all 0.5s ease-in-out;
 }
 
 @media only screen and (max-width: 670px) {
@@ -20,7 +30,19 @@
   }
 }
 
-.navContainer {
+.navBarMenu {
+  position: relative;
+  top: 70px;
+  height: 70px;
+  padding: 0 20px 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: $border-1;
+}
+
+.navContainer,
+.navContainerMenu {
   top: 5px;
   position: fixed;
   z-index: 2;
@@ -30,6 +52,9 @@
   align-items: center;
   height: 60px;
 }
+.navContainerMenu {
+  top: 75px;
+}
 
 .nav {
   padding: 0px;
@@ -38,11 +63,12 @@
   border-radius: 10px;
   overflow: hidden;
   width: auto;
-  background: $primary-color;
+  margin-left: 80px;
+  // background: $primary-color;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
-    rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+  // box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+  //   rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
 }
 .navMenu {
   overflow: hidden;
@@ -72,9 +98,9 @@
 }
 .navMenuLink:hover {
   transition-duration: 0.2s;
-  // background: $selected-color;
-  box-shadow: rgba(120, 170, 223, 0.2) 0px 3px 60px -12px inset,
-    rgba(140, 190, 200, 0.2) 0px 1px 36px -8px inset;
+  background: $selected-color;
+  // box-shadow: rgba(120, 170, 223, 0.2) 0px 3px 60px -12px inset,
+  //   rgba(140, 190, 200, 0.2) 0px 1px 36px -8px inset;
 }
 
 .navMenu .selected:hover {
@@ -84,8 +110,8 @@
 .navMenu .selected {
   transition-duration: 0.2s;
   background: $selected-color;
-  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
-    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  // box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+  //   rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }
 
 .navMenu .navMenuLink a {
@@ -265,6 +291,80 @@
   ul {
   background: $primary-color;
   border-radius: 10px;
+}
+
+///search box
+
+.searchWrapper {
+  box-shadow: $box-shadow-2;
+  height: 30px;
+  border-radius: 20px;
+}
+
+.search {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navButton,
+.navButtonSub,
+.searchInput {
+  display: flex;
+  padding: 0.5em 1em 0.5em 0.25em;
+  text-decoration: none;
+  border: none;
+  background: none;
+  margin: 0;
+  border-radius: 0.25em;
+  align-items: center;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &:hover {
+    background: $selected-color;
+    transition: all 0.3s;
+  }
+
+  &.active {
+    background: $selected-color;
+    outline: 1px solid $selected-color-hover;
+    transition: all 0.1s;
+    &:hover {
+      background: $selected-color-hover;
+    }
+  }
+
+  svg {
+    width: 1.25em;
+    height: 1.25em;
+    margin-right: 1em;
+    color: #1f2937;
+  }
+}
+
+.searchInput {
+  padding: 0;
+  margin: 0;
+  height: 30px;
+  cursor: text;
+
+  &:hover {
+    background: transparent;
+  }
+  &:focus {
+    outline: none;
+    border: none;
+  }
+}
+
+.searchIcon {
+  font-size: 1.3rem;
+  padding: 5px;
 }
 
 //MOBILE

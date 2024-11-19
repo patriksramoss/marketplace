@@ -183,7 +183,7 @@ const StickyNavigation = ({
       `}
       >
         <div className={`${styles.formPageNavigationTop} ${styles.topFirst}`}>
-          <nav className={styles.searchWrapper}>
+          {/* <nav className={styles.searchWrapper}>
             <ul>
               <li className={styles.search}>
                 <div className={styles.searchInput}>
@@ -207,22 +207,22 @@ const StickyNavigation = ({
                 </div>
               </li>
             </ul>
-          </nav>
+          </nav> */}
 
           {Object.entries(filteredCategories.top).map(
-            ([key, topCategoryArray]) => (
+            ([key, topCategoryArray], index) => (
               <nav key={key} className={styles.topNav}>
                 {topCategoryArray.map((category) => (
-                  <React.Fragment key={category.id}>
+                  <React.Fragment key={category?.id}>
                     <li className={styles.categoryItem}>
                       <button
                         onClick={() => {
-                          handleCategoryClick(category.id, category);
-                          toggleCategory(category.id);
+                          handleCategoryClick(category?.id, category);
+                          toggleCategory(category?.id);
                         }}
                         className={`${styles.navButton} ${
                           selectedCategory &&
-                          selectedCategory?.id === category.id
+                          selectedCategory?.id === category?.id
                             ? styles.active
                             : ""
                         }`}
@@ -235,28 +235,28 @@ const StickyNavigation = ({
                     </li>
                     {category &&
                       category.subcategories &&
-                      expandedCategories[category.id] && (
+                      expandedCategories[category?.id] && (
                         <ul
                           className={`${styles.subcategoryList} ${
-                            expandedCategories[category.id]
+                            expandedCategories[category?.id]
                               ? styles.showSubcategories
                               : styles.hideSubcategories
                           }`}
                         >
                           {category.subcategories.map((subcategory) => (
                             <li
-                              key={subcategory.id}
+                              key={subcategory?.id}
                               className={styles.subcategoryItem}
                             >
                               <button
                                 onClick={() =>
                                   handleCategoryClick(
-                                    subcategory.id,
+                                    subcategory?.id,
                                     subcategory
                                   )
                                 }
                                 className={`${styles.navButtonSub} ${
-                                  selectedCategory?.id === subcategory.id
+                                  selectedCategory?.id === subcategory?.id
                                     ? styles.active
                                     : ""
                                 }`}
@@ -280,13 +280,13 @@ const StickyNavigation = ({
               <nav className={styles.bottomNav}>
                 <ul>
                   {allCategories.bottom.bottomCategories.map((category) => (
-                    <li key={category.id} className={styles.categoryItem}>
+                    <li key={category?.id} className={styles.categoryItem}>
                       <button
                         onClick={() =>
-                          handleCategoryClick(category.id, category)
+                          handleCategoryClick(category?.id, category)
                         }
                         className={`${styles.navButton} ${
-                          selectedCategory?.id === category.id
+                          selectedCategory?.id === category?.id
                             ? styles.active
                             : ""
                         }`}
@@ -300,30 +300,30 @@ const StickyNavigation = ({
                       {category.subcategories && (
                         <ul
                           className={`${styles.subcategoryList} ${
-                            expandedCategories[category.id]
+                            expandedCategories[category?.id]
                               ? styles.showSubcategories
                               : styles.hideSubcategories
                           }`}
                         >
                           {category.subcategories.map((subcategory) => (
                             <li
-                              key={subcategory.id}
+                              key={subcategory?.id}
                               className={styles.subcategoryItem}
                             >
                               <button
                                 onClick={() =>
                                   handleCategoryClick(
-                                    subcategory.id,
+                                    subcategory?.id,
                                     subcategory
                                   )
                                 }
                                 className={`${styles.navButtonSub} ${
-                                  selectedCategory?.id === subcategory.id
+                                  selectedCategory?.id === subcategory?.id
                                     ? styles.active
                                     : ""
                                 }`}
                               >
-                                {subcategory.name}
+                                {subcategory?.name}
                               </button>
                             </li>
                           ))}

@@ -22,8 +22,6 @@ const ReusableForm = ({
     }
   };
 
-  console.log("ALL CATEGRIES", allCategories);
-
   return (
     <>
       <div className={styles.formPage} style={styleWrapper}>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AppRoutes from "./Routes";
 import NavBar from "./Components/NavBar/NavBar";
+import NavBarMenu from "./Components/NavBar/NavBarMenu";
 import Footer from "./Components/Footer/Footer";
 import { isAuthenticated } from "./assets/javascripts/isAuth";
 import { toJS } from "mobx";
@@ -42,6 +43,7 @@ function App() {
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <NavBar authenticated={authenticated} />
+      {authenticated && <NavBarMenu authenticated={authenticated} />}
       <AppRoutes authenticated={authenticated} />
       {isLoaded && root.showFooter && <Footer />}
     </GoogleOAuthProvider>

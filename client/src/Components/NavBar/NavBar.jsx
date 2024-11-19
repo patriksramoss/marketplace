@@ -13,6 +13,7 @@ import getMenuItems from "./MenuItems/getMenuItems";
 import CustomMenu from "../Controls/Menu/Menu";
 //icons
 import { DollarOutlined } from "@ant-design/icons";
+
 //styling
 import styles from "./styles.module.scss";
 //Stores
@@ -81,45 +82,44 @@ const NavBar = observer(({ authenticated }) => {
               ></img>
             </div>
           </div>
-          <div className={styles.navContainer}>
-            <div className={styles.nav}>
-              <div className={styles.navMenu}>
-                {!authenticated ? (
-                  <div
-                    className={`${styles.navMenuLink} ${
-                      selectedPage.startsWith("/register") ||
-                      selectedPage === "/register"
-                        ? styles.selected
-                        : null
-                    }`}
-                  >
-                    <NavLink to={"/register"} end>
-                      Register
-                    </NavLink>
-                  </div>
-                ) : (
-                  <div
-                    className={`${styles.navMenuLink} ${
-                      selectedPage === "/" ? styles.selected : null
-                    }`}
-                  >
-                    <NavLink to={"/"} end>
-                      Home
-                    </NavLink>
-                  </div>
-                )}
+
+          <div className={styles.nav}>
+            <div className={styles.navMenu}>
+              {!authenticated ? (
                 <div
                   className={`${styles.navMenuLink} ${
-                    selectedPage.startsWith("/market") ||
-                    selectedPage === "/login"
+                    selectedPage.startsWith("/register") ||
+                    selectedPage === "/register"
                       ? styles.selected
                       : null
                   }`}
                 >
-                  <NavLink to={authenticated ? "/market" : "/login"} end>
-                    {authenticated ? "Market" : "Login"}
+                  <NavLink to={"/register"} end>
+                    Register
                   </NavLink>
                 </div>
+              ) : (
+                <div
+                  className={`${styles.navMenuLink} ${
+                    selectedPage === "/" ? styles.selected : null
+                  }`}
+                >
+                  <NavLink to={"/"} end>
+                    Home
+                  </NavLink>
+                </div>
+              )}
+              <div
+                className={`${styles.navMenuLink} ${
+                  selectedPage.startsWith("/market") ||
+                  selectedPage === "/login"
+                    ? styles.selected
+                    : null
+                }`}
+              >
+                <NavLink to={authenticated ? "/market" : "/login"} end>
+                  {authenticated ? "Market" : "Login"}
+                </NavLink>
               </div>
             </div>
           </div>
