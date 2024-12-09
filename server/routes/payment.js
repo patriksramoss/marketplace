@@ -9,7 +9,7 @@ router.post(
   "/create-checkout-session",
   payment_controller.createCheckoutSession
 );
-router.post("/webhooks", payment_controller.webhooks);
+// router.post("/webhooks", payment_controller.webhooks);
 router.post(
   "/webhook",
   express.raw({ type: "application/json" }),
