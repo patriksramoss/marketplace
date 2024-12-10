@@ -15,6 +15,8 @@ exports.webhook = (req, res) => {
   console.log("Is Buffer:", Buffer.isBuffer(req.body));
   console.log("Webhook endpoint hit");
   const sig = req.headers["stripe-signature"];
+  console.log("Strip signature:", sig);
+
   let event;
 
   try {

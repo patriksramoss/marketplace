@@ -41,6 +41,9 @@ db.once("open", () => {
   );
 });
 
+// app.use("/payment/webhook", express.raw({ type: "application/json" }));
+app.use("/payment", paymentRouter);
+
 const indexRouter = require("./routes/index");
 const mainRouter = require("./routes/main");
 const paymentRouter = require("./routes/payment");
@@ -134,13 +137,9 @@ app.use(passport.session());
 
 // -------------- End Passport --------------------- //
 
-// Register webhook route first
-app.use("/payment/webhook", express.raw({ type: "application/json" }));
-
 app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "../client/dist")));
@@ -151,11 +150,11 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: false }));
 
 app.use("/api", indexRouter);
 app.use("/main", authCheckFalse, mainRouter);
-app.use("/payment", paymentRouter);
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
