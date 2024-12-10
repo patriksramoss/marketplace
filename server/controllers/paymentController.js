@@ -11,11 +11,15 @@ const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
 const app = express();
 app.use(express.json());
 exports.webhook = (req, res) => {
-  console.log("Raw body (SHOULD BE A BUFFER):", req.body); /// should be buffer
+  console.log("Raw body (SHOULD BE A BUFFER):", req.body); // should be buffer
   console.log("Is Buffer:", Buffer.isBuffer(req.body));
   console.log("Webhook endpoint hit");
+
+  // Debugging session info before processing webhook
+  console.log("Session before webhook:", req.session);
+
   const sig = req.headers["stripe-signature"];
-  console.log("Strip signature:", sig);
+  console.log("Stripe signature:", sig);
 
   let event;
 
@@ -31,6 +35,9 @@ exports.webhook = (req, res) => {
     // Update user's balance here
     console.log("checkout.session.completed event received:", session);
   }
+
+  // Debugging session info after processing webhook
+  console.log("Session after webhook:", req.session);
 
   res.status(200).json({ success: "Webhook processed successfully." });
 };
@@ -78,30 +85,5 @@ exports.createCheckoutSession = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-
-// exports.webhooks = (req, res) => {
-//   console.log("webhooks endpoint hit");
-//   const event = req.body;
-
-//   console.log("event", event);
-
-//   // Handle the event
-//   switch (event.type) {
-//     case "payment_intent.succeeded":
-//       const paymentIntent = event.data.object;
-//       console.log("PaymentIntent was successful!");
-//       break;
-//     case "payment_method.attached":
-//       const paymentMethod = event.data.object;
-//       console.log("PaymentMethod was attached to a Customer!");
-//       break;
-//     // ... handle other event types
-//     default:
-//       console.log(`Unhandled event type ${event.type}`);
-//   }
-
-//   // Return a 200 response to acknowledge receipt of the event
-//   res.status(200).json({ received: true });
-// };
 
 // -------------- End Stripe ------------------ //

@@ -118,7 +118,7 @@ app.use(
     cookie: {
       maxAge: 24 * 60 * 60 * 1000,
       //WORKING PROD AND DEV !!!
-      sameSite: process.env.NODE_ENV.trim() === "production" ? true : false,
+      sameSite: process.env.NODE_ENV.trim() === "production" ? "Lax" : false,
       // secure: process.env.NODE_ENV.trim() === "production" ? true : false,
       domain: process.env.API_BASE,
     },
