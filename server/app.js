@@ -41,16 +41,12 @@ db.once("open", () => {
   );
 });
 
-// app.use("/payment/webhook", express.raw({ type: "application/json" }));
-
 const indexRouter = require("./routes/index");
 const mainRouter = require("./routes/main");
 const paymentRouter = require("./routes/payment");
 const User = require("./models/user");
 
 const app = express();
-
-app.use("/payment", paymentRouter);
 
 app.use(
   cors({
@@ -156,6 +152,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", indexRouter);
 app.use("/main", authCheckFalse, mainRouter);
+app.use("/payment", paymentRouter);
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
