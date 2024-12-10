@@ -134,6 +134,8 @@ app.use(passport.session());
 
 // -------------- End Passport --------------------- //
 
+app.use("/payment/webhook", express.raw({ type: "application/json" }));
+
 app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 app.use(logger("dev"));
 app.use(express.json());
