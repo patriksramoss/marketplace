@@ -42,7 +42,6 @@ db.once("open", () => {
 });
 
 // app.use("/payment/webhook", express.raw({ type: "application/json" }));
-app.use("/payment", paymentRouter);
 
 const indexRouter = require("./routes/index");
 const mainRouter = require("./routes/main");
@@ -50,6 +49,8 @@ const paymentRouter = require("./routes/payment");
 const User = require("./models/user");
 
 const app = express();
+
+app.use("/payment", paymentRouter);
 
 app.use(
   cors({
