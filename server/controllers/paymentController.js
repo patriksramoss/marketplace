@@ -3,6 +3,7 @@ const { body, validationResult } = require("express-validator");
 const express = require("express");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
+const { clear_cart } = require("./mainController");
 
 // -------------- Start Stripe ------------------ //
 
@@ -11,18 +12,8 @@ const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
 const app = express();
 app.use(express.json());
 exports.webhook = (req, res) => {
-  console.log("Raw body (SHOULD BE A BUFFER):", req.body); // should be buffer
-  console.log("Is Buffer:", Buffer.isBuffer(req.body));
-  console.log("Webhook endpoint hit");
-
-  // Debugging session info before processing webhook
-  console.log("Session before webhook:", req.session);
-
   const sig = req.headers["stripe-signature"];
-  console.log("Stripe signature:", sig);
-
   let event;
-
   try {
     event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
   } catch (err) {
@@ -35,9 +26,6 @@ exports.webhook = (req, res) => {
     // Update user's balance here
     console.log("checkout.session.completed event received:", session);
   }
-
-  // Debugging session info after processing webhook
-  console.log("Session after webhook:", req.session);
 
   res.status(200).json({ success: "Webhook processed successfully." });
 };
@@ -76,8 +64,8 @@ exports.createCheckoutSession = async (req, res) => {
         },
       ],
       mode: "payment",
-      success_url: `${process.env.API_BASE_CLIENT_URL}/`,
-      cancel_url: `${process.env.API_BASE_CLIENT_URL}/`,
+      success_url: `${process.env.API_BASE_CLIENT_URL}/settings`,
+      cancel_url: `${process.env.API_BASE_CLIENT_URL}/market`,
     });
     res.json({ sessionId: session.id });
   } catch (err) {

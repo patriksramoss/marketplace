@@ -45,6 +45,8 @@ const PaymentForm = () => {
 
       if (error) {
         // Handle error here
+      } else {
+        userStore.clearCart();
       }
     } catch (error) {
       console.log(error);
