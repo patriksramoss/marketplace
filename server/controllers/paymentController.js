@@ -11,6 +11,8 @@ const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
 const app = express();
 app.use(express.json());
 exports.webhook = (req, res) => {
+  console.log("Raw body (SHOULD BE A BUFFER):", req.body); /// should be buffer
+  console.log("Is Buffer:", Buffer.isBuffer(req.body));
   console.log("Webhook endpoint hit");
   const sig = req.headers["stripe-signature"];
   let event;
