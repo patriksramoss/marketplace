@@ -61,6 +61,7 @@ class userStore {
   }
 
   async clearCart() {
+    console.log("CLEARING CART!!!!");
     this.setLoading("cart", true);
     try {
       const response = await clearCart();
