@@ -98,25 +98,24 @@ const User = require("../models/user");
 const app = express();
 app.use(express.json());
 exports.webhook = async (req, res) => {
-  console.log('WEBHOOK START')
+  console.log("WEBHOOK START");
   const sig = req.headers["stripe-signature"];
   let event;
   try {
-  console.log('STARTING THE CONSTRUCT EVENT')
+    console.log("STARTING THE CONSTRUCT EVENT");
 
     event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
-  console.log('ENDING THE CONSTRUCT EVENT')
-
+    console.log("ENDING THE CONSTRUCT EVENT");
   } catch (err) {
     console.error("Webhook signature verification failed:", err.message);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-  switch (event.type) {
-  console.log('ecent types', event.type)
+  console.log("ecent types", event.type);
 
+  switch (event.type) {
     case "checkout.session.completed":
-      console.log('the event type is checkout.session.completed')
+      console.log("the event type is checkout.session.completed");
       const session = event.data.object;
       const userId = session.client_reference_id; // The user ID passed from the frontend
       const amountPaid = session.amount_total / 100; // Stripe sends amount in cents
