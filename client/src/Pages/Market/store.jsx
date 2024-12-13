@@ -6,18 +6,10 @@ import { fetchRecommended } from "./Utils/fetchRecommended";
 import { addToCart } from "./Utils/addToCart";
 import { searchItems } from "./Utils/searchItems";
 import CategoryContent from "./Components/CategoryContent";
-import Container from "../../Components/Container/Container";
 
 // STORES
 import rootStore from "../../Store";
 import userStore from "../../Stores/User";
-
-// ICONS
-import { IoSettingsOutline } from "react-icons/io5";
-import { RiAccountCircleLine } from "react-icons/ri";
-
-import Settings from "./BottomCategories/Settings";
-import Share from "./BottomCategories/Share";
 
 class InventoryStore {
   loading = true;
@@ -85,7 +77,6 @@ class InventoryStore {
       return this.contentCache[cacheKey];
     }
 
-    this.setLoading(true);
     try {
       const items = await fetchContent(categoryId);
 
@@ -95,22 +86,21 @@ class InventoryStore {
 
         // Update the content of the selected category or subcategory
         const category = this.findCategory(categoryId);
+
+        console.log("category", category);
         if (category) {
           category.content = (
             <CategoryContent
-              title={category.title}
+              title={category.title ? category.title : category.name}
               description={category.description}
               items={items}
             />
           );
         }
-
-        this.setLoading(false);
       });
 
       return items;
     } catch (error) {
-      this.setLoading(false);
       return null;
     }
   }
@@ -162,20 +152,20 @@ class InventoryStore {
 
         // Update categoriesRecommeded with recommended content
         this.categoriesRecommeded = [
-          {
-            content: (
-              <CategoryContent
-                title="Hot 🔥"
-                description="Discounted items!"
-                items={recommendedItems}
-              />
-            ),
-            id: "recommended",
-            title: "Hot",
-            icon: null,
-            description: "Discounted items!",
-            name: "Hot 🔥",
-          },
+          // {
+          //   content: (
+          //     <CategoryContent
+          //       title="Hot 🔥"
+          //       description="Discounted items!"
+          //       items={recommendedItems}
+          //     />
+          //   ),
+          //   id: "recommended",
+          //   title: "Hot",
+          //   icon: null,
+          //   description: "Discounted items!",
+          //   name: "Hot 🔥",
+          // },
         ];
 
         this.setLoading(false);
@@ -192,7 +182,6 @@ class InventoryStore {
   }
 
   async addToCart(itemId, quantity) {
-    this.setLoading("cart", true);
     try {
       const response = await addToCart(itemId, quantity);
       userStore.getCart();

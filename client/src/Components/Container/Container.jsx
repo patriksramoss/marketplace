@@ -32,14 +32,13 @@ const Container = ({
         fullHeight ? styles.fullHeight : null
       }`}
     >
-      {loader === true && <Loader />}
+      {loader && <Loader contained={true} loader={true} />}
       <div
-        className={`${className} ${styles.loading} ${
-          isLoading ? "" : styles.loaded
+        className={`${styles.loadingOverlay} ${styles.loading} ${
+          !isLoading ? styles.loaded : ""
         }`}
-      >
-        {children}
-      </div>
+      ></div>
+      <div className={`${className}`}>{children}</div>
     </div>
   );
 };

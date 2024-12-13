@@ -2,6 +2,7 @@ import { observer } from "mobx-react-lite";
 import React, { useEffect, useState } from "react";
 import StickyNavigation from "./Components/StickyNavigation";
 import { toJS } from "mobx";
+import Loader from "../../Components/Loader/Loader";
 
 import styles from "./styles.module.scss";
 
@@ -25,6 +26,9 @@ const ReusableForm = ({
   return (
     <>
       <div className={styles.formPage} style={styleWrapper}>
+        {/* {store.loading && (
+          <Loader contained={true} loader={false} blur={true} />
+        )} */}
         <StickyNavigation
           store={store}
           handleCategoryClick={handleCategoryClick}

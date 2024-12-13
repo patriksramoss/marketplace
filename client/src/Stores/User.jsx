@@ -96,6 +96,7 @@ class userStore {
   }
 
   setSearch(item, value) {
+    console.log("SET SERACH USER STORE");
     this.search[item] = value;
   }
 

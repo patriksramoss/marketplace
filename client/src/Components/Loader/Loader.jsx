@@ -5,9 +5,11 @@ import styles from "./styles.module.scss";
 const Loader = (params) => {
   return (
     <div
-      className={`${styles.loader} ${
-        params.contained === true ? styles.contained : ""
-      } ${params.className}`}
+      className={`${params.loader && styles.loader} ${
+        params.blur && styles.blur
+      } ${params.contained === true ? styles.contained : ""} ${
+        params.className
+      }`}
       style={params.style}
     >
       {/* <a>Please wait ...</a> */}

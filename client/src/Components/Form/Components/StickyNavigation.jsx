@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles.module.scss";
 import { toJS } from "mobx";
+import { useSearchParams, useLocation } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 
 // Icons
@@ -25,6 +26,8 @@ const StickyNavigation = ({
   const [filteredCategories, setFilteredCategories] = useState(allCategories);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
   const [menuOpened, setMenuOpened] = useState(false);
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     const handleResize = () => {
@@ -55,7 +58,10 @@ const StickyNavigation = ({
   };
 
   const handleSearch = (query) => {
-    if (query && query !== "") {
+    console.log("handling search", query);
+    if (query) {
+      console.log("QUERY!!!!!!!!!!!", query);
+
       store.searchItems(query);
     }
 
@@ -69,11 +75,9 @@ const StickyNavigation = ({
     for (const section in allCategories) {
       for (const categoryKey in allCategories[section]) {
         const category = allCategories[section][categoryKey];
-        console.log("category", toJS(category));
         const filteredCategory = category.filter((item) => {
           item.title.toLowerCase().includes(query);
         });
-        console.log("filteredCategory", filteredCategory);
 
         // Loop through each category and filter its subcategories
         const filteredCategoryWithSubcategories = category.map((cat) => {
@@ -107,17 +111,23 @@ const StickyNavigation = ({
         }
       }
     }
-
-    console.log("newFilteredCategories", newFilteredCategories);
-
-    setFilteredCategories(newFilteredCategories);
   };
 
   // UseEffect to handle the case when allCategories changes
   useEffect(() => {
+    console.log("ALL CATEGORIES USE EFFECT");
     setFilteredCategories(allCategories);
-    handleSearch(userStore.search.market);
-  }, [allCategories]);
+  }, []);
+
+  useEffect(() => {
+    const searchParam = searchParams.get("search"); // Get the 'search' query parameter
+    console.log("HANDLING SEARCH:", searchParam);
+
+    if (searchParam) {
+      userStore.setSearch("market", searchParam); // Update the store if the query exists
+      handleSearch(searchParam); // Perform search with the extracted parameter
+    }
+  }, [location.search]);
 
   useEffect(() => {
     const openedCategories = store.getOpenedCategories();
@@ -155,7 +165,7 @@ const StickyNavigation = ({
     }
   }, []);
 
-  console.log("filteredCategories", filteredCategories);
+  console.log("userStore.search.market", userStore.search.market);
 
   return (
     <>
@@ -209,8 +219,9 @@ const StickyNavigation = ({
             </ul>
           </nav> */}
 
-          {Object.entries(filteredCategories.top).map(
-            ([key, topCategoryArray], index) => (
+          {Object.entries(filteredCategories.top)
+            .filter(([key, topCategoryArray]) => topCategoryArray.length > 0) // Filter non-empty arrays
+            .map(([key, topCategoryArray]) => (
               <nav key={key} className={styles.topNav}>
                 {topCategoryArray.map((category) => (
                   <React.Fragment key={category?.id}>
@@ -270,11 +281,10 @@ const StickyNavigation = ({
                   </React.Fragment>
                 ))}
               </nav>
-            )
-          )}
+            ))}
         </div>
 
-        {allCategories.bottom &&
+        {/* {allCategories.bottom &&
           allCategories.bottom.bottomCategories.length > 0 && (
             <div className={styles.formPageNavigationBottom}>
               <nav className={styles.bottomNav}>
@@ -334,7 +344,7 @@ const StickyNavigation = ({
                 </ul>
               </nav>
             </div>
-          )}
+          )} */}
       </div>
     </>
   );

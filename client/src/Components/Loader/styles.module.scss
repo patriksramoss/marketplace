@@ -1,4 +1,5 @@
 /* #################### # LOADING SCREEN ################ */
+@import "../../Styles/variables";
 
 .loader {
   display: flex;
@@ -15,6 +16,26 @@
   overflow: hidden;
   touch-action: none;
   pointer-events: none;
+  transition: 0.3s all ease-in-out;
+}
+
+.blur {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  background: $white-background-03;
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  touch-action: none;
+  pointer-events: none;
+  transition: 0.3s all ease-in-out;
 }
 
 .contained {

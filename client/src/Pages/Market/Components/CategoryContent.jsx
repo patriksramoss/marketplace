@@ -10,6 +10,7 @@ import userStore from "../../../Stores/User";
 import { IoMdCart } from "react-icons/io";
 //Components
 import Container from "../../../Components/Container/Container";
+import StarRating from "../../../Components/Rating/StarRating";
 
 const CategoryContent = ({ title, description, items }) => {
   const [loadingItems, setLoadingItems] = useState({});
@@ -25,7 +26,14 @@ const CategoryContent = ({ title, description, items }) => {
   // }, [userStore.search.market]);
 
   if (!items || items.length === 0) {
-    return <Container container={false}>No items available.</Container>;
+    return (
+      <Container container={false} className={styles.noItemsContainer}>
+        <>
+          <div className={styles.categoryTitle}>{title && title}</div>
+          No items available.
+        </>
+      </Container>
+    );
   }
 
   const handleAddToCart = async (itemId) => {
@@ -42,7 +50,15 @@ const CategoryContent = ({ title, description, items }) => {
   };
 
   return (
-    <Container className={styles.categoryContainer} container={true}>
+    <Container
+      className={styles.categoryContainer}
+      container={true}
+      loading={store.loading}
+      loader={store.loading}
+    >
+      {/* {store.loading && <Loader contained={true} loader={false} blur={true} />} */}
+
+      <div className={styles.categoryTitle}>{title && title}</div>
       <div className={styles.gridContainer}>
         {items.map((item) => {
           const isLoading = loadingItems[item._id] || false;
@@ -82,6 +98,7 @@ const CategoryContent = ({ title, description, items }) => {
               <div className={styles.details}>
                 <div className={styles.itemDetails}>
                   <h3 className={styles.itemName}>{item.name}</h3>
+                  <StarRating />
                 </div>
               </div>
             </div>

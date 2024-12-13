@@ -60,15 +60,16 @@ const Market = observer(() => {
   // }, [initialCategoryId, selectedCategory]);
 
   useEffect(() => {
-    if (search && search !== "") {
+    console.log("search 111111111", search);
+    if (search) {
       const searchCategory = {
         id: "search",
-        title: "search",
+        title: "search " + search,
         icon: null,
         description: "search",
         content: (
           <CategoryContent
-            title="search"
+            title={`search: ${search}`}
             description="search"
             items={store.searchedItems}
           />
@@ -84,6 +85,7 @@ const Market = observer(() => {
       <Helmet>
         <title>Market</title>
       </Helmet>
+
       <ReusableForm
         store={store}
         allCategories={store.getAllCategories()}

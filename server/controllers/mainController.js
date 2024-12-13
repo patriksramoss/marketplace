@@ -417,15 +417,9 @@ exports.search_for_items = async (req, res, next) => {
   try {
     const { search } = req.query;
 
-    if (!search) {
-      return res.status(400).json({ error: "No search query." });
-    }
+    const query = search ? { name: { $regex: new RegExp(search, "i") } } : {};
 
-    const items = await Item.find({
-      name: { $regex: new RegExp(search, "i") },
-    })
-      .lean()
-      .exec();
+    const items = await Item.find(query).lean().exec();
 
     res.json(items);
   } catch (error) {

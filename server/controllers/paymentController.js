@@ -121,8 +121,8 @@ exports.webhook = async (req, res) => {
       const amountPaid = session.amount_total / 100; // Stripe sends amount in cents
 
       console.log("session", session);
-      console.log("userId", userId);
-      console.log("amountPaid", amountPaid);
+      console.log("userId", userId); // ITS NULL JAATROD CITS VEIDS KA DABUT USER
+      console.log("amountPaid", amountPaid); // ir pareizs
 
       try {
         // Update user’s order or account based on the session data
