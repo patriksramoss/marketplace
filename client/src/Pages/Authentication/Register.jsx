@@ -13,6 +13,10 @@ import formStyles from "../../Styles/Modules/Form.module.scss";
 import Container from "../../Components/Container/Container";
 import CustomButton from "../../Components/Controls/Button/CustomButton";
 import TextInput from "../../Components/Input/Text/Text";
+import VideoElement from "../../Components/Video/VideoElement";
+
+// MEDIA
+import greenAbstractVideo from "../../assets/videos/green-abstract.mp4";
 
 const Register = () => {
   const {
@@ -56,6 +60,36 @@ const Register = () => {
     }
   };
 
+  const videoOptions = {
+    autoplay: true,
+    controls: false,
+    responsive: false,
+    mute: true,
+    fluid: false,
+    loop: true,
+    sources: [
+      {
+        src: greenAbstractVideo,
+        type: "video/mp4",
+      },
+    ],
+  };
+
+  // Callback function when the player is ready
+  const handlePlayerReady = (player) => {
+    console.log("Player is ready!", player);
+
+    // Example: Listen for a play event
+    player.on("play", () => {
+      console.log("Video is playing");
+    });
+
+    // Example: Listen for a pause event
+    player.on("pause", () => {
+      console.log("Video is paused");
+    });
+  };
+
   return (
     <>
       <Helmet>
@@ -66,43 +100,48 @@ const Register = () => {
           className={formStyles.formWrapper}
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className={formStyles.formControl}>
-            <TextInput
-              name="username"
-              control={control}
-              label="Username"
-              type="text"
-              placeholder="Username"
-            />
+          <div className={styles.formInputs}>
+            <div className={formStyles.formControl}>
+              <TextInput
+                name="username"
+                control={control}
+                label="Username"
+                type="text"
+                placeholder="Username"
+              />
+            </div>
+            <div className={formStyles.formControl}>
+              <TextInput
+                name="email"
+                control={control}
+                label="Email"
+                type="email"
+                placeholder="email@email.com"
+              />
+            </div>
+            <div className={formStyles.formControl}>
+              <TextInput
+                name="password"
+                control={control}
+                label="Password"
+                type="password"
+                placeholder="********"
+              />
+            </div>
+            <div className={formStyles.formControl}>
+              <TextInput
+                name="passConfirm"
+                control={control}
+                label="Confirm Password"
+                type="password"
+                placeholder="********"
+              />
+            </div>
+            <CustomButton text="Register" type="submit" disabled={loading} />
           </div>
-          <div className={formStyles.formControl}>
-            <TextInput
-              name="email"
-              control={control}
-              label="Email"
-              type="email"
-              placeholder="email@email.com"
-            />
+          <div className={styles.logoSpan}>
+            <VideoElement options={videoOptions} onReady={handlePlayerReady} />
           </div>
-          <div className={formStyles.formControl}>
-            <TextInput
-              name="password"
-              control={control}
-              label="Password"
-              type="password"
-              placeholder="********"
-            />
-          </div>
-          <div className={formStyles.formControl}>
-            <TextInput
-              name="passConfirm"
-              control={control}
-              label="Confirm Password"
-              type="password"
-              placeholder="********"
-            />
-          </div>
-          <CustomButton text="Register" type="submit" disabled={loading} />
         </form>
       </Container>
     </>

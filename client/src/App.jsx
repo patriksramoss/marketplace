@@ -42,7 +42,7 @@ function App() {
 
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-      <NavBar authenticated={authenticated} />
+      {authenticated && <NavBar authenticated={authenticated} />}
       {authenticated && <NavBarMenu authenticated={authenticated} />}
       <AppRoutes authenticated={authenticated} />
       {isLoaded && root.showFooter && <Footer />}

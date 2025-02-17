@@ -7,6 +7,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: Montserrat, sans-serif;
+  user-select: none;
 }
 
 html {
@@ -44,14 +45,24 @@ a {
   font-weight: 500;
 }
 
+h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
 p,
 label {
+  font-size: 0.8rem;
   font-weight: 500;
   color: $font-color-1;
 }
 
 .ant-menu-horizontal > .ant-menu-submenu .ant-menu-submenu-title:hover {
   background-color: $light !important;
+}
+
+.video-js {
+  background-color: unset;
 }
 
 /* ###################### SCROLLBAR ################## */
