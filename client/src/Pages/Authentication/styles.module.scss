@@ -3,26 +3,34 @@
 .appContainerAuth {
   height: 100%;
   padding-bottom: 30px;
-  top: 200px;
+  top: 150px;
   position: relative;
   margin: auto 0;
   // padding: 0 25% 50px 25%;
   color: $font-color-1;
 }
 
-body {
+.background {
+  position: absolute;
   background: url(../../assets/images/plant-wallpaper-01.jpg) center no-repeat;
   background-size: cover;
-  position: absolute;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
-.formWrapper {
+.formWrapper,
+.formWrapperRegister {
   flex-direction: row;
   padding: 0;
-  height: 420px;
+  height: 500px;
   max-width: 600px;
   justify-content: space-evenly;
+}
+
+.formWrapperRegister {
+  height: 650px;
+  max-width: 800px;
 }
 
 .title {
@@ -32,11 +40,14 @@ body {
 
 .formCenter {
   display: flex;
-  align-items: center;
   justify-content: space-evenly;
   flex-direction: column;
   padding: 0 30px 0 50px;
   width: 500px;
+}
+
+.submitButton {
+  padding: 10px !important;
 }
 
 .link {
@@ -47,12 +58,27 @@ body {
   color: green !important;
 }
 
+.googleContainerAuth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: -20px;
+  position: relative;
+}
+
 .formInputs {
-  margin: 0 0 60px 0;
+  // margin: 0 0 60px 0;
   h1,
   p {
     text-align: center;
   }
+}
+
+.logoWrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .logoSmall {
@@ -79,19 +105,37 @@ body {
   background-size: cover;
   margin: 0px 0px 0px 20px;
 
-  video {
-    position: absolute;
-    height: 160px !important;
-    width: unset !important;
-    top: 130px !important;
-    left: -10px !important;
-    margin-left: 30px;
-    transform: rotate(90deg) scale(1.5, 2);
-  }
+  // video {
+  //   position: absolute;
+  //   height: 160px !important;
+  //   width: unset !important;
+  //   top: 130px !important;
+  //   left: -10px !important;
+  //   margin-left: 30px;
+  //   transform: rotate(90deg) scale(1.5, 2);
+  // }
+}
+
+.altSignInBlock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  width: 100%;
+}
+
+.altSignInText {
+  font-size: 12px;
+  padding: 10px;
+}
+
+.line {
+  width: 20%;
+  border-bottom: 1px solid $gray-3;
 }
 
 .introText {
-  padding: 10px 0 50px 0;
+  padding: 0px 0 30px 0;
   overflow: hidden;
   white-space: nowrap;
 }

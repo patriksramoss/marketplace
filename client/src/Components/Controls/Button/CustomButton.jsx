@@ -14,6 +14,8 @@ const CustomButton = (params) => {
       params.onClick();
     }
   }
+
+  console.log("params styles", params.style);
   return (
     <div className={styles.formControlBtns} style={params.style}>
       <button

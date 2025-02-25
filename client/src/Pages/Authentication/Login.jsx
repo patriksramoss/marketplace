@@ -3,12 +3,13 @@ import axios from "axios";
 import { useNavigate, NavLink } from "react-router-dom";
 import { API_BASE_URL } from "../../config";
 import { Helmet } from "react-helmet";
+import { GoogleLogin } from "@react-oauth/google";
 
 //Components
 import Container from "../../Components/Container/Container";
 import CustomButton from "../../Components/Controls/Button/CustomButton";
 import TextInput from "../../Components/Input/Text/Text";
-import VideoElement from "../../Components/Video/VideoElement";
+import VideoPreview from "../../Components/Video/VideoPreview";
 
 //Form Validation
 import { useForm } from "react-hook-form";
@@ -34,10 +35,7 @@ const Login = () => {
       password: "",
     },
   });
-
   const [loading, setLoading] = useState(false);
-
-  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const onSubmit = async (formData) => {
@@ -58,38 +56,28 @@ const Login = () => {
     }
   };
 
-  const videoOptions = {
-    autoplay: true,
-    controls: false,
-    responsive: false,
-    mute: true,
-    fluid: false,
-    loop: true,
-    sources: [
-      {
-        src: greenAbstractVideo,
-        type: "video/mp4",
-      },
-    ],
-  };
-
-  // Callback function when the player is ready
-  const handlePlayerReady = (player) => {
-    console.log("Player is ready!", player);
-
-    // Example: Listen for a play event
-    player.on("play", () => {
-      console.log("Video is playing");
-    });
-
-    // Example: Listen for a pause event
-    player.on("pause", () => {
-      console.log("Video is paused");
-    });
+  const handleGoogleLoginSuccess = async (credentialResponse) => {
+    try {
+      const response = await axios.post(
+        `${API_BASE_URL}/api/auth/google/register`,
+        { token: credentialResponse.credential },
+        { withCredentials: true }
+      );
+      if (response.data.success) {
+        navigate(`/`);
+        window.location.reload();
+      } else {
+        setErrorMessage(response.data.message);
+        alert(response.data.message);
+      }
+    } catch (error) {
+      setErrorMessage(error.response?.data?.message || "Google sign-in failed");
+      alert(errorMessage);
+    }
   };
 
   return (
-    <>
+    <div className={styles.background}>
       <Helmet>
         <title>Login</title>
       </Helmet>
@@ -99,10 +87,12 @@ const Login = () => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className={styles.formCenter}>
-            <div className={styles.logoSmall}></div>
+            <div className={styles.logoWrapper}>
+              <div className={styles.logoSmall}></div>
+            </div>
             <div className={styles.formInputs}>
               <div className={styles.introText}>
-                <h1>Welcome!</h1>
+                <h1>Welcome back!</h1>
                 <p>
                   Don't have an account?{" "}
                   <NavLink to={"/register"} className={styles.link} end>
@@ -114,7 +104,6 @@ const Login = () => {
                 <TextInput
                   name="email"
                   control={control}
-                  label="Email"
                   type="email"
                   placeholder="email@email.com"
                 />
@@ -123,7 +112,6 @@ const Login = () => {
                 <TextInput
                   name="password"
                   control={control}
-                  label="Password"
                   type="password"
                   placeholder="********"
                 />
@@ -131,16 +119,30 @@ const Login = () => {
               <CustomButton
                 text={"Login"}
                 type="submit"
+                style={{ paddingTop: "30px", justifyContent: "center" }}
                 disabled={loading}
               ></CustomButton>
             </div>
+            <div className={styles.altSignInBlock}>
+              <div className={styles.line}></div>
+              <div className={styles.altSignInText}>Or sign-in with</div>
+              <div className={styles.line}></div>
+            </div>
+            <div className={styles.googleContainerAuth}>
+              <GoogleLogin
+                onSuccess={handleGoogleLoginSuccess}
+                onError={() => {
+                  setErrorMessage("Google Sign-In failed");
+                }}
+              />
+            </div>
           </div>
           <div className={styles.logoSpan}>
-            <VideoElement options={videoOptions} onReady={handlePlayerReady} />
+            <VideoPreview src={greenAbstractVideo} />
           </div>
         </form>
       </Container>
-    </>
+    </div>
   );
 };
 
