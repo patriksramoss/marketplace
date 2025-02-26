@@ -22,6 +22,7 @@ import formStyles from "../../Styles/Modules/Form.module.scss";
 
 // MEDIA
 import greenAbstractVideo from "../../assets/videos/green-abstract.mp4";
+import orangeAbstractVideo from "../../assets/videos/orange-abstract.mp4";
 
 const Login = () => {
   const {
@@ -37,6 +38,15 @@ const Login = () => {
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 640);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const onSubmit = async (formData) => {
     setLoading(true);
@@ -137,9 +147,11 @@ const Login = () => {
               />
             </div>
           </div>
-          <div className={styles.logoSpan}>
-            <VideoPreview src={greenAbstractVideo} />
-          </div>
+          {!isMobile && (
+            <div className={styles.logoSpan}>
+              <VideoPreview src={orangeAbstractVideo} />
+            </div>
+          )}
         </form>
       </Container>
     </div>

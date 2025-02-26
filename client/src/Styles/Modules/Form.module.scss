@@ -65,6 +65,12 @@
   transition-duration: 0.2s;
 }
 
+.formControl input::placeholder {
+  font-weight: 300;
+  font-size: 0.8rem;
+  color: #474646;
+}
+
 .formControl label {
   font-weight: 500;
   font-size: 0.8rem;
@@ -76,6 +82,8 @@
 }
 
 .inputValidationError {
+  position: absolute;
+  margin: 40px 0 0 20px;
   color: red;
   font-size: 0.6rem;
 }

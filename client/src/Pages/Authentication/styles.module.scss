@@ -3,7 +3,7 @@
 .appContainerAuth {
   height: 100%;
   padding-bottom: 30px;
-  top: 150px;
+  top: 5vh;
   position: relative;
   margin: auto 0;
   // padding: 0 25% 50px 25%;
@@ -12,7 +12,8 @@
 
 .background {
   position: absolute;
-  background: url(../../assets/images/plant-wallpaper-01.jpg) center no-repeat;
+  // background: url(../../assets/images/plant-wallpaper-01.jpg) center no-repeat;
+  background: url(../../assets/images/blue-wallpaper-01.jpg) center no-repeat;
   background-size: cover;
   overflow: hidden;
   width: 100%;
@@ -23,15 +24,17 @@
 .formWrapperRegister {
   flex-direction: row;
   padding: 0;
-  height: 500px;
-  max-width: 600px;
+  // height: 500px;
+  // max-width: 600px;
+  height: 650px;
+  max-width: 800px;
   justify-content: space-evenly;
 }
 
-.formWrapperRegister {
-  height: 650px;
-  max-width: 800px;
-}
+// .formWrapperRegister {
+//   height: 650px;
+//   max-width: 800px;
+// }
 
 .title {
   margin: 0px 40px 0px 40px;
@@ -96,12 +99,13 @@
   justify-content: center;
 }
 
-.logoSpan {
+.logoSpan,
+.logoSpanRegister {
   height: 100%;
-  width: 30vw;
+  width: 33vw;
   right: 0;
   // background: url(../../assets/images/overlay-9.jpg) center no-repeat;
-  filter: invert(0.2);
+  filter: invert(0);
   background-size: cover;
   margin: 0px 0px 0px 20px;
 
@@ -114,6 +118,10 @@
   //   margin-left: 30px;
   //   transform: rotate(90deg) scale(1.5, 2);
   // }
+}
+
+.logoSpanRegister {
+  filter: hue-rotate(-50deg);
 }
 
 .altSignInBlock {

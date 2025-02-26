@@ -18,6 +18,7 @@ import VideoPreview from "../../Components/Video/VideoPreview";
 
 // MEDIA
 import greenAbstractVideo from "../../assets/videos/green-abstract.mp4";
+import orangeAbstractVideo from "../../assets/videos/orange-abstract.mp4";
 
 const Register = () => {
   const {
@@ -37,6 +38,15 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 640);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const onSubmit = async (formData) => {
     setLoading(true);
@@ -91,12 +101,12 @@ const Register = () => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className={styles.formCenter}>
-            <div className={styles.logoWrapper}>
+            {/* <div className={styles.logoWrapper}>
               <div className={styles.logoSmall}></div>
-            </div>
+            </div> */}
             <div className={styles.formInputs}>
               <div className={styles.introText}>
-                <h1>Welcome back!</h1>
+                <h1>Create an account</h1>
                 <p>
                   Already have an account?{" "}
                   <NavLink to={"/login"} className={styles.link} end>
@@ -158,9 +168,11 @@ const Register = () => {
               />
             </div>
           </div>
-          <div className={styles.logoSpan}>
-            <VideoPreview src={greenAbstractVideo} />
-          </div>
+          {!isMobile && (
+            <div className={styles.logoSpanRegister}>
+              <VideoPreview src={orangeAbstractVideo} />
+            </div>
+          )}
         </form>
       </Container>
     </div>
