@@ -5,6 +5,9 @@ import { API_BASE_URL } from "../../config";
 import { Helmet } from "react-helmet";
 import { GoogleLogin } from "@react-oauth/google";
 
+//stores
+import global from "../../Stores/Global";
+
 //Components
 import Container from "../../Components/Container/Container";
 import CustomButton from "../../Components/Controls/Button/CustomButton";
@@ -98,7 +101,7 @@ const Login = () => {
         >
           <div className={styles.formCenter}>
             <div className={styles.logoWrapper}>
-              <div className={styles.logoSmall}></div>
+              <div className={styles.logoSmall} title={global.AppName}></div>
             </div>
             <div className={styles.formInputs}>
               <div className={styles.introText}>

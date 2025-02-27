@@ -1,13 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 //styles
 import styles from "./styles.module.scss";
 
+import clickSound from "../../../assets/sounds/click2.mp3";
+
 const CustomButton = (params) => {
   const navigate = useNavigate();
+  const [audio, setAudio] = useState(null);
+  const [isAudioReady, setIsAudioReady] = useState(false);
+
+  useEffect(() => {
+    const sound = new Audio(clickSound);
+    sound.oncanplaythrough = () => setIsAudioReady(true);
+    setAudio(sound);
+  }, []);
 
   function onClick() {
+    if (isAudioReady && audio) {
+      audio.currentTime = 0; // Reset to start
+      audio.play();
+    }
+
     if (params.href) {
       navigate(params.href);
     } else if (params.onClick) {
@@ -15,7 +30,6 @@ const CustomButton = (params) => {
     }
   }
 
-  console.log("params styles", params.style);
   return (
     <div className={styles.formControlBtns} style={params.style}>
       <button

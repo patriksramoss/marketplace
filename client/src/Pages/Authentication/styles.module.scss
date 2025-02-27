@@ -153,5 +153,20 @@
 @media screen and (max-width: 40rem) {
   .appContainerAuth {
     padding: 0 2rem 50px 2rem;
+    h1 {
+      font-size: 1rem;
+    }
+  }
+  .formCenter {
+    padding: 0 10px 0 10px;
+  }
+  .logoSmall {
+    margin: 0;
+  }
+  .formWrapper {
+    height: 500px;
+  }
+  .formWrapperRegister {
+    height: 500px;
   }
 }

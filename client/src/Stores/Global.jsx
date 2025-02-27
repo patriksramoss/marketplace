@@ -9,6 +9,7 @@ import { toJS } from "mobx";
 
 class globalStore {
   isViewportAtTheTop = true;
+  AppName = "Marketplace";
 
   constructor() {}
 
