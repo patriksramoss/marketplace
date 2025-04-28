@@ -69,14 +69,14 @@ const NavBarMenu = observer(({ authenticated }) => {
               className={styles.searchButton}
               onClick={updateSearch} // Trigger search on button click
             >
-              SEARCH
+              SEARCH PRODUCT
             </button>
             {marketStore.loading && (
               <Loader
                 loader
                 contained={false}
                 style={{
-                  left: "160px",
+                  left: "190px",
                   transform: "scale(0.6)",
                 }}
               />

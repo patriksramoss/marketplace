@@ -53,7 +53,7 @@ const SidePanel = observer(({ show }) => {
         }`}
       >
         <Loader
-          className={`${styles.loader} ${
+          className={`${styles.loader} loader ${
             userStore.loading.cart ? {} : styles.loaded
           }`}
         />

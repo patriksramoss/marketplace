@@ -27,7 +27,7 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 94vh; /* Full height to make the sticky effect more pronounced */
+  min-height: 70vh; /* Full height to make the sticky effect more pronounced */
   flex: 1; /* Allow it to fill available space */
 }
 
@@ -314,8 +314,6 @@ section h1 {
 }
 
 .mobileNavButtonActive {
-  background: $dark;
-  color: $light;
   transition: all 0.1s ease-in-out;
 }
 
@@ -342,8 +340,6 @@ section h1 {
     max-height: 10vh;
     width: 100%;
     z-index: 3;
-    // min-height: unset;
-    min-height: 90%;
   }
 
   .formPageNavigationTop,

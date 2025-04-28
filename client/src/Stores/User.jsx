@@ -92,6 +92,7 @@ class userStore {
   }
 
   setLoading(item, value) {
+    console.log("SET LOADING USER STORE", item, value);
     this.loading[item] = value;
   }
 

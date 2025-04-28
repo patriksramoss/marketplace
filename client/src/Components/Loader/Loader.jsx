@@ -5,7 +5,7 @@ import styles from "./styles.module.scss";
 const Loader = (params) => {
   return (
     <div
-      className={`${params.loader && styles.loader} ${
+      className={`${params.loader && styles.loader}  ${
         params.blur && styles.blur
       } ${params.contained === true ? styles.contained : ""} ${
         params.className

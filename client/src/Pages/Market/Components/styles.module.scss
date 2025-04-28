@@ -20,24 +20,12 @@
   font-size: 1.2rem;
   margin-bottom: 2.5rem;
   font-weight: 700;
-
-  --r: 0.8em; /* control the cutout */
-
-  padding-right: calc(var(--r) + 0.25em);
+  padding-right: 10px;
   line-height: 1.4;
   padding-left: 10px;
-  clip-path: polygon(
-    -100vw 0,
-    100% 0,
-    calc(100% - var(--r)) 50%,
-    100% 100%,
-    -100vw 100%
-  );
   color: white;
-
   border-image: conic-gradient(#55679c 0 0) fill 0;
-  box-shadow: rgba(50, 50, 93, 1) 0px 13px 27px -5px,
-    rgba(0, 0, 0, 1) 0px 8px 16px -8px;
+  box-shadow: $box-shadow-2;
   width: fit-content;
 }
 
