@@ -9,9 +9,9 @@ export async function fetchContent(categoryId = null) {
       params: { categoryId },
       withCredentials: true,
     });
-    return response.data; // Return fetched content
+    return response.data;
   } catch (error) {
     console.error("Error fetching content:", error);
-    throw error; // Re-throw the error to be handled in the store
+    throw error;
   }
 }

@@ -34,7 +34,6 @@ const Account = observer(() => {
     },
   });
 
-  //set the input default values
   useEffect(() => {
     if (store.data.email) {
       setValue("email", String(store.data.email));

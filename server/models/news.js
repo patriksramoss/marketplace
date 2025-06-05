@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// NEWS MODEL
 const NewsSchema = new Schema(
   {
     title: {
@@ -13,8 +12,8 @@ const NewsSchema = new Schema(
       required: true,
     },
     image: {
-        type: String
-      },
+      type: String,
+    },
     author: {
       type: String,
       required: true,

@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// USER MODEL
 const UserSchema = new Schema(
   {
     username: { type: String, required: true, unique: true },
@@ -13,7 +12,7 @@ const UserSchema = new Schema(
       unique: true,
     },
     password: { type: String, required: false },
-    googleId: { type: String, unique: true, sparse: true }, // sparse allows multiple null values
+    googleId: { type: String, unique: true, sparse: true },
     balance: { type: Number, required: true, default: 0.0 },
     currency: { type: String, required: true },
     sandbox: { type: Boolean, required: true, default: true },

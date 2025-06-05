@@ -3,13 +3,12 @@ require("dotenv").config({ path: "../.env" });
 const mongoose = require("mongoose");
 const Category = require("../models/category");
 
-// Database Connection
 const mongoDB = process.env.MONGODB_URI;
 mongoose.connect(mongoDB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-mongoose.set("strictQuery", false); // To suppress the deprecation warning
+mongoose.set("strictQuery", false);
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
@@ -187,7 +186,7 @@ const categories = [
 
 const createCategories = async () => {
   try {
-    await Category.deleteMany(); // Clear existing categories
+    await Category.deleteMany();
 
     const result = await Category.insertMany(categories);
     console.log("Categories created:", result);

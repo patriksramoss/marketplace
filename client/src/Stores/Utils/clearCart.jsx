@@ -4,11 +4,11 @@ import { API_BASE_URL } from "../../config";
 export async function clearCart() {
   try {
     const response = await axios.get(`${API_BASE_URL}/main/clearCart`, {
-      withCredentials: true, // Include cookies in the request
+      withCredentials: true,
     });
-    return response.data; // Return the response data if needed
+    return response.data;
   } catch (error) {
     console.error("Error getting cart:", error);
-    throw error; // Re-throw the error for handling at the call site
+    throw error;
   }
 }

@@ -38,14 +38,13 @@ const CategoryContent = ({ title, description, items }) => {
 
   const handleAddToCart = async (itemId) => {
     try {
-      userStore.setLoading("cart", true); // Set loading state
+      userStore.setLoading("cart", true);
       const quantity = 1;
-      await store.addToCart(itemId, quantity); // Assuming this is a promise
+      await store.addToCart(itemId, quantity);
     } catch (error) {
       console.error("Error adding to cart:", error);
-      // Handle the error as needed, e.g., show a notification
     } finally {
-      userStore.setLoading("cart", false); // Reset loading state
+      userStore.setLoading("cart", false);
     }
   };
 
@@ -56,8 +55,6 @@ const CategoryContent = ({ title, description, items }) => {
       loading={store.loading}
       loader={store.loading}
     >
-      {/* {store.loading && <Loader contained={true} loader={false} blur={true} />} */}
-
       <div className={styles.categoryTitle}>{title && title}</div>
       <div className={styles.gridContainer}>
         {items.map((item) => {

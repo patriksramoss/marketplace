@@ -2,23 +2,19 @@ import { API_BASE_URL } from "../../config";
 
 export const isAuthenticated = async () => {
   try {
-    // Make an API request to the server to check the user's authentication status.
     const response = await fetch(`${API_BASE_URL}/api/auth/check`, {
       method: "GET",
-      credentials: "include", // Include cookies in the request
+      credentials: "include",
     });
     if (response.status === 200) {
-      // Checks if response status is 200-299
-      return true; // User is authenticated
+      return true;
     } else if (response.status === 201) {
-      // User is not authenticated, handle this case quietly
       return false;
     } else {
-      // Handle any other unexpected status
       console.warn("Unexpected response status:", response.status);
       return false;
     }
   } catch (error) {
-    return false; // Return false for any errors
+    return false;
   }
 };

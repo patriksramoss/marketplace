@@ -45,9 +45,7 @@ class userStore {
         withCredentials: true,
       });
       this.setBalance(response.data.balance);
-    } catch (error) {
-      // console.error("Failed to fetch user data:", error);
-    }
+    } catch (error) {}
   }
 
   async getCart() {

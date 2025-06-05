@@ -9,7 +9,7 @@ const Item = require("../models/item");
 const Discount = require("../models/discount");
 
 //Helpers
-const redisClient = require("../helpers/redisClient"); // Import your Redis client
+const redisClient = require("../helpers/redisClient");
 
 // Home --------------------
 
@@ -32,7 +32,6 @@ exports.display_home = async (req, res, next) => {
 
 exports.get_current_user = (req, res, next) => {
   if (!req.user) {
-    // User is not authenticated
     return res.status(401).json({ message: "User is not authenticated" });
   }
 
@@ -99,8 +98,8 @@ exports.get_balance = (req, res, next) => {
 exports.get_item_categories = async (req, res) => {
   try {
     const categories = await Category.find().populate("subcategories").exec();
-    res.locals.data = categories; // Set the data to res.locals
-    res.json(categories); // Respond with fetched content
+    res.locals.data = categories;
+    res.json(categories);
   } catch (error) {
     console.error("Error fetching categories:", error);
     res
@@ -111,36 +110,30 @@ exports.get_item_categories = async (req, res) => {
 
 exports.get_items_by_category = async (req, res) => {
   try {
-    const { categoryId } = req.query; // Get categoryId and subcategoryId from query parameters
+    const { categoryId } = req.query;
 
     if (!categoryId) {
       return res.status(400).json({ error: "No categoryId provided." });
     }
 
-    // Filter by categoryId for both category and subcategory fields
     const query = {
       $or: [{ category: categoryId }, { subcategory: categoryId }],
     };
-    const items = await Item.find(query).lean().exec(); // Execute the query to find items
+    const items = await Item.find(query).lean().exec();
 
-    // Get current date
     const now = new Date();
 
-    // Fetch active discounts
     const discounts = await Discount.find({
       startDate: { $lte: now },
       endDate: { $gte: now },
     }).exec();
 
-    // Map discounts by item ID
     const discountMap = new Map();
     discounts.forEach((d) => discountMap.set(d.item.toString(), d));
 
-    // Adjust item prices and add discount indication
     const itemsWithDiscounts = items.map((item) => {
       const discount = discountMap.get(item._id.toString());
       if (discount) {
-        // Calculate discounted price
         if (discount.discountType === "percentage") {
           item.discountedPrice =
             item.price - item.price * (discount.value / 100);
@@ -148,18 +141,16 @@ exports.get_items_by_category = async (req, res) => {
           item.discountedPrice = item.price - discount.value;
         }
 
-        // Indicate that the item is discounted
         item.isDiscounted = true;
       } else {
-        // No discount applied
         item.discountedPrice = item.price;
         item.isDiscounted = false;
       }
       return item;
     });
 
-    res.locals.data = itemsWithDiscounts; // Set the adjusted data to res.locals
-    res.json(itemsWithDiscounts); // Respond with adjusted content
+    res.locals.data = itemsWithDiscounts;
+    res.json(itemsWithDiscounts);
   } catch (error) {
     console.error("Error fetching content:", error);
     res
@@ -168,30 +159,24 @@ exports.get_items_by_category = async (req, res) => {
   }
 };
 
-// Fetch recommended items with discounts
 exports.get_recommended_items = async (req, res) => {
   try {
     const currentDate = new Date();
 
-    // Fetch active discounts
     const discounts = await Discount.find({
       startDate: { $lte: currentDate },
       endDate: { $gte: currentDate },
     }).populate("item");
 
-    // Extract item IDs from discounts
     const itemIds = discounts.map((discount) => discount.item._id);
 
-    // Fetch items with the applicable discount
     const items = await Item.find({ _id: { $in: itemIds } })
       .lean()
       .exec();
 
-    // Apply discounts to items
     const discountedItems = items.map((item) => {
       const discount = discounts.find((d) => d.item._id.equals(item._id));
       if (discount) {
-        // Calculate discounted price
         let discountedPrice;
         if (discount.discountType === "percentage") {
           discountedPrice = item.price - (item.price * discount.value) / 100;
@@ -199,14 +184,11 @@ exports.get_recommended_items = async (req, res) => {
           discountedPrice = item.price - discount.value;
         }
 
-        // Ensure the discounted price does not go below zero
         discountedPrice = Math.max(discountedPrice, 0);
 
-        // Add discount details to the item
         item.isDiscounted = true;
         item.discountedPrice = discountedPrice;
       } else {
-        // No discount applied
         item.isDiscounted = false;
         item.discountedPrice = item.price;
       }
@@ -217,9 +199,7 @@ exports.get_recommended_items = async (req, res) => {
     res.locals.data = discountedItems;
     res.json(discountedItems);
 
-    // Optionally cache the result
     const cacheKey = "recommended_items";
-    const ttl = 3600; // Cache for 1 hour
     await redisClient.setEx(cacheKey, ttl, JSON.stringify(discountedItems));
   } catch (error) {
     console.error("Error fetching recommended items:", error);
@@ -239,33 +219,26 @@ exports.add_to_cart = async (req, res, next) => {
   }
 
   try {
-    // Find the user
     const user = await User.findById(req.user._id).populate("cart");
 
     if (!user || !user.cart) {
-      // If user doesn't have a cart, create one
       const newCart = new Cart({ userId: user._id, items: [] });
       user.cart = newCart._id;
       await newCart.save();
     }
 
-    // Find the cart associated with the user
     const cart = await Cart.findById(user.cart);
 
-    // Check if the item is already in the cart
     const existingItem = cart.items.find(
       (item) => item.item.toString() === itemId
     );
 
     if (existingItem) {
-      // If the item exists, update the quantity
       existingItem.quantity += quantity;
     } else {
-      // If the item doesn't exist, add it to the cart
       cart.items.push({ item: itemId, quantity });
     }
 
-    // Save the updated cart
     await cart.save();
 
     return res
@@ -279,21 +252,17 @@ exports.add_to_cart = async (req, res, next) => {
 
 exports.get_cart = async (req, res, next) => {
   try {
-    // Find the user and populate the cart
     const user = await User.findById(req.user._id).populate("cart");
 
     if (!user || !user.cart) {
       return res.status(404).json({ message: "Cart not found" });
     }
 
-    // Get the cart items
     const cartItems = user.cart.items;
 
-    // Find the detailed item data for each item in the cart
-    const itemIds = cartItems.map((item) => item.item); // Extract item IDs
-    const items = await Item.find({ _id: { $in: itemIds } }); // Fetch item data
+    const itemIds = cartItems.map((item) => item.item);
+    const items = await Item.find({ _id: { $in: itemIds } });
 
-    // Map the item data with the quantities in the cart
     const cartWithDetails = cartItems.map((cartItem) => {
       const item = items.find(
         (item) => item._id.toString() === cartItem.item.toString()
@@ -301,11 +270,10 @@ exports.get_cart = async (req, res, next) => {
       return {
         itemId: cartItem.item,
         quantity: cartItem.quantity,
-        data: item || null, // Include item data if found, else null
+        data: item || null,
       };
     });
 
-    // Return the detailed cart data
     return res.status(200).json({ cart: cartWithDetails });
   } catch (err) {
     console.error("Error fetching cart:", err);
@@ -315,14 +283,12 @@ exports.get_cart = async (req, res, next) => {
 
 exports.clear_cart = async (req, res, next) => {
   try {
-    // Find the user
     const user = await User.findById(req.user._id).populate("cart");
 
     if (!user || !user.cart) {
       return res.status(404).json({ message: "Cart not found" });
     }
 
-    // Find the cart associated with the user
     const cart = await Cart.findById(user.cart);
 
     if (!cart) {
@@ -343,14 +309,12 @@ exports.clear_cart = async (req, res, next) => {
 exports.cart_remove_item = async (req, res, next) => {
   const itemId = req.body.itemId;
   try {
-    // Find the user
     const user = await User.findById(req.user._id).populate("cart");
 
     if (!user || !user.cart) {
       return res.status(404).json({ message: "User does not have a cart" });
     }
 
-    // Find the cart associated with the user
     const cart = await Cart.findById(user.cart);
 
     if (!cart) {
@@ -379,14 +343,12 @@ exports.cart_change_item_quantity = async (req, res, next) => {
   const value = req.body.value;
   const override = req.body.override;
   try {
-    // Find the user
     const user = await User.findById(req.user._id).populate("cart");
 
     if (!user || !user.cart) {
       return res.status(404).json({ message: "User does not have a cart" });
     }
 
-    // Find the cart associated with the user
     const cart = await Cart.findById(user.cart);
 
     if (!cart) {

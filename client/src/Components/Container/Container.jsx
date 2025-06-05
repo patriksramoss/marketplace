@@ -1,4 +1,3 @@
-// Components/Container/Container.jsx
 import React, { useState, useEffect } from "react";
 import { observer } from "mobx-react";
 import styles from "./styles.module.scss";

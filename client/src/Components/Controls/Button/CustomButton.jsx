@@ -19,7 +19,7 @@ const CustomButton = (params) => {
 
   function onClick() {
     if (isAudioReady && audio) {
-      audio.currentTime = 0; // Reset to start
+      audio.currentTime = 0;
       audio.play();
     }
 

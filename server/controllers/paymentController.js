@@ -94,7 +94,6 @@ const User = require("../models/user");
 // }
 
 // STRIPE WEB HOOK
-// This is your Stripe CLI webhook secret for testing your endpoint locally.
 const app = express();
 app.use(express.json());
 exports.webhook = async (req, res) => {
@@ -117,15 +116,10 @@ exports.webhook = async (req, res) => {
     case "checkout.session.completed":
       console.log("the event type is checkout.session.completed");
       const session = event.data.object;
-      const userId = session.client_reference_id; // The user ID passed from the frontend
-      const amountPaid = session.amount_total / 100; // Stripe sends amount in cents
-
-      console.log("session", session);
-      console.log("userId", userId); // ITS NULL JAATROD CITS VEIDS KA DABUT USER
-      console.log("amountPaid", amountPaid); // ir pareizs
+      const userId = session.client_reference_id;
+      const amountPaid = session.amount_total / 100;
 
       try {
-        // Update user’s order or account based on the session data
         const user = await User.findById(userId);
 
         if (!user) {
@@ -133,14 +127,6 @@ exports.webhook = async (req, res) => {
           return;
         }
 
-        // Example: Send email confirmation to customer and store owner
-        // await sendEmail(
-        //   user.email,
-        //   "Payment Successful",
-        //   "Your payment was successful!"
-        // );
-
-        // You could also clear the user's cart, update balance, etc.
         user.cart = [];
         await user.save();
 
@@ -150,7 +136,6 @@ exports.webhook = async (req, res) => {
       }
       break;
 
-    // Handle other Stripe events here (e.g., payment failure, refunds, etc.)
     case "payment_intent.succeeded":
       console.log("Payment Intent succeeded:", event.data.object);
       break;

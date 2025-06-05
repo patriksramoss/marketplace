@@ -15,7 +15,6 @@ const CustomMenu = ({ items, authenticated }) => {
     navigate(e.key);
   };
 
-  // Modify items to include custom icons
   const customItems = items.map((item) => ({
     ...item,
     icon: (

@@ -22,19 +22,15 @@ exports.google_register_post = async (req, res) => {
         .json({ success: false, message: "No token provided" });
     }
 
-    // Verify the token with Google
     const response = await axios.get(
       `https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${token}`
     );
     const { sub, name, email } = response.data;
 
-    // Check if the user already exists in the database
     let user = await User.findOne({ googleId: sub });
     if (!user) {
-      // Find the user's currency based on their IP
       const currency = findCurrency(ip.address());
 
-      // If the user doesn't exist, create a new user
       user = new User({
         username: name,
         email: email,
@@ -43,16 +39,13 @@ exports.google_register_post = async (req, res) => {
       });
       await user.save();
 
-      // Create a cart for the new user
       const cart = new Cart({ userId: user._id });
       await cart.save();
 
-      // Assign the cart ID to the user
       user.cart = cart._id;
       await user.save();
     }
 
-    // Log in the user
     req.login(user, (err) => {
       if (err) {
         console.error("Error in req.login:", err);
@@ -99,7 +92,6 @@ exports.signup_get = (req, res, next) => {
 };
 
 exports.sign_up_post = [
-  // Validation and sanitization middleware
   body("email", "Must be a valid email address")
     .trim()
     .isEmail()
@@ -118,7 +110,6 @@ exports.sign_up_post = [
     .notEmpty()
     .withMessage("Username cannot be empty"),
 
-  // Controller logic
   async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -146,11 +137,9 @@ exports.sign_up_post = [
 
       await newUser.save();
 
-      // Create a cart for the new user
       const cart = new Cart({ userId: newUser._id });
       await cart.save();
 
-      // Assign the cart ID to the user
       newUser.cart = cart._id;
       await newUser.save();
 
@@ -185,7 +174,6 @@ exports.login_get = (req, res, next) => {
 };
 
 exports.login_post = [
-  // Validation and sanitization middleware
   body("email", "Must be a valid email")
     .trim()
     .isEmail()
@@ -193,9 +181,7 @@ exports.login_post = [
     .escape(),
   body("password", "Password cannot be empty").trim().notEmpty(),
 
-  // Controller logic
   async (req, res) => {
-    // Check for validation errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res
@@ -206,7 +192,6 @@ exports.login_post = [
     const { email, password } = req.body;
 
     try {
-      // Find user by email
       const user = await User.findOne({ email });
       if (!user) {
         return res
@@ -214,7 +199,6 @@ exports.login_post = [
           .json({ success: false, message: "Incorrect email or password" });
       }
 
-      // Validate the password using bcrypt
       const passwordValid = await bcrypt.compare(password, user.password);
 
       if (!passwordValid) {
@@ -223,7 +207,6 @@ exports.login_post = [
           .json({ success: false, message: "Incorrect email or password" });
       }
 
-      // Log in the user
       req.logIn(user, (err) => {
         if (err) {
           console.error("Error in req.logIn:", err);
@@ -248,7 +231,6 @@ exports.login_post = [
 ];
 
 exports.logout_get = (req, res, next) => {
-  // req.logout(); // Clears the login session
   req.session.destroy((err) => {
     if (err) return next(err);
     return res.status(200).json({

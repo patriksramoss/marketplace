@@ -12,7 +12,7 @@ export async function addToCart(itemId, quantity) {
         quantity,
       },
       {
-        withCredentials: true, // Include cookies in the request
+        withCredentials: true,
       }
     );
     userStore.setLoading("cart", false);
@@ -20,6 +20,6 @@ export async function addToCart(itemId, quantity) {
   } catch (error) {
     userStore.setLoading("cart", false);
     console.error("Error adding to cart:", error);
-    throw error; // Re-throw the error for handling at the call site
+    throw error;
   }
 }

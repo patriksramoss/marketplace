@@ -1,13 +1,12 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// CATEGORY MODEL
 const CategorySchema = new Schema(
   {
     name: {
       type: String,
       required: true,
-      unique: true, // Ensure unique category names
+      unique: true,
     },
     description: {
       type: String,
@@ -17,7 +16,7 @@ const CategorySchema = new Schema(
     },
     subcategories: [
       {
-        _id: Schema.Types.ObjectId, // Define subcategory ID as ObjectId
+        _id: Schema.Types.ObjectId,
         name: { type: String, required: true },
         description: { type: String },
       },

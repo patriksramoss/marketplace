@@ -90,10 +90,7 @@ class SettingsStore {
       const items = await fetchContent(categoryId);
 
       runInAction(() => {
-        // Cache the fetched items
         this.contentCache[cacheKey] = items;
-
-        // Update the content of the selected category or subcategory
         const category = this.findCategory(categoryId);
         if (category) {
           category.content = (
@@ -137,10 +134,8 @@ class SettingsStore {
     const category = this.categories.find((cat) => cat.id === categoryId);
 
     if (category) {
-      return category; // Return the category if found
+      return category;
     }
-
-    // If no category is found, search for the subcategory
     for (const cat of allCategories) {
       let subcategory = null;
 
@@ -151,11 +146,10 @@ class SettingsStore {
       }
 
       if (subcategory) {
-        return subcategory; // Return the subcategory if found
+        return subcategory;
       }
     }
 
-    // Return null if neither category nor subcategory is found
     return null;
   };
 }

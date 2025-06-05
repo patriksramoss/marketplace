@@ -4,8 +4,8 @@ const createError = require("http-errors");
 const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
-const RedisStore = require("connect-redis").default; // Use `.default` to get the function
-const redisClient = require("./helpers/redisClient"); // Import your Redis client
+const RedisStore = require("connect-redis").default;
+const redisClient = require("./helpers/redisClient");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const flash = require("connect-flash");
 const passport = require("passport");
@@ -14,12 +14,11 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const moment = require("moment");
-const cors = require("cors"); // Import the cors middleware
+const cors = require("cors");
 const favicon = require("serve-favicon");
 const authCheckFalse = require("./helpers/authCheckFalse");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
-// Database Connection
 const mongoDB = process.env.MONGODB_URI;
 mongoose.connect(mongoDB, {
   dbName: "marketplace",
@@ -30,7 +29,6 @@ mongoose.connect(mongoDB, {
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
-// Log a success message on successful connection
 db.once("open", () => {
   console.log(
     "MongoDB connected successfully on Port: " +
@@ -68,16 +66,13 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        // Check if the user already exists in the database
         let user = await User.findOne({ googleId: profile.id });
 
         if (!user) {
-          // If the user doesn't exist, create a new user
           user = new User({
             username: profile.displayName,
             email: profile.emails[0].value,
             googleId: profile.id,
-            // Other fields if needed
           });
           await user.save();
         }
@@ -89,7 +84,6 @@ passport.use(
   )
 );
 
-// Serialize and deserialize user to support persistent login sessions
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
@@ -100,26 +94,13 @@ passport.deserializeUser((id, done) => {
   });
 });
 
-// const sessionStore = new MongoDBStore({
-//   uri: process.env.MONGODB_URI,
-//   collection: "user-sessions",
-//   databaseName: "marketplace",
-// });
-// sessionStore.on(
-//   "error",
-//   console.error.bind(console, "MongoDB Session Storage connection error")
-// );
-
 app.use(
   session({
     name: "session-id",
-    // store: sessionStore,
-    store: new RedisStore({ client: redisClient }), // Use RedisStore
+    store: new RedisStore({ client: redisClient }),
     cookie: {
       maxAge: 24 * 60 * 60 * 1000,
-      //WORKING PROD AND DEV !!!
       sameSite: process.env.NODE_ENV.trim() === "production" ? "Lax" : false,
-      // secure: process.env.NODE_ENV.trim() === "production" ? true : false,
       domain: process.env.API_BASE,
     },
     secret: process.env.SESSION_SECRET,
@@ -143,14 +124,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "../client/dist")));
 
-// Get access to currentUser variable in all views
 app.use(function (req, res, next) {
   res.locals.currentUser = req.user;
   next();
 });
 
 app.use(express.urlencoded({ extended: true }));
-// app.use(express.urlencoded({ extended: false }));
 
 app.use("/api", indexRouter);
 app.use("/main", authCheckFalse, mainRouter);

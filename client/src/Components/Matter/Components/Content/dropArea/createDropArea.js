@@ -24,7 +24,7 @@ const createDropArea = (
               yScale: 0.2,
             }
           : undefined,
-        fillStyle: dropAreaImage ? undefined : "red", // Use red if no image
+        fillStyle: dropAreaImage ? undefined : "red",
       },
     }
   );

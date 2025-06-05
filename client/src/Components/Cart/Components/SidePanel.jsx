@@ -97,11 +97,11 @@ const SidePanel = observer(({ show }) => {
                           onChange={(e) => {
                             const value = e.target.value;
                             if (value.length > 1 && value.startsWith("0")) {
-                              return; // Stop further handling if the number starts with "0"
+                              return;
                             }
 
                             if (value === "") {
-                              cartItem.quantity = 0; // Set quantity to 0 if the input is cleared
+                              cartItem.quantity = 0;
                             } else if (value > 50) {
                               cartItem.quantity = 50;
                             } else {

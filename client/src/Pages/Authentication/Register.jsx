@@ -101,9 +101,6 @@ const Register = () => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className={styles.formCenter}>
-            {/* <div className={styles.logoWrapper}>
-              <div className={styles.logoSmall}></div>
-            </div> */}
             <div className={styles.formInputs}>
               <div className={styles.introText}>
                 <h1>Create an account</h1>
@@ -118,7 +115,6 @@ const Register = () => {
                 <TextInput
                   name="username"
                   control={control}
-                  // label="Username"
                   type="text"
                   placeholder="Username"
                 />

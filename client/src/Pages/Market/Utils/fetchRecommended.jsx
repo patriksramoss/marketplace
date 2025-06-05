@@ -1,4 +1,3 @@
-// utils/fetchContent.js
 import axios from "axios";
 import { API_BASE_URL } from "../../../config";
 
@@ -10,9 +9,9 @@ export async function fetchRecommended() {
         withCredentials: true,
       }
     );
-    return response.data; // Return fetched content
+    return response.data;
   } catch (error) {
     console.error("Error fetching content:", error);
-    throw error; // Re-throw the error to be handled in the store
+    throw error;
   }
 }

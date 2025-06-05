@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// ITEM MODEL
 const ItemSchema = new Schema(
   {
     name: {
@@ -19,21 +18,21 @@ const ItemSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Category",
       required: true,
-      default: () => mongoose.Types.ObjectId("defaultCategoryId"), // Default category ID
+      default: () => mongoose.Types.ObjectId("defaultCategoryId"),
     },
     subcategory: {
       type: Schema.Types.ObjectId,
-      ref: "Category.subcategories", // Reference to subcategories in Category
-      default: () => mongoose.Types.ObjectId("defaultSubcategoryId"), // Default subcategory ID
+      ref: "Category.subcategories",
+      default: () => mongoose.Types.ObjectId("defaultSubcategoryId"),
     },
     images: {
       min: {
-        type: [String], // Array of strings for image URLs
-        default: [], // Default to an empty array if no images are provided
+        type: [String],
+        default: [],
       },
       max: {
-        type: [String], // Array of strings for image URLs
-        default: [], // Default to an empty array if no images are provided
+        type: [String],
+        default: [],
       },
     },
     stock: {

@@ -5,11 +5,11 @@ const DiscountSchema = new Schema(
   {
     item: {
       type: Schema.Types.ObjectId,
-      ref: "Item", // Reference to the Item model
+      ref: "Item",
     },
     discountType: {
       type: String,
-      enum: ["percentage", "fixed"], // Type of discount
+      enum: ["percentage", "fixed"],
       required: true,
     },
     value: {
@@ -26,9 +26,9 @@ const DiscountSchema = new Schema(
     },
     minPurchaseAmount: {
       type: Number,
-      default: 0, // Default value if no minimum amount is specified
+      default: 0,
     },
-    applicableCustomerGroups: [String], // e.g., ["VIP", "Regular"]
+    applicableCustomerGroups: [String],
   },
   { timestamps: true }
 );

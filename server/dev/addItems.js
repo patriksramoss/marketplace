@@ -4,20 +4,17 @@ const mongoose = require("mongoose");
 const Category = require("../models/category");
 const Item = require("../models/item");
 
-// Database Connection
 const mongoDB = process.env.MONGODB_URI;
 mongoose.connect(mongoDB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-mongoose.set("strictQuery", false); // To suppress the deprecation warning
+mongoose.set("strictQuery", false);
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
-// Define your items
 const items = [
-  // Home & Kitchen
   {
     name: "Modern Sofa",
     description: "A stylish and comfortable sofa for your living room.",
@@ -63,7 +60,6 @@ const items = [
     categoryName: "Home & Kitchen",
     subcategoryName: "Bedding",
   },
-  // Beauty & Personal Care
   {
     name: "Matte Lipstick Set",
     description: "A set of 5 long-lasting matte lipsticks.",
@@ -109,7 +105,6 @@ const items = [
     categoryName: "Beauty & Personal Care",
     subcategoryName: "Skin Care",
   },
-  // Sports & Outdoors
   {
     name: "Camping Tent 4-Person",
     description: "Waterproof camping tent suitable for 4 people.",
@@ -155,7 +150,6 @@ const items = [
     categoryName: "Sports & Outdoors",
     subcategoryName: "Cycling",
   },
-  // Books & Stationery
   {
     name: "The Great Novel",
     description: "A bestselling fiction novel by a famous author.",
@@ -201,7 +195,6 @@ const items = [
     categoryName: "Books & Stationery",
     subcategoryName: "Stationery",
   },
-  // Automotive
   {
     name: "Car Dash Cam",
     description: "1080p dash cam with night vision and motion detection.",
@@ -247,7 +240,6 @@ const items = [
     categoryName: "Automotive",
     subcategoryName: "Tools & Equipment",
   },
-  // Toys & Games
   {
     name: "Monopoly Classic Edition",
     description: "The classic board game for family and friends.",
@@ -293,7 +285,6 @@ const items = [
     categoryName: "Toys & Games",
     subcategoryName: "Educational Toys",
   },
-  // Men
   {
     name: "Men's Leather Jacket",
     description: "Stylish and durable leather jacket for casual wear.",
@@ -330,7 +321,6 @@ const items = [
     subcategoryName: "Men",
   },
 
-  // Women
   {
     name: "Women's Summer Dress",
     description: "Light and airy summer dress perfect for warm weather.",
@@ -366,7 +356,6 @@ const items = [
     subcategoryName: "Women",
   },
 
-  // Kids
   {
     name: "Kids' T-Shirt",
     description: "Soft cotton t-shirt with playful designs.",
@@ -438,7 +427,6 @@ const items = [
     subcategoryName: "Mobile Phones",
   },
 
-  // Laptops
   {
     name: "MacBook Air M1",
     description: "Apple's lightweight laptop powered by the M1 chip.",
@@ -475,7 +463,6 @@ const items = [
     subcategoryName: "Laptops",
   },
 
-  // Cameras
   {
     name: "Canon EOS R5",
     description:
@@ -515,15 +502,13 @@ const items = [
 ];
 const createItems = async () => {
   try {
-    const categories = await Category.find({}); // Fetch all categories
+    const categories = await Category.find({});
 
-    // Create a map from category names to category documents
     const categoryMap = categories.reduce((acc, category) => {
       acc[category.name] = category;
       return acc;
     }, {});
 
-    // Prepare items for insertion with the correct category and subcategory IDs
     const itemsWithCategory = items.map((item) => {
       const category = categoryMap[item.categoryName] || categoryMap["Other"];
       const subcategory = category.subcategories.find(
@@ -541,7 +526,7 @@ const createItems = async () => {
       };
     });
 
-    await Item.deleteMany(); // Clear existing items
+    await Item.deleteMany();
     const result = await Item.insertMany(itemsWithCategory);
     console.log("Items created:", result);
     mongoose.connection.close();

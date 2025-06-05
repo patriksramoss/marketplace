@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toJS } from "mobx";
 
 //store
-import store from "./store"; // Update path as needed
+import store from "./store";
 import userStore from "../../Stores/User";
 
 // Components
@@ -53,14 +53,7 @@ const Market = observer(() => {
     }
   };
 
-  // useEffect(() => {
-  //   if (!selectedCategory || selectedCategory.id !== initialCategoryId) {
-  //     handleCategoryChange(initialCategoryId);
-  //   }
-  // }, [initialCategoryId, selectedCategory]);
-
   useEffect(() => {
-    console.log("search 111111111", search);
     if (search) {
       const searchCategory = {
         id: "search",

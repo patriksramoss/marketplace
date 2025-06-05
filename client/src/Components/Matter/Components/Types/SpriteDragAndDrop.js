@@ -11,7 +11,7 @@ import addMouseControl from "../Content/controls/addMouseControl";
 import runCleanup from "../Content/cleanup/runCleanup";
 
 const SpriteDragAndDrop = (canvasContainerRef, props) => {
-  const { spriteImage, dropAreaImage } = props; // Extract props
+  const { spriteImage, dropAreaImage } = props;
   const engineRef = useRef(null);
   const renderRef = useRef(null);
   const runnerRef = useRef(null);

@@ -81,10 +81,8 @@ class InventoryStore {
       const items = await fetchContent(categoryId);
 
       runInAction(() => {
-        // Cache the fetched items
         this.contentCache[cacheKey] = items;
 
-        // Update the content of the selected category or subcategory
         const category = this.findCategory(categoryId);
 
         console.log("category", category);
@@ -129,28 +127,25 @@ class InventoryStore {
       console.error("Error searching items:", error);
     } finally {
       runInAction(() => {
-        this.setLoading(false); // Ensure loading is stopped in both success and error cases
+        this.setLoading(false);
       });
     }
   }
 
   async loadRecommended() {
-    const cacheKey = "recommended"; // Define a unique cache key for recommended items
+    const cacheKey = "recommended";
 
-    // Check if the recommended content is already cached
     if (this.contentCache[cacheKey]) {
-      return this.contentCache[cacheKey]; // Return cached content if available
+      return this.contentCache[cacheKey];
     }
 
     this.setLoading(true);
     try {
-      const recommendedItems = await fetchRecommended(); // Fetch recommended items from the API
+      const recommendedItems = await fetchRecommended();
 
       runInAction(() => {
-        // Cache the fetched items
         this.contentCache[cacheKey] = recommendedItems;
 
-        // Update categoriesRecommeded with recommended content
         this.categoriesRecommeded = [
           // {
           //   content: (
@@ -235,14 +230,12 @@ class InventoryStore {
       ...this.bottomCategories,
     ];
 
-    // First, try to find the category
     const category = allCategories?.find((cat) => cat?.id === categoryId);
 
     if (category) {
-      return category; // Return the category if found
+      return category;
     }
 
-    // If no category is found, search for the subcategory
     for (const cat of allCategories) {
       let subcategory = null;
       if (cat) {
@@ -252,11 +245,10 @@ class InventoryStore {
       }
 
       if (subcategory) {
-        return subcategory; // Return the subcategory if found
+        return subcategory;
       }
     }
 
-    // Return null if neither category nor subcategory is found
     return null;
   };
 }

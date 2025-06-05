@@ -16,11 +16,10 @@ import rootStore from "../../../Store";
 
 const StickyNavigation = ({
   store,
-  allCategories, // This includes top and bottom categories
+  allCategories,
   handleCategoryClick,
   selectedCategory,
 }) => {
-  // State to track expanded categories
   const [expandedCategories, setExpandedCategories] = useState({});
   const [cartOpened, setCartOpened] = useState(false);
   const [filteredCategories, setFilteredCategories] = useState(allCategories);
@@ -37,41 +36,32 @@ const StickyNavigation = ({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Function to toggle subcategory visibility
   const toggleCategory = (categoryId) => {
     setExpandedCategories((prevState) => ({
       ...prevState,
-      [categoryId]: !prevState[categoryId], // Toggle expand/collapse
+      [categoryId]: !prevState[categoryId],
     }));
 
-    // Save the opened categories in the store
     const openedCategories = store.getOpenedCategories();
     if (openedCategories.includes(categoryId)) {
-      // Category is already opened, remove it from the list
       store.setOpenedCategories(
         openedCategories.filter((id) => id !== categoryId)
       );
     } else {
-      // Category is not opened, add it to the list
       store.setOpenedCategories([...openedCategories, categoryId]);
     }
   };
 
   const handleSearch = (query) => {
-    console.log("handling search", query);
     if (query) {
-      console.log("QUERY!!!!!!!!!!!", query);
-
       store.searchItems(query);
     }
 
-    // Create a new object for filtered categories
     const newFilteredCategories = {
       bottom: {},
       top: {},
     };
 
-    // Loop through all sections (top and bottom)
     for (const section in allCategories) {
       for (const categoryKey in allCategories[section]) {
         const category = allCategories[section][categoryKey];
@@ -79,7 +69,6 @@ const StickyNavigation = ({
           item.title.toLowerCase().includes(query);
         });
 
-        // Loop through each category and filter its subcategories
         const filteredCategoryWithSubcategories = category.map((cat) => {
           const filteredSubcategories = cat.subcategories
             ? cat.subcategories.filter(
@@ -89,23 +78,19 @@ const StickyNavigation = ({
               )
             : [];
 
-          // If the category itself or its subcategories match the query, return the category with filtered subcategories
           if (filteredCategory.length > 0 || filteredSubcategories.length > 0) {
             return {
               ...cat,
-              subcategories: filteredSubcategories, // Add filtered subcategories
+              subcategories: filteredSubcategories,
             };
           }
 
-          // If no matches, return null
           return null;
         });
 
-        // Filter out any null entries (categories that didn't match and had no matching subcategories)
         const validFilteredCategories =
           filteredCategoryWithSubcategories.filter((cat) => cat !== null);
 
-        // If any categories or their subcategories matched, add them to the newFilteredCategories
         if (validFilteredCategories.length > 0) {
           newFilteredCategories[section][categoryKey] = validFilteredCategories;
         }
@@ -113,19 +98,16 @@ const StickyNavigation = ({
     }
   };
 
-  // UseEffect to handle the case when allCategories changes
   useEffect(() => {
-    console.log("ALL CATEGORIES USE EFFECT");
     setFilteredCategories(allCategories);
   }, []);
 
   useEffect(() => {
-    const searchParam = searchParams.get("search"); // Get the 'search' query parameter
-    console.log("HANDLING SEARCH:", searchParam);
+    const searchParam = searchParams.get("search");
 
     if (searchParam) {
-      userStore.setSearch("market", searchParam); // Update the store if the query exists
-      handleSearch(searchParam); // Perform search with the extracted parameter
+      userStore.setSearch("market", searchParam);
+      handleSearch(searchParam);
     }
   }, [location.search]);
 
@@ -165,8 +147,6 @@ const StickyNavigation = ({
     }
   }, []);
 
-  console.log("userStore.search.market", userStore.search.market);
-
   return (
     <>
       {isMobile && !rootStore.cartOpened ? (
@@ -193,34 +173,8 @@ const StickyNavigation = ({
       `}
       >
         <div className={`${styles.formPageNavigationTop} ${styles.topFirst}`}>
-          {/* <nav className={styles.searchWrapper}>
-            <ul>
-              <li className={styles.search}>
-                <div className={styles.searchInput}>
-                  <FaSearch className={styles.searchIcon} />
-                  <input
-                    type="text"
-                    placeholder="Search"
-                    className={styles.searchInput}
-                    value={userStore.search.market}
-                    onChange={(e) => {
-                      userStore.setSearch("market", e.target.value);
-                      if (userStore.search.market) {
-                        store.selectedCategory = null;
-                      }
-                      if (userStore.search.market === "") {
-                        store.selectedCategory = null;
-                      }
-                      handleSearch(e.target.value.toLowerCase());
-                    }}
-                  />
-                </div>
-              </li>
-            </ul>
-          </nav> */}
-
           {Object.entries(filteredCategories.top)
-            .filter(([key, topCategoryArray]) => topCategoryArray.length > 0) // Filter non-empty arrays
+            .filter(([key, topCategoryArray]) => topCategoryArray.length > 0)
             .map(([key, topCategoryArray]) => (
               <nav key={key} className={styles.topNav}>
                 {topCategoryArray.map((category) => (
@@ -283,68 +237,6 @@ const StickyNavigation = ({
               </nav>
             ))}
         </div>
-
-        {/* {allCategories.bottom &&
-          allCategories.bottom.bottomCategories.length > 0 && (
-            <div className={styles.formPageNavigationBottom}>
-              <nav className={styles.bottomNav}>
-                <ul>
-                  {allCategories.bottom.bottomCategories.map((category) => (
-                    <li key={category?.id} className={styles.categoryItem}>
-                      <button
-                        onClick={() =>
-                          handleCategoryClick(category?.id, category)
-                        }
-                        className={`${styles.navButton} ${
-                          selectedCategory?.id === category?.id
-                            ? styles.active
-                            : ""
-                        }`}
-                      >
-                        <div width="24" height="24">
-                          {category.icon}
-                        </div>
-                        {category.title}
-                      </button>
-
-                      {category.subcategories && (
-                        <ul
-                          className={`${styles.subcategoryList} ${
-                            expandedCategories[category?.id]
-                              ? styles.showSubcategories
-                              : styles.hideSubcategories
-                          }`}
-                        >
-                          {category.subcategories.map((subcategory) => (
-                            <li
-                              key={subcategory?.id}
-                              className={styles.subcategoryItem}
-                            >
-                              <button
-                                onClick={() =>
-                                  handleCategoryClick(
-                                    subcategory?.id,
-                                    subcategory
-                                  )
-                                }
-                                className={`${styles.navButtonSub} ${
-                                  selectedCategory?.id === subcategory?.id
-                                    ? styles.active
-                                    : ""
-                                }`}
-                              >
-                                {subcategory?.name}
-                              </button>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </div>
-          )} */}
       </div>
     </>
   );

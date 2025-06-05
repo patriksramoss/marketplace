@@ -22,4 +22,4 @@ client.on("error", (err) => {
   }
 })();
 
-module.exports = client; // Use CommonJS export
+module.exports = client;

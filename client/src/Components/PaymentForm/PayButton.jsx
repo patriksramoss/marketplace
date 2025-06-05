@@ -24,7 +24,6 @@ const PaymentForm = () => {
     setLoading(true);
 
     try {
-      // Fetch the Checkout Session's id from your server
       const response = await fetch(
         `${API_BASE_URL}/payment/create-checkout-session`,
         {
@@ -32,7 +31,7 @@ const PaymentForm = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ amount: userStore.cartTotalSum * 100 }), // Amount is in cents
+          body: JSON.stringify({ amount: userStore.cartTotalSum * 100 }),
         }
       );
       const data = await response.json();
@@ -44,7 +43,6 @@ const PaymentForm = () => {
       });
 
       if (error) {
-        // Handle error here
       } else {
         userStore.clearCart();
       }

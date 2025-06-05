@@ -86,27 +86,21 @@ label {
   background-clip: padding-box;
   transition: all 0.3s;
 }
-/* Firefox */
 * {
   scrollbar-width: thin;
   scrollbar-color: rgba(84, 155, 221, 0.683) rgba(9, 30, 66, 0.08);
   color: $font-color-1;
 }
 
-/* For Edge and IE (not supported but to avoid issues) */
 body {
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
-/* Optional: For non-supportive browsers, fallback to default scrollbars */
 body.fallback-scrollbars {
   overflow-y: scroll;
 }
 
-//removing arrows from input element
-
 input {
-  // background: $gray-1;
   border: 0;
   border-radius: 10px;
   color: $font-color-1;
@@ -116,14 +110,12 @@ input::placeholder {
   color: $neutral;
 }
 
-/* Remove arrows in Chrome, Safari, Edge */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-/* Remove arrows in Firefox */
 input[type="number"] {
   appearance: textfield;
   -moz-appearance: textfield;

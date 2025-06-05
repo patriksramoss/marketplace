@@ -11,12 +11,12 @@ export async function changeItemQuantity(itemId, value, override) {
         override,
       },
       {
-        withCredentials: true, // Include cookies in the request
+        withCredentials: true,
       }
     );
-    return response.data; // Return the response data if needed
+    return response.data;
   } catch (error) {
     console.error("Error adding to cart:", error);
-    throw error; // Re-throw the error for handling at the call site
+    throw error;
   }
 }

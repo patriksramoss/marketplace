@@ -27,8 +27,8 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 70vh; /* Full height to make the sticky effect more pronounced */
-  flex: 1; /* Allow it to fill available space */
+  min-height: 70vh;
+  flex: 1;
 }
 
 .navigationWrapperMobile {
@@ -100,7 +100,6 @@ nav {
   position: sticky;
   width: 15rem;
   top: 60px;
-  // max-height: 77vh;
   overflow-y: auto;
 }
 
@@ -113,8 +112,8 @@ nav {
   padding: 2em 1em 0 0;
   flex-shrink: 0;
   position: sticky;
-  bottom: 20px; /* Initial distance from the bottom */
-  transition: bottom 0s ease; /* Smooth transition for bottom position change */
+  bottom: 20px;
+  transition: bottom 0s ease;
 }
 
 .searchWrapper {
@@ -327,8 +326,6 @@ section h1 {
     display: block !important;
   }
   form {
-    // padding: 0 !important;
-    // padding-right: 1rem !important;
     overflow: hidden;
   }
 }

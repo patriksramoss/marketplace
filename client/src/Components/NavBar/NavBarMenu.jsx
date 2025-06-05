@@ -24,7 +24,7 @@ const NavBarMenu = observer(({ authenticated }) => {
   const menuItems = getMenuItems(authenticated);
   const balance = userStore.data ? userStore.data.balance : 0;
   const numericBalance = Number(balance);
-  const [searchInput, setSearchInput] = useState(userStore.search.market); // Local state for search input
+  const [searchInput, setSearchInput] = useState(userStore.search.market);
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -36,15 +36,12 @@ const NavBarMenu = observer(({ authenticated }) => {
     console.log("searchInput", searchInput);
 
     const params = new URLSearchParams(location.search);
-    params.set("search", searchInput); // Update query parameter
+    params.set("search", searchInput);
 
-    // Navigate with the updated URL including the query parameter
     navigate(`/market?${params.toString()}`);
 
-    // Update the store
     userStore.setSearch("market", searchInput);
 
-    // Clear the selected category if the search field is updated
     if (userStore.search.market) {
       marketStore.selectedCategory = null;
     }
@@ -60,15 +57,12 @@ const NavBarMenu = observer(({ authenticated }) => {
                 type="text"
                 placeholder=""
                 className={styles.searchInput}
-                value={searchInput} // Bind input to local state
-                onChange={(e) => setSearchInput(e.target.value)} // Update local state on input change
-                onKeyDown={handleKeyDown} // Trigger search on Enter key press
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                onKeyDown={handleKeyDown}
               />
             </div>
-            <button
-              className={styles.searchButton}
-              onClick={updateSearch} // Trigger search on button click
-            >
+            <button className={styles.searchButton} onClick={updateSearch}>
               SEARCH PRODUCT
             </button>
             {marketStore.loading && (
