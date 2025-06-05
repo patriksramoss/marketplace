@@ -59,7 +59,6 @@ class userStore {
   }
 
   async clearCart() {
-    console.log("CLEARING CART!!!!");
     this.setLoading("cart", true);
     try {
       const response = await clearCart();
@@ -90,12 +89,10 @@ class userStore {
   }
 
   setLoading(item, value) {
-    console.log("SET LOADING USER STORE", item, value);
     this.loading[item] = value;
   }
 
   setSearch(item, value) {
-    console.log("SET SERACH USER STORE");
     this.search[item] = value;
   }
 

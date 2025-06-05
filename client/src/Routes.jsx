@@ -37,11 +37,9 @@ const AppRoutes = observer(({ authenticated }) => {
     <Routes>
       {authenticated ? (
         <>
-          {/* Redirect logic */}
           <Route path="/login" element={<Navigate to="/" replace />} />
           <Route path="/register" element={<Navigate to="/" replace />} />
 
-          {/* Main Routes for authenticated user */}
           <Route path="/" element={<Home />} />
           <Route
             path="/market/*"
@@ -94,11 +92,9 @@ const AppRoutes = observer(({ authenticated }) => {
         </>
       ) : (
         <>
-          {/* Routes for non-authenticated user */}
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          {/* Redirect any other paths to login */}
           <Route path="*" element={<Navigate to="/login" replace />} />
         </>
       )}
