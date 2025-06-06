@@ -33,8 +33,6 @@ const NavBarMenu = observer(({ authenticated }) => {
   };
 
   const updateSearch = () => {
-    console.log("searchInput", searchInput);
-
     const params = new URLSearchParams(location.search);
     params.set("search", searchInput);
 

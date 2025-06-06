@@ -189,7 +189,6 @@ const createCategories = async () => {
     await Category.deleteMany();
 
     const result = await Category.insertMany(categories);
-    console.log("Categories created:", result);
     mongoose.connection.close();
   } catch (error) {
     console.error("Error creating categories:", error);

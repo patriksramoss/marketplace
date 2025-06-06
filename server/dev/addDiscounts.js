@@ -38,7 +38,6 @@ async function populateDiscounts() {
   try {
     await Discount.deleteMany();
     await Discount.insertMany(discountData);
-    console.log("Discounts added successfully.");
   } catch (error) {
     console.error("Error populating discounts:", error);
   } finally {

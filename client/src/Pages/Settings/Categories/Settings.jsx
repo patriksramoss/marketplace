@@ -41,12 +41,7 @@ const Settings = observer(() => {
         loading={loading !== null ? loading : undefined}
         container={true}
       >
-        <form
-          className={styles.form}
-          onSubmit={() => {
-            console.log("SUBMITTED");
-          }}
-        >
+        <form className={styles.form} onSubmit={() => {}}>
           <div className={formStyles.formControl}>
             <TextInput
               name="setting1"

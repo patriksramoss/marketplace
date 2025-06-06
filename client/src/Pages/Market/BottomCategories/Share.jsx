@@ -45,7 +45,6 @@ const Account = observer(() => {
   const onSubmit = async (formData) => {
     setLoading(true);
     try {
-      console.log("account:", formData);
       setLoading(false);
     } catch (error) {
       console.error("Login error:", formData);

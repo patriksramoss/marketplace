@@ -40,6 +40,268 @@
   }
 }
 
+.appContainerSettings {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  background-color: #f8f9fa;
+  font-family: "Arial", sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background-color: white;
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .nav {
+    display: flex;
+    gap: 1rem;
+
+    a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+  }
+
+  .icons {
+    display: flex;
+    gap: 1rem;
+    font-size: 1.2rem;
+  }
+}
+
+.hero {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  left: 0;
+  top: 6rem;
+  padding: 4rem 2rem;
+  margin: 0 10rem;
+  position: relative;
+  background-image: url("../../assets/images/blue-wallpaper-01.jpg");
+  background-size: cover;
+  background-position: center;
+  height: calc(80vh - 80px);
+  color: white;
+
+  .textBlock {
+    max-width: 50vw;
+    width: 100%;
+
+    h2 {
+      font-size: 3rem;
+      line-height: 1.2;
+      padding: 4rem 0 0 4rem;
+      max-width: 400px;
+
+      .faded {
+        color: rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    p {
+      max-width: 400px;
+      padding: 0 0 0 4rem;
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      color: white;
+    }
+  }
+
+  .shopButton {
+    position: relative;
+    padding: 0.8rem 1.5rem;
+    margin: 0 0 0 4rem;
+    background-color: $white-background;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    box-shadow: $box-shadow-2;
+    transition: 0.2s all ease-in-out;
+  }
+
+  .shopButton:hover {
+    transform: scale(1.05);
+    transition: 0.2s all ease-in-out;
+  }
+
+  .productPreview {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    .card {
+      position: absolute;
+      bottom: -40px;
+      right: -20px;
+      background-color: white;
+      padding: 1rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+
+      img {
+        height: 80px;
+        margin-bottom: 0.5rem;
+      }
+
+      p {
+        font-size: 0.9rem;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.shopButtonWrapper {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin: 4rem 0 0 0;
+}
+
+.or {
+  position: relative;
+  padding: 0 0 0 6px !important;
+  font-size: 2rem;
+  top: 0.35rem;
+  font-weight: bold;
+  color: white !important;
+}
+
+//Search
+
+///search box
+
+.searchWrapper {
+  height: 30px;
+  border-radius: 20px;
+}
+
+.search {
+  display: flex;
+  justify-content: space-between;
+  top: 1rem;
+  margin-left: 4rem;
+  position: relative;
+}
+
+.navButton,
+.navButtonSub,
+.searchInput,
+.searchInputWrapper {
+  display: flex;
+  padding: 0.2em 1em 0.2em 0.25em;
+  text-decoration: none;
+  border: none;
+  background: none;
+  margin: 5px 0;
+  border-radius: 0;
+  align-items: center;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: $primary-color;
+
+  &:hover {
+    background: $primary-color;
+
+    transition: all 0.3s;
+  }
+
+  &.active {
+    background: $primary-color;
+
+    background: $primary-color;
+
+    transition: all 0.1s;
+    &:hover {
+      background: $primary-color;
+    }
+  }
+
+  svg {
+    width: 1.25em;
+    height: 1.25em;
+    margin-left: 0.3em;
+    margin-right: 0.3em;
+    color: #1f2937;
+  }
+}
+
+.searchInputWrapper {
+  padding: 0;
+  margin: 0;
+  height: 40px;
+  box-shadow: $box-shadow-1;
+  cursor: text;
+
+  &:hover {
+    background: $primary-color;
+  }
+  &:focus {
+    outline: none;
+    border: none;
+  }
+}
+
+.searchInput {
+  padding: 0;
+  margin: 0;
+  height: 40px;
+  padding-left: 10px;
+  font-weight: 300;
+
+  cursor: text;
+
+  &:focus {
+    outline: none;
+    border: none;
+  }
+}
+
+.searchIcon {
+  font-size: 1.3rem;
+  padding: 5px;
+}
+
+.searchButton {
+  position: relative;
+  padding: 0.8rem 1.5rem;
+  background-color: $white-background;
+  color: black;
+  font-weight: bold;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  border: 0;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  box-shadow: $box-shadow-2;
+  transition: 0.2s all ease-in-out;
+}
+
+.searchButton:hover {
+  transform: scale(1.05);
+  transition: 0.2s all ease-in-out;
+}
+
 //MOBILE
 
 @media screen and (max-width: 40rem) {

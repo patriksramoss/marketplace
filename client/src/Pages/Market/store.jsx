@@ -2,7 +2,7 @@
 import { makeAutoObservable, runInAction, toJS } from "mobx";
 import { fetchCategories } from "./Utils/fetchCategories";
 import { fetchContent } from "./Utils/fetchContent";
-import { fetchRecommended } from "./Utils/fetchRecommended";
+import { fetchRecommended } from "../../Stores/Utils/Utils";
 import { addToCart } from "./Utils/addToCart";
 import { searchItems } from "./Utils/searchItems";
 import CategoryContent from "./Components/CategoryContent";
@@ -85,7 +85,6 @@ class InventoryStore {
 
         const category = this.findCategory(categoryId);
 
-        console.log("category", category);
         if (category) {
           category.content = (
             <CategoryContent
@@ -147,20 +146,20 @@ class InventoryStore {
         this.contentCache[cacheKey] = recommendedItems;
 
         this.categoriesRecommeded = [
-          // {
-          //   content: (
-          //     <CategoryContent
-          //       title="Hot 🔥"
-          //       description="Discounted items!"
-          //       items={recommendedItems}
-          //     />
-          //   ),
-          //   id: "recommended",
-          //   title: "Hot",
-          //   icon: null,
-          //   description: "Discounted items!",
-          //   name: "Hot 🔥",
-          // },
+          {
+            content: (
+              <CategoryContent
+                title="Hot 🔥"
+                description="Discounted items!"
+                items={recommendedItems}
+              />
+            ),
+            id: "recommended",
+            title: "Hot",
+            icon: null,
+            description: "Discounted items!",
+            name: "Hot 🔥",
+          },
         ];
 
         this.setLoading(false);

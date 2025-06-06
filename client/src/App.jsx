@@ -12,6 +12,7 @@ import { GOOGLE_CLIENT_ID } from "./config.js";
 
 //STORES
 import user from "../src/Stores/User";
+import global from "../src/Stores/Global";
 import root from "../src/Store";
 
 //STYLING
@@ -30,6 +31,7 @@ function App() {
         setIsLoaded(true);
 
         user.fetchUser();
+        global.fetchRecommended();
         root.fetchHome();
         user.fetchBalance();
       } catch (error) {
@@ -43,7 +45,7 @@ function App() {
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       {authenticated && <NavBar authenticated={authenticated} />}
-      {authenticated && <NavBarMenu authenticated={authenticated} />}
+      {/* {authenticated && <NavBarMenu authenticated={authenticated} />} */}
       <AppRoutes authenticated={authenticated} />
       {isLoaded && root.showFooter && <Footer />}
     </GoogleOAuthProvider>

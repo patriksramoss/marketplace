@@ -216,7 +216,6 @@ exports.login_post = [
           });
         }
 
-        console.log("Authentication successful");
         return res
           .status(200)
           .json({ success: true, message: "Authentication successful" });

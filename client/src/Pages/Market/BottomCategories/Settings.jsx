@@ -44,9 +44,7 @@ const Settings = observer(() => {
           style={{
             padding: "2rem",
           }}
-          onSubmit={() => {
-            console.log("SUBMITTED");
-          }}
+          onSubmit={() => {}}
         >
           <div className={formStyles.formControl}>
             <TextInput

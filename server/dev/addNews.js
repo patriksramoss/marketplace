@@ -23,9 +23,7 @@ const newsPost = new News({
 
 newsPost
   .save()
-  .then((savedPost) => {
-    console.log("News post saved:", savedPost);
-  })
+  .then((savedPost) => {})
   .catch((error) => {
     console.error("Error saving post:", error);
   });

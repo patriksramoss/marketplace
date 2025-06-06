@@ -1,23 +1,24 @@
-import axios from "axios";
-import { makeAutoObservable, runInAction } from "mobx";
-import { API_BASE_URL } from "../config";
-import { getCart } from "./Utils/getCart";
-import { clearCart } from "./Utils/clearCart";
-import { removeItemFromCart } from "./Utils/removeItemFromCart";
-import { changeItemQuantity } from "./Utils/changeItemQuantity";
-import { toJS } from "mobx";
+import { fetchRecommended } from "./Utils/Utils";
+import { makeAutoObservable, toJS } from "mobx";
 
 class globalStore {
   isViewportAtTheTop = true;
   AppName = "Marketplace";
+  recommendedItems = [];
 
-  constructor() {}
+  constructor() {
+    makeAutoObservable(this);
+  }
 
   setBalance(newBalance) {
     this.data.balance =
       newBalance && newBalance !== 0
         ? parseFloat(newBalance).toFixed(2)
         : parseFloat(0);
+  }
+
+  async fetchRecommended() {
+    this.recommendedItems = await fetchRecommended();
   }
 }
 

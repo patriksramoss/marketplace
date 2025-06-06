@@ -61,7 +61,6 @@ const Login = () => {
       if (response.data.success) {
         navigate(`/`);
         window.location.reload();
-        console.log("Login successful");
       }
     } catch (error) {
       alert(error.response.data.message);

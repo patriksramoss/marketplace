@@ -15,10 +15,8 @@ export async function addToCart(itemId, quantity) {
         withCredentials: true,
       }
     );
-    userStore.setLoading("cart", false);
     return response.data;
   } catch (error) {
-    userStore.setLoading("cart", false);
     console.error("Error adding to cart:", error);
     throw error;
   }

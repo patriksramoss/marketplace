@@ -1,10 +1,12 @@
 import axios from "axios";
 import { makeAutoObservable, runInAction } from "mobx";
 import { API_BASE_URL } from "../config";
-import { getCart } from "./Utils/getCart";
-import { clearCart } from "./Utils/clearCart";
-import { removeItemFromCart } from "./Utils/removeItemFromCart";
-import { changeItemQuantity } from "./Utils/changeItemQuantity";
+import {
+  getCart,
+  clearCart,
+  removeItemFromCart,
+  changeItemQuantity,
+} from "./Utils/Utils";
 import { toJS } from "mobx";
 
 class userStore {
