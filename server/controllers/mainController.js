@@ -169,7 +169,7 @@ exports.get_recommended_items = async (req, res) => {
     }).populate("item");
 
     const itemIds = discounts.map((discount) => discount.item._id);
-
+    const ttl = 3600;
     const items = await Item.find({ _id: { $in: itemIds } })
       .lean()
       .exec();
