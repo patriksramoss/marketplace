@@ -1,4 +1,4 @@
-@import "../../../../Styles/variables";
+@import "../../../Styles/variables";
 
 .previewWrapper {
   position: relative;
@@ -35,11 +35,12 @@
   margin-bottom: 2rem;
   border-radius: 5px;
   font-weight: bold;
+  width: 200px;
   text-decoration: none;
   transition: all 0.3s ease-in-out;
   position: absolute;
-  top: 28rem;
-  margin: 50% auto;
+  top: 400px;
+  margin: auto 50%;
 
   &:hover {
     background: black;

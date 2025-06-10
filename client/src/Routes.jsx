@@ -7,6 +7,7 @@ import Loader from "./Components/Loader/Loader";
 import Settings from "./Pages/Settings/Settings";
 import Profile from "./Pages/Profile/Profile";
 import Market from "./Pages/Market/Market";
+import Product from "./Pages/Product/Product";
 import Balance from "./Pages/Balance/Balance";
 import { observer } from "mobx-react-lite";
 
@@ -39,7 +40,6 @@ const AppRoutes = observer(({ authenticated }) => {
         <>
           <Route path="/login" element={<Navigate to="/" replace />} />
           <Route path="/register" element={<Navigate to="/" replace />} />
-
           <Route path="/" element={<Home />} />
           <Route
             path="/market/*"
@@ -47,6 +47,15 @@ const AppRoutes = observer(({ authenticated }) => {
               <ProtectedRoute
                 authenticated={authenticated}
                 element={<Market />}
+              />
+            }
+          />
+          <Route
+            path="/product/:itemId"
+            element={
+              <ProtectedRoute
+                authenticated={authenticated}
+                element={<Product />}
               />
             }
           />

@@ -3,6 +3,7 @@ import styles from "./styles.module.scss";
 import { observer } from "mobx-react-lite";
 import loader from "../../../assets/images/load.svg";
 import { toJS } from "mobx";
+import { useNavigate } from "react-router-dom";
 //store
 import store from "../store";
 import userStore from "../../../Stores/User";
@@ -14,6 +15,7 @@ import StarRating from "../../../Components/Rating/StarRating";
 
 const CategoryContent = ({ title, description, items }) => {
   const [loadingItems, setLoadingItems] = useState({});
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   if (
@@ -60,7 +62,13 @@ const CategoryContent = ({ title, description, items }) => {
         {items.map((item) => {
           const isLoading = loadingItems[item._id] || false;
           return (
-            <div key={item._id} className={styles.gridItem}>
+            <div
+              key={item._id}
+              className={styles.gridItem}
+              onClick={() => {
+                navigate(`/product/${item._id}`);
+              }}
+            >
               <div
                 className={`${styles.addToCart} ${
                   isLoading ? styles.addToCartLoading : {}

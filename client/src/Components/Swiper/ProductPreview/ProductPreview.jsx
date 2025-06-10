@@ -5,7 +5,7 @@ import { EffectFade, Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
-import styles from "./styles.module.scss"; // your CSS module for styling
+import styles from "./styles.module.scss";
 
 const ProductPreview = ({ items = [] }) => {
   return (

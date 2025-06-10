@@ -120,3 +120,19 @@ input[type="number"] {
   appearance: textfield;
   -moz-appearance: textfield;
 }
+
+//Swiper
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 18px;
+}

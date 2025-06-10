@@ -375,6 +375,7 @@ exports.cart_change_item_quantity = async (req, res, next) => {
     return next(err);
   }
 };
+
 exports.search_for_items = async (req, res, next) => {
   try {
     const { search } = req.query;
@@ -387,5 +388,18 @@ exports.search_for_items = async (req, res, next) => {
   } catch (error) {
     console.error("Error fetching items:", error);
     res.status(500).json({ error: "An error occurred while fetching items." });
+  }
+};
+
+exports.get_product = async (req, res, next) => {
+  try {
+    const { itemId } = req.query;
+    const query = itemId ? { _id: itemId } : {};
+    const item = await Item.find(query).lean().exec();
+
+    res.json(item);
+  } catch (error) {
+    console.error("Error fetching item:", error);
+    res.status(500).json({ error: "An error occurred while fetching item." });
   }
 };

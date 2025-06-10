@@ -1,0 +1,219 @@
+@import "../../Styles/variables";
+
+.flair {
+  cursor: pointer;
+  width: 70px;
+  height: 70px;
+  max-height: 15vh;
+  max-width: 15vh;
+  background: red;
+}
+
+.canvasWrapper {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 6rem;
+  font-weight: 900;
+  color: $text-1;
+  height: 50vh;
+  width: 50vw;
+  pointer-events: none;
+  z-index: 10;
+
+  text-shadow: 1px 1px 7px $text-shadow-1;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+//GLOBAL
+:global {
+  .sprite {
+    cursor: grab;
+  }
+
+  .sprite:active {
+    cursor: grabbing;
+  }
+}
+
+.appContainerSettings {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  background-color: #f8f9fa;
+  font-family: "Arial", sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background-color: white;
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .nav {
+    display: flex;
+    gap: 1rem;
+
+    a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+  }
+
+  .icons {
+    display: flex;
+    gap: 1rem;
+    font-size: 1.2rem;
+  }
+}
+
+.hero {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  left: 0;
+  top: 6rem;
+  padding: 4rem 2rem;
+  margin: 0 10rem;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  height: calc(80vh - 80px);
+  color: white;
+
+  .textBlock {
+    max-width: 50vw;
+    width: 100%;
+
+    h2 {
+      font-size: 3rem;
+      line-height: 1.2;
+      padding: 4rem 0 0 4rem;
+      max-width: 400px;
+
+      .faded {
+        color: rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    p {
+      max-width: 400px;
+      padding: 0 0 0 4rem;
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      color: rgb(100, 100, 100);
+    }
+  }
+
+  .shopButton {
+    position: relative;
+    padding: 0.8rem 1.5rem;
+    margin: 0 0 0 4rem;
+    background-color: $white-background;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    box-shadow: $box-shadow-2;
+    transition: 0.2s all ease-in-out;
+  }
+
+  .shopButton:hover {
+    transform: scale(1.05);
+    transition: 0.2s all ease-in-out;
+  }
+
+  .productPreview {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    .card {
+      position: absolute;
+      bottom: -40px;
+      right: -20px;
+      background-color: white;
+      padding: 1rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+
+      img {
+        height: 80px;
+        margin-bottom: 0.5rem;
+      }
+
+      p {
+        font-size: 0.9rem;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.shopButtonWrapper {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin: 4rem 0 0 0;
+}
+
+.or {
+  position: relative;
+  padding: 0 0 0 6px !important;
+  font-size: 2rem;
+  top: 0.35rem;
+  font-weight: bold;
+  color: white !important;
+}
+.backArrowWrapper {
+  top: 90px;
+  position: relative;
+  margin: 0 10rem;
+}
+
+.backButton {
+  background: none;
+  border: none;
+  position: relative;
+  color: #333;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 200px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+//MOBILE
+
+@media screen and (max-width: 40rem) {
+  .canvasWrapper {
+    height: 20vh;
+    width: 100vw;
+    z-index: 10;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

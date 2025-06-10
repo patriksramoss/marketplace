@@ -35,13 +35,13 @@ router.post(
   authCheckTrue,
   main_controller.cart_change_item_quantity
 );
-
 router.get(
   "/searchForItems",
   cache,
   main_controller.search_for_items,
   setCache
 );
+router.get("/getProduct", cache, main_controller.get_product, setCache);
 
 // _________________ User  _________________ //
 

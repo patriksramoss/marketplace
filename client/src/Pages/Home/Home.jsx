@@ -6,8 +6,8 @@ import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import Container from "../../Components/Container/Container";
 import global from "../../Stores/Global";
 //Components
-import ProductPreview from "./Components/ProductPreview/ProductPreview";
-
+import ProductPreview from "../../Components/Swiper/ProductPreview/ProductPreview";
+//icons
 import { FaSearch } from "react-icons/fa";
 //Stores
 import userStore from "../../Stores/User";

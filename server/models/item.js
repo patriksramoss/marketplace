@@ -34,6 +34,10 @@ const ItemSchema = new Schema(
         type: [String],
         default: [],
       },
+      preview: {
+        type: [String],
+        default: [],
+      },
     },
     stock: {
       type: Number,
