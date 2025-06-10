@@ -195,6 +195,7 @@
   cursor: pointer;
   width: 200px;
   padding: 0;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -215,5 +216,31 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+  .hero {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+
+    .textBlock {
+      max-width: none;
+      width: 100%;
+
+      h2 {
+        font-size: 3rem;
+        line-height: 1.2;
+        padding: 1rem;
+      }
+
+      p {
+        padding: 0 1rem;
+        margin-top: 1rem;
+        font-size: 1.1rem;
+        color: rgb(100, 100, 100);
+      }
+    }
   }
 }
