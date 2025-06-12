@@ -50,3 +50,9 @@
 .loader:hover {
   filter: invert(1);
 }
+
+@media only screen and (max-width: 750px) {
+  .payForm {
+    overflow: visible !important;
+  }
+}

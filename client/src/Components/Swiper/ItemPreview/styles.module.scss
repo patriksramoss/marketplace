@@ -47,3 +47,20 @@
     color: white;
   }
 }
+
+//MOBILE
+
+@media screen and (max-width: 40rem) {
+  .previewWrapper {
+    left: 0;
+    right: unset;
+    height: auto;
+  }
+  .overlay {
+    position: absolute;
+    z-index: 1;
+  }
+  .productLink {
+    top: unset;
+  }
+}

@@ -73,7 +73,9 @@ const CategoryContent = ({ title, description, items }) => {
                 className={`${styles.addToCart} ${
                   isLoading ? styles.addToCartLoading : {}
                 }`}
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
                   if (!isLoading) {
                     setLoadingItems((prev) => ({ ...prev, [item._id]: true }));
                     handleAddToCart(item._id).finally(() => {

@@ -12,10 +12,10 @@ const ProductPreview = ({ items = [] }) => {
     <div className={styles.previewWrapper}>
       <Swiper
         modules={[EffectFade, Autoplay, Navigation]}
-        effect="fade"
+        // effect="fade"
         autoplay={{ delay: 5000 }}
         navigation
-        loop
+        loop={false}
         speed={600}
         style={{ width: "100%", height: "100%" }}
       >

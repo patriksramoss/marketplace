@@ -16,9 +16,9 @@ const ItemPreview = ({ item = {} }) => {
     <div className={styles.previewWrapper}>
       <Swiper
         modules={[EffectFade, Navigation]}
-        effect="fade"
+        // effect="fade"
         navigation
-        loop
+        loop={false}
         style={{ width: "100%", height: "100%" }}
       >
         {images?.map((image, index) => {
