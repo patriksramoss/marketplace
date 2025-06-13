@@ -1,4 +1,4 @@
-import { fetchRecommended } from "./Utils/Utils";
+import { fetchRecommended } from "./Utils/GlobalUtils";
 import { makeAutoObservable, toJS } from "mobx";
 
 class globalStore {

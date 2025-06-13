@@ -77,16 +77,3 @@ export async function removeItemFromCart(itemId) {
     throw error;
   }
 }
-
-export async function getProduct(itemId) {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/main/getProduct`, {
-      params: { itemId },
-      withCredentials: true,
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error getting cart:", error);
-    throw error;
-  }
-}

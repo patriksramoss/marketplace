@@ -1,10 +1,12 @@
 // InventoryStore.js
 import { makeAutoObservable, runInAction, toJS } from "mobx";
-import { fetchCategories } from "./Utils/fetchCategories";
-import { fetchContent } from "./Utils/fetchContent";
-import { fetchRecommended } from "../../Stores/Utils/Utils";
-import { addToCart } from "./Utils/addToCart";
-import { searchItems } from "./Utils/searchItems";
+import {
+  fetchCategories,
+  fetchContent,
+  addToCart,
+  searchItems,
+} from "../../Stores/Utils/MarketUtils";
+import { fetchRecommended } from "../../Stores/Utils/GlobalUtils";
 import CategoryContent from "./Components/CategoryContent";
 
 // STORES
@@ -176,12 +178,7 @@ class InventoryStore {
   }
 
   async addToCart(itemId, quantity) {
-    try {
-      const response = await addToCart(itemId, quantity);
-      userStore.getCart();
-    } catch (error) {
-      console.error("Failed to add item to cart:", error);
-    }
+    addToCart(itemId, quantity);
   }
 
   getCategories() {

@@ -212,6 +212,63 @@
   }
 }
 
+.addToCart {
+  position: relative;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 1;
+  width: 200px;
+  z-index: 5;
+  pointer-events: all;
+  background: $dark;
+  color: $light;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: none;
+  padding: 0.2rem 0.3rem;
+  user-select: none;
+  transition: opacity 0.1s ease-in-out;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+.addToCart svg {
+  fill: $light;
+}
+
+.gridItem:hover .addToCart {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.1s ease-in-out, background 0.2s ease-in-out;
+}
+.addToCart:hover {
+  background: $light;
+  color: $dark;
+  transition: background 0.1s ease-in-out;
+  box-shadow: $box-shadow-2;
+}
+
+.addToCart:hover svg {
+  fill: $dark;
+}
+
+.addToCartLoading {
+  opacity: 0;
+  background: transparent !important;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.5);
+  font-size: 1.2rem;
+  pointer-events: none !important;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.addToCartLoading:hover {
+  box-shadow: none;
+  background: transparent !important;
+}
+
 //MOBILE
 
 @media screen and (max-width: 40rem) {

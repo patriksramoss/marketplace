@@ -6,7 +6,7 @@ import {
   clearCart,
   removeItemFromCart,
   changeItemQuantity,
-} from "./Utils/Utils";
+} from "./Utils/UserUtils";
 import { toJS } from "mobx";
 
 class userStore {
