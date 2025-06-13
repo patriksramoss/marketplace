@@ -1,17 +1,15 @@
-// InventoryStore.js
 import { makeAutoObservable, runInAction, toJS } from "mobx";
-// STORES
-import rootStore from "../../Store";
-
-import Account from "./Categories/Account";
-import Friends from "./Categories/Friends";
-import Settings from "./Categories/Settings";
+import rootStore from "../Store";
+// Components
+import CategoryContent from "../Pages/Market/Components/CategoryContent";
+import Account from "../Pages/Settings/Categories/Account";
+import Settings from "../Pages/Settings/Categories/Settings";
 // ICONS
 import { IoSettingsOutline } from "react-icons/io5";
 import { LiaUserFriendsSolid } from "react-icons/lia";
 import { RiAccountCircleLine } from "react-icons/ri";
 
-class SettingsStore {
+class settingsStore {
   loading = true;
   recommendedContent = [];
   selectedCategory = null;
@@ -19,8 +17,8 @@ class SettingsStore {
   contentCache = {};
   categories = [
     {
-      id: "settings",
-      title: "Settings",
+      id: "general",
+      title: "General",
       icon: <IoSettingsOutline />,
       description: "Configure your Table.",
       content: <Settings />,
@@ -31,14 +29,6 @@ class SettingsStore {
       icon: <RiAccountCircleLine />,
       description: "Share your Table.",
       content: <Account />,
-    },
-
-    {
-      id: "friends",
-      title: "Friends",
-      icon: <LiaUserFriendsSolid />,
-      description: "Manage your friends.",
-      content: <Friends />,
     },
   ];
 
@@ -154,5 +144,5 @@ class SettingsStore {
   };
 }
 
-const settingsStore = new SettingsStore();
-export default settingsStore;
+const store = new settingsStore();
+export default store;

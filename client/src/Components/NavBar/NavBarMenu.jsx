@@ -7,7 +7,7 @@ import { FaSearch } from "react-icons/fa";
 import styles from "./styles.module.scss";
 //Stores
 import userStore from "../../Stores/User";
-import marketStore from "../../Pages/Market/store";
+import marketStore from "../../Stores/Market";
 
 import Loader from "../../Components/Loader/Loader";
 

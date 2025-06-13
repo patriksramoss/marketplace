@@ -46,3 +46,11 @@
     }
   }
 }
+
+@media only screen and (max-width: 40rem) {
+  .form {
+    padding: 0;
+    width: 100%;
+    max-width: none;
+  }
+}

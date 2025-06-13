@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toJS } from "mobx";
 
 //store
-import store from "./store";
+import store from "../../Stores/Market";
 import userStore from "../../Stores/User";
 
 // Components

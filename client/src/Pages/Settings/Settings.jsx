@@ -8,8 +8,7 @@ import ReusableForm from "../../Components/Form/Form";
 
 //STYLES
 import styles from "./styles.module.scss";
-
-import store from "./store";
+import store from "../../Stores/Settings";
 
 const Settings = () => {
   const navigate = useNavigate();

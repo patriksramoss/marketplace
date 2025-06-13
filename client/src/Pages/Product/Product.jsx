@@ -40,6 +40,7 @@ const Product = () => {
       userStore.setLoading("cart", true);
       const quantity = 1;
       await marketStore.addToCart(itemId, quantity);
+      userStore.getCart();
     } catch (error) {
       console.error("Error adding to cart:", error);
     } finally {

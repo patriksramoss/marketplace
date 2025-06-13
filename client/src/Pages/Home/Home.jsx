@@ -11,7 +11,7 @@ import ProductPreview from "../../Components/Swiper/ProductPreview/ProductPrevie
 import { FaSearch } from "react-icons/fa";
 //Stores
 import userStore from "../../Stores/User";
-import marketStore from "../../Pages/Market/store";
+import marketStore from "../../Stores/Market";
 
 const Home = () => {
   const navigate = useNavigate();

@@ -5,8 +5,9 @@ import loader from "../../../assets/images/load.svg";
 import { toJS } from "mobx";
 import { useNavigate } from "react-router-dom";
 //store
-import store from "../store";
+import store from "../../../Stores/Market";
 import userStore from "../../../Stores/User";
+import marketStore from "../../../Stores/Market";
 //icons
 import { IoMdCart } from "react-icons/io";
 //Components
@@ -16,16 +17,6 @@ import StarRating from "../../../Components/Rating/StarRating";
 const CategoryContent = ({ title, description, items }) => {
   const [loadingItems, setLoadingItems] = useState({});
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (
-  //     !store.selectedCategory &&
-  //     userStore.search.market &&
-  //     userStore.search.market !== ""
-  //   ) {
-  //     items = store.searchedItems;
-  //   }
-  // }, [userStore.search.market]);
 
   if (!items || items.length === 0) {
     return (
@@ -42,7 +33,8 @@ const CategoryContent = ({ title, description, items }) => {
     try {
       userStore.setLoading("cart", true);
       const quantity = 1;
-      await store.addToCart(itemId, quantity);
+      await marketStore.addToCart(itemId, quantity);
+      userStore.getCart();
     } catch (error) {
       console.error("Error adding to cart:", error);
     } finally {
