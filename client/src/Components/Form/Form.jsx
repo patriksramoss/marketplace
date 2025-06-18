@@ -29,13 +29,14 @@ const ReusableForm = ({
         {/* {store.loading && (
           <Loader contained={true} loader={false} blur={true} />
         )} */}
-        <StickyNavigation
-          store={store}
-          handleCategoryClick={handleCategoryClick}
-          selectedCategory={selectedCategory}
-          allCategories={allCategories}
-        />
+
         <main className={styles.formPageContent}>
+          <StickyNavigation
+            store={store}
+            handleCategoryClick={handleCategoryClick}
+            selectedCategory={selectedCategory}
+            allCategories={allCategories}
+          />
           <section
             style={styleSection}
             className={`${store.cartOpened ? styles.section : styles.section}`}

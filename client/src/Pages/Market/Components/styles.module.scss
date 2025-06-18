@@ -16,7 +16,7 @@
   display: block;
 }
 
-.categoryTitle {
+.categoryTitle p {
   font-size: 1.2rem;
   margin-bottom: 2.5rem;
   font-weight: 700;
@@ -213,5 +213,14 @@
   }
   .categoryHeader {
     display: none;
+  }
+}
+
+@media screen and (max-width: 40rem) {
+  .categoryTitle {
+    width: 100%;
+    justify-content: end;
+    display: flex;
+    text-align: right;
   }
 }

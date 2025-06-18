@@ -49,7 +49,9 @@ const CategoryContent = ({ title, description, items }) => {
       loading={store.loading}
       loader={store.loading}
     >
-      <div className={styles.categoryTitle}>{title && title}</div>
+      <div className={styles.categoryTitle}>
+        <p>{title && title}</p>
+      </div>
       <div className={styles.gridContainer}>
         {items.map((item) => {
           const isLoading = loadingItems[item._id] || false;

@@ -96,13 +96,14 @@ const SidePanel = observer(({ show }) => {
                           value={cartItem.quantity}
                           onChange={(e) => {
                             const value = e.target.value;
+                            if (value === "") {
+                              cartItem.quantity = value;
+                            }
                             if (value.length > 1 && value.startsWith("0")) {
                               return;
                             }
 
-                            if (value === "") {
-                              cartItem.quantity = 0;
-                            } else if (value > 50) {
+                            if (value > 50) {
                               cartItem.quantity = 50;
                             } else {
                               const numericValue = parseInt(value, 10);
@@ -114,7 +115,9 @@ const SidePanel = observer(({ show }) => {
                           max="50"
                           onBlur={(e) => {
                             const value = parseInt(e.target.value, 10);
-                            if (isNaN(value) || value === 0) {
+                            if (value === "") {
+                              cartItem.quantity = 0;
+                            } else if (isNaN(value) || value === 0) {
                               userStore.removeItemFromCart(cartItem.itemId);
                             } else if (value > 0) {
                               handleItemQuantityChangeOverride(

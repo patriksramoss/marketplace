@@ -50,6 +50,7 @@ const StickyNavigation = ({
     } else {
       store.setOpenedCategories([...openedCategories, categoryId]);
     }
+    setMenuOpened(!menuOpened);
   };
 
   const handleSearch = (query) => {
@@ -163,81 +164,159 @@ const StickyNavigation = ({
           >
             {menuOpened ? <IoClose /> : <RiMenuSearchLine />}
           </button>
-        </div>
-      ) : null}
-      <div
-        className={`${styles.navigationWrapper} ${
-          isMobile ? styles.navigationWrapperMobile : ""
-        }
+          <div
+            className={`${styles.navigationWrapper} ${
+              isMobile ? styles.navigationWrapperMobile : ""
+            }
       ${isMobile && menuOpened ? styles.navigationWrapperMobileActive : ""}
       `}
-      >
-        <div className={`${styles.formPageNavigationTop} ${styles.topFirst}`}>
-          {Object.entries(filteredCategories.top)
-            .filter(([key, topCategoryArray]) => topCategoryArray.length > 0)
-            .map(([key, topCategoryArray]) => (
-              <nav key={key} className={styles.topNav}>
-                {topCategoryArray.map((category) => (
-                  <React.Fragment key={category?.id}>
-                    <li className={styles.categoryItem}>
-                      <button
-                        onClick={() => {
-                          handleCategoryClick(category?.id, category);
-                          toggleCategory(category?.id);
-                        }}
-                        className={`${styles.navButton} ${
-                          selectedCategory &&
-                          selectedCategory?.id === category?.id
-                            ? styles.active
-                            : ""
-                        }`}
-                      >
-                        <div width="24" height="24">
-                          {category && category.icon}
-                        </div>
-                        {category && category.title}
-                      </button>
-                    </li>
-                    {category &&
-                      category.subcategories &&
-                      expandedCategories[category?.id] && (
-                        <ul
-                          className={`${styles.subcategoryList} ${
-                            expandedCategories[category?.id]
-                              ? styles.showSubcategories
-                              : styles.hideSubcategories
+          >
+            <div
+              className={`${styles.formPageNavigationTop} ${styles.topFirst}`}
+            >
+              {Object.entries(filteredCategories.top)
+                .filter(
+                  ([key, topCategoryArray]) => topCategoryArray.length > 0
+                )
+                .map(([key, topCategoryArray]) => (
+                  <nav key={key} className={styles.topNav}>
+                    {topCategoryArray.map((category) => (
+                      <React.Fragment key={category?.id}>
+                        <li className={styles.categoryItem}>
+                          <button
+                            onClick={() => {
+                              handleCategoryClick(category?.id, category);
+                              toggleCategory(category?.id);
+                            }}
+                            className={`${styles.navButton} ${
+                              selectedCategory &&
+                              selectedCategory?.id === category?.id
+                                ? styles.active
+                                : ""
+                            }`}
+                          >
+                            <div width="24" height="24">
+                              {category && category.icon}
+                            </div>
+                            {category && category.title}
+                          </button>
+                        </li>
+                        {category &&
+                          category.subcategories &&
+                          expandedCategories[category?.id] && (
+                            <ul
+                              className={`${styles.subcategoryList} ${
+                                expandedCategories[category?.id]
+                                  ? styles.showSubcategories
+                                  : styles.hideSubcategories
+                              }`}
+                            >
+                              {category.subcategories.map((subcategory) => (
+                                <li
+                                  key={subcategory?.id}
+                                  className={styles.subcategoryItem}
+                                >
+                                  <button
+                                    onClick={() =>
+                                      handleCategoryClick(
+                                        subcategory?.id,
+                                        subcategory
+                                      )
+                                    }
+                                    className={`${styles.navButtonSub} ${
+                                      selectedCategory?.id === subcategory?.id
+                                        ? styles.active
+                                        : ""
+                                    }`}
+                                  >
+                                    {subcategory.name}
+                                  </button>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                      </React.Fragment>
+                    ))}
+                  </nav>
+                ))}
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div
+          className={`${styles.navigationWrapper} ${
+            isMobile ? styles.navigationWrapperMobile : ""
+          }
+      ${isMobile && menuOpened ? styles.navigationWrapperMobileActive : ""}
+      `}
+        >
+          <div className={`${styles.formPageNavigationTop} ${styles.topFirst}`}>
+            {Object.entries(filteredCategories.top)
+              .filter(([key, topCategoryArray]) => topCategoryArray.length > 0)
+              .map(([key, topCategoryArray]) => (
+                <nav key={key} className={styles.topNav}>
+                  {topCategoryArray.map((category) => (
+                    <React.Fragment key={category?.id}>
+                      <li className={styles.categoryItem}>
+                        <button
+                          onClick={() => {
+                            handleCategoryClick(category?.id, category);
+                            toggleCategory(category?.id);
+                          }}
+                          className={`${styles.navButton} ${
+                            selectedCategory &&
+                            selectedCategory?.id === category?.id
+                              ? styles.active
+                              : ""
                           }`}
                         >
-                          {category.subcategories.map((subcategory) => (
-                            <li
-                              key={subcategory?.id}
-                              className={styles.subcategoryItem}
-                            >
-                              <button
-                                onClick={() =>
-                                  handleCategoryClick(
-                                    subcategory?.id,
-                                    subcategory
-                                  )
-                                }
-                                className={`${styles.navButtonSub} ${
-                                  selectedCategory?.id === subcategory?.id
-                                    ? styles.active
-                                    : ""
-                                }`}
+                          <div width="24" height="24">
+                            {category && category.icon}
+                          </div>
+                          {category && category.title}
+                        </button>
+                      </li>
+                      {category &&
+                        category.subcategories &&
+                        expandedCategories[category?.id] && (
+                          <ul
+                            className={`${styles.subcategoryList} ${
+                              expandedCategories[category?.id]
+                                ? styles.showSubcategories
+                                : styles.hideSubcategories
+                            }`}
+                          >
+                            {category.subcategories.map((subcategory) => (
+                              <li
+                                key={subcategory?.id}
+                                className={styles.subcategoryItem}
                               >
-                                {subcategory.name}
-                              </button>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                  </React.Fragment>
-                ))}
-              </nav>
-            ))}
+                                <button
+                                  onClick={() =>
+                                    handleCategoryClick(
+                                      subcategory?.id,
+                                      subcategory
+                                    )
+                                  }
+                                  className={`${styles.navButtonSub} ${
+                                    selectedCategory?.id === subcategory?.id
+                                      ? styles.active
+                                      : ""
+                                  }`}
+                                >
+                                  {subcategory.name}
+                                </button>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                    </React.Fragment>
+                  ))}
+                </nav>
+              ))}
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
