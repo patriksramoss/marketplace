@@ -9,7 +9,7 @@ A template build of a ecommerce online marketplace.
 - Listing available products on the application (stored information about the products in database)
 - Creating a cart of items with custom quantity
 - Creating an order of the selected cart
-- Sending emails about application news and customer orders
+- Making a payment using Stripe
 
 ## WIP Features
 
