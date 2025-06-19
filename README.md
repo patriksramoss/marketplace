@@ -18,25 +18,6 @@ A template build of a ecommerce online marketplace.
 - Creating an order of the selected cart
 - Sending emails about application news and customer orders
 
-## Getting Started
-
-Change .env to your environment variables (.env located in the server folder):
-
-#MongoDB URI (with your collection login)  
-MONGODB_URI = ""
-
-#server side port (only port)  
-PORT = ""
-
-#session secret  
-SESSION_SECRET = ""
-
-#server side port (full)  
-API_BASE_URL = ""
-
-#client side port (full)  
-API_BASE_CLIENT_URL = ""
-
 ### Installation
 
 To install & run project:
